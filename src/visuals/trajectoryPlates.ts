@@ -8,7 +8,7 @@ const fixed = (n: number) => n.toFixed(2)
 const deg = (n: number) => n * 180 / Math.PI
 const text = (x: number, y: number, lines: string[], cls = 'tp-body', lineHeight = 29) => `<text class="${cls}" x="${x}" y="${y}">${lines.map((line, i) => `<tspan x="${x}" dy="${i ? lineHeight : 0}">${line}</tspan>`).join('')}</text>`
 const title = (heading: string, scope: string) => `<text class="tp-title" x="32" y="227">${heading}</text><text class="tp-scope" x="1568" y="226" text-anchor="end">${scope}</text>`
-const frame = (cue: number, content: string) => `<g class="tp-panel" data-traj-panel="${cue}" aria-hidden="true"><rect class="tp-surface" x="0" y="190" width="1600" height="410" rx="8"/>${content}</g>`
+const frame = (cue: number, content: string) => `<g class="tp-panel" data-traj-panel="${cue}" aria-hidden="true"><rect class="tp-surface" x="0" y="190" width="1600" height="410" rx="8"/><g class="tp-panel-content">${content}</g></g>`
 const image = (pose: string, extra = '') => `<image class="tp-scene-image" ${extra} href="./media/trajectory/pose-${pose}.png" x="0" y="225" width="1000" height="390" preserveAspectRatio="xMidYMid meet"/>`
 const project = (p: readonly number[]) => [p[0] * .5, 225 + p[1] * .5]
 const pxy = (p: readonly number[]) => { const [x,y] = project(p); return `${fixed(x)} ${fixed(y)}` }
@@ -113,7 +113,7 @@ export function updateTrajectoryPlates(view: HTMLElement, cue: number) {
 
 export function updateTrajectoryPose(view: HTMLElement, pose: number) {
   view.dataset.trajectoryPose=String(pose)
-  view.querySelectorAll<SVGImageElement>('[data-traj-scene]').forEach(el=>el.setAttribute('href',`/media/trajectory/pose-${'ABCD'[pose]}.png`))
+  view.querySelectorAll<SVGImageElement>('[data-traj-scene]').forEach(el=>el.setAttribute('href',`./media/trajectory/pose-${'ABCD'[pose]}.png`))
   view.querySelectorAll<SVGElement>('[data-traj-pose]').forEach(el=>{
     const selected=Number(el.dataset.trajPose)===pose
     el.classList.toggle('is-selected',selected)

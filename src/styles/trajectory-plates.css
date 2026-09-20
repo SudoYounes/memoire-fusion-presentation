@@ -1,6 +1,7 @@
 /* Only the explanatory area beneath the original three-block chain changes. */
 .tp-panel { display: none; }
 .tp-panel.is-visible { display: block; }
+.tp-scene-image { image-rendering: auto; }
 .tp-surface { fill: #1c313d; fill-opacity: .9; stroke: #849d9f; stroke-opacity: .25; stroke-width: 1; }
 .tp-title { fill: #f0e2c9; font-size: 24px; font-weight: 630; letter-spacing: -.35px; }
 .tp-scope { fill: #acc1c8; font-size: 13px; letter-spacing: .5px; }

@@ -53,7 +53,7 @@ export function mountTrajectoryFlow(stage: HTMLElement) {
   let animation: gsap.core.Timeline | undefined
   const finish = () => {
     animation?.kill()
-    stage.querySelectorAll<SVGElement>('.tp-panel, .tp-comment').forEach(panel => {
+    stage.querySelectorAll<SVGElement>('.tp-panel, .tp-surface, .tp-panel-content, .tp-comment').forEach(panel => {
       panel.style.removeProperty('transform'); panel.style.removeProperty('transform-origin'); panel.style.removeProperty('opacity')
       panel.removeAttribute('transform')
       gsap.set(panel, { clearProps: 'transform,transformOrigin,opacity' })
@@ -93,9 +93,19 @@ export function mountTrajectoryFlow(stage: HTMLElement) {
     animation = gsap.timeline()
     const cue = Number(stage.dataset.trajectoryCue)
     const panel = stage.querySelector('.tp-panel.is-visible')
-    if (panel && cue > 0 && newCard) animation.fromTo(panel,
-      { opacity: 0, scaleX: .46, scaleY: .08, y: -12, svgOrigin: String(cue < 3 ? 225 : cue < 5 ? 800 : 1375) + ' 190' },
-      { opacity: 1, scaleX: 1, scaleY: 1, y: 0, duration: .48, ease: 'power2.out', clearProps: 'transform,transformOrigin,opacity' }, 0)
+    if (panel && cue > 0 && newCard) {
+      const origin = String(cue < 3 ? 225 : cue < 5 ? 800 : 1375) + ' 190'
+      const surface = panel.querySelector('.tp-surface')
+      const content = panel.querySelector('.tp-panel-content')
+      if (surface) animation.fromTo(surface,
+        { opacity: 0, scaleX: .46, scaleY: .08, svgOrigin: origin },
+        { opacity: 1, scaleX: 1, scaleY: 1, duration: .46, ease: 'power2.out', clearProps: 'transform,transformOrigin,opacity' }, 0)
+      // Keep raster evidence at its native display scale. Scaling the complete SVG
+      // panel makes Chromium cache the scene as a low-resolution texture.
+      if (content) animation.fromTo(content,
+        { opacity: 0 },
+        { opacity: 1, duration: .3, ease: 'power1.out', clearProps: 'opacity' }, .14)
+    }
 
     const comment = stage.querySelector('.tp-comment.is-visible')
     if (comment) animation.fromTo(comment,{opacity:0,y:7},{opacity:1,y:0,duration:.32,ease:'power2.out',clearProps:'transform,opacity'},newCard ? .24 : 0)
