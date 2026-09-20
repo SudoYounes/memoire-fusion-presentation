@@ -1,0 +1,11 @@
+Slides 13, 14 and 15 mathematical notation
+
+LaTeX expressions are compiled into self-contained SVG paths using MathJax
+4.1.3 and the MathJax New Computer Modern font package 4.1.3.
+These packages declare the Apache License, Version 2.0.
+
+MathJax: https://github.com/mathjax/MathJax-src
+MathJax fonts: https://github.com/mathjax/MathJax-fonts
+License: mathjax-apache-2.0.txt (in this directory)
+
+The presentation distributes generated glyph paths, not the MathJax runtime.

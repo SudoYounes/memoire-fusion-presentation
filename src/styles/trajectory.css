@@ -1,0 +1,99 @@
+/* The original fixed three-step preparation chain and its presentation controls. */
+.trajectory-stage { --tf-red: #ff493d; --tf-gold: #efd4a6; --tf-text: #e5edec; --tf-muted: #a6b9c1; }
+.trajectory-stage .pipeline-stage__heading { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: calc(2 * var(--su)); }
+.trajectory-stage .pipeline-stage__heading .display { max-width: none; font-size: calc(2.12 * var(--su)); letter-spacing: -.045em; line-height: 1.15; margin: 0; }
+.trajectory-stage .pipeline-stage__heading .lede { margin: 0; font-family: var(--font-sans); font-size: calc(.69 * var(--su)); line-height: 1.55; }
+.trajectory-stage .pipeline-stage__heading .lede strong { color: var(--tf-gold); font-weight: 680; }
+.trajectory-board { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: calc(.3 * var(--su)); min-height: 0; }
+.trajectory-viewport { min-height: 0; display: grid; place-items: center; }
+.trajectory-flow-svg { width: 100%; height: 100%; display: block; min-height: 0; overflow: visible; font-family: var(--font-sans); }
+.tf-node, .tf-evidence { cursor: pointer; }
+.tf-node-surface { fill: #172c37; fill-opacity: .58; stroke: #809aa7; stroke-opacity: .5; stroke-width: 1.3; transition: fill 300ms, fill-opacity 300ms, stroke 300ms, filter 300ms; }
+.tf-node-accent { stroke: var(--tf-gold); stroke-width: 2.5; opacity: .25; transition: opacity 300ms; }
+.tf-eyebrow { fill: #a5b9bd; font-size: 13px; font-weight: 740; letter-spacing: 1.2px; }
+.tf-node-title { fill: #bbcbd0; font-size: 25px; font-weight: 660; letter-spacing: -.55px; transition: fill 300ms; }
+.tf-body { fill: var(--tf-muted); font-size: 17px; }
+.tf-code { fill: #92acb9; font-size: 14px; }
+.tf-node.is-current .tf-node-surface { fill: #263842; fill-opacity: .96; stroke: #dbc092; stroke-opacity: 1; filter: drop-shadow(0 0 6px rgb(225 193 139 / 15%)); }
+.tf-node.is-current .tf-node-title, .tf-node.is-current .tf-eyebrow { fill: var(--tf-gold); }
+.tf-node.is-current .tf-body, .tf-node.is-current .tf-code { fill: var(--tf-text); }
+.tf-node.is-current .tf-node-accent { opacity: 1; }
+.tf-node:hover .tf-node-surface { stroke-opacity: 1; }
+.tf-node:focus-visible, .tf-evidence:focus-visible { outline: none; }
+.tf-node:focus-visible .tf-node-surface { stroke: var(--tf-red); stroke-width: 2.5; }
+.tf-evidence:focus-visible .tf-figure-title { fill: var(--tf-gold); text-decoration: underline; }
+.tf-entry { fill: var(--tf-muted); font-size: 12px; letter-spacing: .7px; }
+.tf-entry.is-current { fill: var(--tf-gold); }
+.tf-edge { pointer-events: none; }
+.tf-edge-base, .tf-edge-lit, .tf-edge-pulse { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.tf-edge-base { stroke: #8ba4b0; stroke-width: 1.8; opacity: .43; }
+.tf-edge-lit { stroke: var(--tf-red); stroke-width: 2.8; opacity: 0; transition: opacity 180ms; }
+.tf-edge-pulse { stroke: #ff7661; stroke-width: 4; stroke-dasharray: .12 .88; opacity: 0; filter: drop-shadow(0 0 4px rgb(255 73 61 / 36%)); }
+.tf-edge.is-current .tf-edge-lit { opacity: 1; }
+.tf-edge.is-current .tf-edge-pulse { animation: tf-transfer 4.6s linear infinite; animation-delay: 1.2s; }
+.tf-edge-label { fill: var(--tf-muted); font-size: 12px; font-weight: 550; }
+.tf-edge.is-current .tf-edge-label { fill: #ff8d80; }
+.tf-divider { fill: none; stroke: #8ba4b0; stroke-opacity: .17; stroke-width: 1; }
+.tf-evidence { opacity: .66; transition: opacity 320ms; }
+.trajectory-stage[data-trajectory-cue='0'] .tf-evidence { opacity: .85; }
+.tf-evidence.is-current { opacity: 1; }
+.tf-figure-title { fill: var(--tf-text); font-size: 22px; font-weight: 610; letter-spacing: -.3px; transition: fill 320ms; }
+.tf-evidence.is-current .tf-figure-title { fill: var(--tf-gold); }
+.tf-axis-label, .tf-legend { fill: #bccbd1; font-size: 14px; }
+.tf-tick { fill: #adc1cc; font-size: 14px; font-variant-numeric: tabular-nums; }
+.tf-axis { fill: none; stroke: #8ca7b3; stroke-opacity: .65; stroke-width: 1; }
+.tf-grid { stroke: #8ca7b3; stroke-opacity: .17; stroke-width: 1; }
+.tf-zero { stroke: #9eb4bc; stroke-opacity: .6; stroke-width: 1; }
+.tf-stop-guide { fill: none; stroke: #a9bec7; stroke-width: 1; stroke-opacity: .36; stroke-dasharray: 3 5; }
+.tf-passage { stroke: #e1cda9; fill: none; stroke-width: 3.3; stroke-linejoin: round; stroke-linecap: round; }
+.tf-waypoint, .tf-stop { fill: #19303d; stroke: #d7bf96; stroke-width: 1.8; }
+.tf-speed, .tf-legend-j1, .tf-legend-j2 { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; }
+.tf-speed--j1, .tf-legend-j1 { stroke: #6cd1d3; }
+.tf-speed--j2, .tf-legend-j2 { stroke: #e5c397; }
+.tf-evidence.is-current .tf-passage, .tf-evidence.is-current .tf-speed { filter: drop-shadow(0 0 4px rgb(207 224 227 / 12%)); }
+.tf-callout-line { fill: none; stroke: #b8c9cf; stroke-width: 1; stroke-opacity: .65; }
+.tf-annotation { fill: #d0dcdc; font-size: 15px; font-weight: 580; }
+.tf-phase-label { fill: #b4c8ce; font-size: 13px; }
+.tf-comment { fill: #d5dfdd; font-size: 16px; }
+.tf-note { fill: #9fb5bf; font-size: 14px; }
+.tf-result { fill: #e5d1ad; font-size: 54px; font-weight: 560; letter-spacing: -2px; font-variant-numeric: tabular-nums; }
+.tf-result-total { fill: #9bb1bc; font-size: 31px; letter-spacing: -1px; }
+.tf-output .tf-body { font-size: 15.5px; }
+.tf-refusal { fill: #b3bfc0; font-size: 15px; }
+.tf-refusal.is-current { fill: var(--tf-gold); }
+.trajectory-source { color: #93aeb8; font-size: calc(.54 * var(--su)); line-height: 1.4; margin-bottom: calc(.3 * var(--su)); }
+.trajectory-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: calc(1.4 * var(--su)); min-height: calc(3.65 * var(--su)); padding-top: calc(.5 * var(--su)); border-top: 1px solid rgb(173 196 203 / 22%); }
+.trajectory-focus { min-width: 0; }
+.trajectory-focus > span { display: block; color: var(--tf-gold); font-size: calc(.56 * var(--su)); font-weight: 740; letter-spacing: .09em; text-transform: uppercase; margin-bottom: calc(.25 * var(--su)); }
+.trajectory-focus p { color: #e4ebeb; font-size: calc(.87 * var(--su)); line-height: 1.35; max-width: 112ch; }
+.trajectory-focus p:empty { display:none; }
+.trajectory-reader { display: flex; align-items: center; gap: calc(.65 * var(--su)); }
+.trajectory-reader button { display: grid; place-items: center; min-width: calc(1.9 * var(--su)); min-height: calc(1.7 * var(--su)); border: 1px solid rgb(170 196 209 / 30%); border-radius: 3px; background: rgb(32 58 72 / 60%); color: #dbe7e8; font-size: calc(.9 * var(--su)); cursor: pointer; }
+.trajectory-reader button[data-traj-goto] { padding: 0 calc(.7 * var(--su)); font-size: calc(.58 * var(--su)); }
+.trajectory-reader button:disabled { opacity: .25; cursor: default; }
+.trajectory-reader button:focus-visible { outline: 2px solid var(--tf-red); outline-offset: 3px; }
+.trajectory-reader [data-traj-position] { color: #b3c4c9; font-size: calc(.59 * var(--su)); font-variant-numeric: tabular-nums; }
+@keyframes tf-transfer { 0% { stroke-dashoffset: 1; opacity: 0; } 8%, 40% { opacity: .9; } 53%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+.trajectory-stage[data-trajectory-static='true'] *, .pipeline-camera .tf-edge-pulse { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .trajectory-stage * { animation: none !important; transition: none !important; } }
+@media (max-aspect-ratio: 4 / 5) {
+  .trajectory-stage { --su: 20px; }
+  .trajectory-stage .pipeline-stage__heading { display: block; }
+  .trajectory-stage .pipeline-stage__heading .display { font-size: 2rem; }
+  .trajectory-stage .pipeline-stage__heading .lede { margin-top: .8rem; font-size: .8rem; }
+  .trajectory-board { display: block; min-width: 0; }
+  .trajectory-viewport { display: block; width: 100%; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; padding: .8rem 0; }
+  .trajectory-flow-svg { width: 1200px; height: auto; max-width: none; }
+  .trajectory-controls { grid-template-columns: 1fr; gap: 1rem; padding-top: 1rem; }
+  .trajectory-reader { justify-content: flex-end; }
+  .trajectory-reader button { min-height: 44px; min-width: 44px; }
+  .trajectory-focus p { font-size: 1rem; }
+  .trajectory-source { font-size: .7rem; margin-bottom: .8rem; }
+  .trajectory-source::after { content: 'Glisser ↔ pour parcourir le schéma'; display: block; margin-top: .5rem; }
+}
+@media print {
+  #dynamique .trajectory-reader, #dynamique .tf-edge-pulse { display: none; }
+  #dynamique .tf-evidence { opacity: 1; }
+  #dynamique .trajectory-viewport { overflow: visible; }
+  #dynamique .trajectory-flow-svg { width: 100%; height: auto; }
+}

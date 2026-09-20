@@ -1,0 +1,187 @@
+/* Corporate Engineering master diagram — isolated prototype for slide 09. */
+#chaine-numerique .pipeline-stage {
+  gap: calc(0.58 * var(--su));
+}
+
+#chaine-numerique .pipeline-stage__heading {
+  grid-template-columns: minmax(0, 1.48fr) minmax(25ch, 0.52fr);
+}
+
+#chaine-numerique .pipeline-stage__heading .display {
+  max-width: 19ch;
+  font-size: calc(3.05 * var(--su));
+  letter-spacing: -0.055em;
+}
+
+.ce-pipeline {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border-top: 1px solid rgb(23 72 99 / 18%);
+  border-bottom: 1px solid rgb(23 72 99 / 18%);
+}
+
+.ce-pipeline__canvas {
+  width: 100%;
+  height: auto;
+  font-family: var(--font-sans);
+  overflow: visible;
+}
+
+.ce-pipeline__boundary {
+  fill: rgb(23 72 99 / 2.5%);
+  stroke: rgb(23 72 99 / 31%);
+  stroke-width: 1.5;
+  stroke-dasharray: 8 7;
+}
+
+.ce-pipeline__boundary-label-bg,
+.ce-pipeline__label-bg,
+.ce-pipeline__feedback-label-bg {
+  fill: var(--paper);
+}
+
+.ce-pipeline__boundary-label {
+  fill: var(--blue);
+  font-size: 14px;
+  font-weight: 730;
+  letter-spacing: 1.25px;
+}
+
+.ce-pipeline__node-frame {
+  fill: #fbfcfa;
+  stroke: var(--blue);
+  stroke-width: 1.65;
+  filter: url(#ce-node-shadow);
+}
+
+.ce-pipeline__node-accent { fill: var(--blue); }
+.ce-pipeline__node--contract .ce-pipeline__node-accent { fill: var(--gold); }
+.ce-pipeline__node--state .ce-pipeline__node-accent,
+.ce-pipeline__node--execution .ce-pipeline__node-accent { fill: var(--teal); }
+.ce-pipeline__node--proof .ce-pipeline__node-accent { fill: #71838d; }
+
+.ce-pipeline__eyebrow {
+  fill: var(--teal-deep);
+  font-size: 14px;
+  font-weight: 760;
+  letter-spacing: 1.35px;
+}
+
+.ce-pipeline__node--contract .ce-pipeline__eyebrow { fill: #946022; }
+.ce-pipeline__node--proof .ce-pipeline__eyebrow { fill: #5c6d77; }
+
+.ce-pipeline__title {
+  fill: var(--ink);
+  font-size: 25px;
+  font-weight: 690;
+  letter-spacing: -0.55px;
+}
+
+.ce-pipeline__divider {
+  stroke: rgb(23 72 99 / 17%);
+  stroke-width: 1;
+}
+
+.ce-pipeline__detail {
+  fill: var(--slate);
+  font-size: 15px;
+  font-weight: 560;
+}
+
+.ce-pipeline__port {
+  fill: #fbfcfa;
+  stroke: var(--blue);
+  stroke-width: 2.5;
+}
+
+.ce-pipeline__node--contract .ce-pipeline__port { stroke: var(--gold); }
+.ce-pipeline__node--state .ce-pipeline__port,
+.ce-pipeline__node--execution .ce-pipeline__port,
+.ce-pipeline__port--return { stroke: var(--teal); }
+.ce-pipeline__node--proof .ce-pipeline__port { stroke: #71838d; }
+
+.ce-pipeline__wire {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 2.6;
+  stroke-linecap: square;
+  stroke-linejoin: round;
+  stroke-dasharray: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.ce-pipeline__connector--contract .ce-pipeline__wire {
+  stroke: var(--gold);
+  stroke-dasharray: 7 6;
+}
+
+.ce-pipeline__connector--proof .ce-pipeline__wire {
+  stroke: #71838d;
+  stroke-dasharray: 3 5;
+}
+
+#ce-arrow-navy path { fill: var(--blue); }
+#ce-arrow-teal path { fill: var(--teal); }
+#ce-arrow-gold path { fill: var(--gold); }
+#ce-arrow-proof path { fill: #71838d; }
+
+.ce-pipeline__label {
+  fill: var(--slate);
+  font-size: 12.5px;
+  font-weight: 670;
+  text-anchor: middle;
+}
+
+.ce-pipeline__wire--feedback,
+.ce-pipeline__wire--feedback-branch {
+  stroke: var(--teal);
+  stroke-width: 3;
+}
+
+.ce-pipeline__junction { fill: var(--teal); }
+
+.ce-pipeline__feedback-label-bg {
+  stroke: rgb(8 127 140 / 14%);
+  stroke-width: 1;
+}
+
+.ce-pipeline__feedback-label {
+  fill: var(--teal-deep);
+  font-size: 13px;
+  font-weight: 710;
+  letter-spacing: 0.35px;
+  text-anchor: middle;
+}
+
+.ce-pipeline__legend text {
+  fill: var(--slate);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ce-pipeline__legend-line {
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.ce-pipeline__legend-line--command { stroke: var(--blue); }
+.ce-pipeline__legend-line--state { stroke: var(--teal); }
+.ce-pipeline__legend-line--contract { stroke: var(--gold); stroke-dasharray: 7 6; }
+.ce-pipeline__legend-line--proof { stroke: #71838d; stroke-dasharray: 3 5; }
+
+@media (max-width: 760px) {
+  #chaine-numerique .pipeline-stage__heading { display: block; }
+  #chaine-numerique .pipeline-stage__heading .lede { margin-top: 1.4rem; }
+  .ce-pipeline { overflow-x: auto; overflow-y: hidden; }
+  .ce-pipeline__canvas { width: 70rem; max-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ce-pipeline__node,
+  .ce-pipeline__wire { opacity: 1 !important; }
+}

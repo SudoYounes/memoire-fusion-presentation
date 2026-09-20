@@ -1,0 +1,45 @@
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Libertinus Serif';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('../../node_modules/@fontsource/libertinus-serif/files/libertinus-serif-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Libertinus Serif';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url('../../node_modules/@fontsource/libertinus-serif/files/libertinus-serif-latin-400-italic.woff2') format('woff2');
+}
+
+:root {
+  --paper: #f3f5f2;
+  --paper-bright: #fafbf8;
+  --mist: #e7edef;
+  --ink: #0d1821;
+  --ink-soft: #1c2d39;
+  --slate: #50606b;
+  --slate-light: #aebbc2;
+  --blue: #174863;
+  --teal: #087f8c;
+  --teal-deep: #075862;
+  --gold: #b9782c;
+  --hold: #a44b42;
+  --line-light: rgb(13 24 33 / 16%);
+  --line-dark: rgb(243 245 242 / 20%);
+  --font-sans: 'Inter Variable', 'Inter', sans-serif;
+  --font-serif: 'Libertinus Serif', Georgia, serif;
+  --su: min(1vw, 1.7777778vh);
+  --scroll-progress: 0;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}

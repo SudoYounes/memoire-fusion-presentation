@@ -1,0 +1,94 @@
+/* Fullscreen presenter controls stay outside the slide composition. */
+.presenter-launch {
+  position: fixed;
+  left: calc((100vw - min(100vw, 177.7778dvh)) / 2 + 4 * var(--su));
+  bottom: calc((100dvh - min(100dvh, 56.25vw)) / 2 + 1.55 * var(--su));
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  gap: calc(.42 * var(--su));
+  min-height: calc(1.8 * var(--su));
+  padding: 0 calc(.62 * var(--su));
+  border: 1px solid rgb(23 72 99 / 22%);
+  border-radius: calc(.24 * var(--su));
+  background: rgb(250 251 248 / 72%);
+  color: var(--teal-deep);
+  font: inherit;
+  font-size: max(9px, calc(.5 * var(--su)));
+  font-weight: 720;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease, opacity 180ms ease;
+}
+.presenter-launch svg { width: calc(.82 * var(--su)); min-width: 13px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.presenter-launch kbd { margin-left: calc(.12 * var(--su)); color: var(--slate); font: inherit; font-size: .82em; opacity: .62; }
+.presenter-launch:hover { border-color: rgb(8 127 140 / 48%); background: rgb(250 251 248 / 94%); color: var(--teal); }
+html[data-chrome-theme='dark'] .presenter-launch { border-color: rgb(243 245 242 / 25%); background: rgb(13 24 33 / 58%); color: #8bd9d5; }
+html[data-chrome-theme='dark'] .presenter-launch kbd { color: rgb(243 245 242 / 65%); }
+
+.presenter-dock {
+  position: fixed;
+  left: 50%;
+  bottom: max(18px, calc(1.1 * var(--su)));
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 52px;
+  padding: 6px;
+  border: 1px solid rgb(255 255 255 / 15%);
+  border-radius: 9px;
+  background: rgb(8 16 22 / 88%);
+  color: white;
+  box-shadow: 0 14px 36px rgb(0 0 0 / 26%);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 14px);
+  backdrop-filter: blur(16px);
+  transition: opacity 180ms ease, transform 220ms var(--ease-out);
+}
+.presenter-dock button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: white;
+  font: inherit;
+  font-size: 20px;
+  cursor: pointer;
+}
+.presenter-dock button:hover, .presenter-dock button:focus-visible { background: rgb(255 255 255 / 11%); }
+.presenter-dock button:focus-visible { outline: 2px solid #d4a252; outline-offset: 1px; }
+.presenter-dock button svg { width: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+.presenter-dock > p { display: flex; flex-direction: column; justify-content: center; min-width: 210px; padding: 0 10px; }
+.presenter-dock > p span { color: #8bd9d5; font-size: 10px; font-weight: 760; letter-spacing: .11em; }
+.presenter-dock > p strong { max-width: 28ch; margin-top: 4px; overflow: hidden; color: rgb(255 255 255 / 78%); font-size: 11px; font-weight: 580; text-overflow: ellipsis; white-space: nowrap; }
+.presenter-dock > i { width: 1px; height: 27px; margin: 0 3px; background: rgb(255 255 255 / 18%); }
+
+html.is-presenting .presenter-launch { opacity: 0; pointer-events: none; }
+html.is-presenting.presenter-controls-visible .presenter-dock { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+html.is-presenting:not(.presenter-controls-visible),
+html.is-presenting:not(.presenter-controls-visible) body { cursor: none; }
+html:fullscreen { background: #081116; }
+html::backdrop { background: #081116; }
+
+@media screen and (max-aspect-ratio: 4 / 5) {
+  .presenter-launch { left: 1.25rem; bottom: 1rem; min-height: 2.2rem; padding: 0 .7rem; font-size: .62rem; }
+  .presenter-launch svg { width: 1rem; }
+  .presenter-dock { bottom: 12px; max-width: calc(100vw - 24px); }
+  .presenter-dock > p { min-width: 130px; }
+}
+
+@media print {
+  .presenter-launch, .presenter-dock { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .presenter-launch, .presenter-dock { transition: none; }
+}

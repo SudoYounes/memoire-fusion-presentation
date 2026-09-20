@@ -1,0 +1,108 @@
+import { gsap } from 'gsap'
+import { trajectoryPlatesMarkup, updateTrajectoryPlates, updateTrajectoryPose } from './trajectoryPlates'
+import { trajectoryComments, updateTrajectoryCommentary } from './trajectoryCommentary'
+import { math } from './runtimeMath'
+
+export const trajectoryCues = [
+  { label: 'Vue d’ensemble', text: 'Un même transfert pour comprendre le passage, sa temporisation et la vérification avant envoi.' },
+  { label: '01 · Géométrie — la cible', text: 'L’IK relie la cible de la sortie J4 aux quatre angles, avec un outil horizontal et le lacet demandé.' },
+  { label: '02 · Géométrie — le passage', text: 'A–B : élever. B–C : pivoter à hauteur. C–D : approcher. Les poses sont comparables avec une caméra fixe.' },
+  { label: '03 · Temporisation — les raccords', text: 'Les quintiques raccordent les configurations. Aux arrêts B et C de cet exemple, vitesse et accélération sont nulles.' },
+  { label: '04 · Temporisation — les limites', text: 'La vitesse conserve de la marge. Accélération et jerk atteignent ici environ 99 % des limites déclarées.' },
+  { label: '05 · Vérifier dans la scène', text: 'MoveIt contrôle les états échantillonnés avec la charge attachée et les cartons déjà placés.' },
+  { label: '06 · Transmettre la consigne', text: 'Le message horodaté rejoint /execute_trajectory, puis JTC. Le suivi physique est l’étape suivante.' },
+] as const
+
+const node = (x: number, cues: string, goto: number, label: string, title: string, detail: string, software: string) => `
+  <g class="tf-node" transform="translate(${x} 36)" data-tf-cues="${cues}" data-traj-goto="${goto}" tabindex="0" role="button" aria-label="${title} : éclairer cette étape">
+    <rect class="tf-node-surface" width="450" height="128" rx="6"/>
+    <path class="tf-node-accent" d="M20 0 H430"/>
+    <text class="tf-eyebrow" x="24" y="29">${label}</text>
+    <text class="tf-node-title" x="24" y="62">${title}</text>
+    <text class="tf-body" x="24" y="89">${detail}</text>
+    <text class="tf-code" x="24" y="112">${software}</text>
+  </g>`
+const edge = (id: string, d: string, cues: string, label = '', x = 0, y = 0) => `
+  <g class="tf-edge" data-tf-edge="${id}" data-tf-cues="${cues}">
+    <path class="tf-edge-base" d="${d}" marker-end="url(#tf-arrow-muted)"/>
+    <path class="tf-edge-lit" d="${d}" pathLength="1" marker-end="url(#tf-arrow-red)"/>
+    <path class="tf-edge-pulse" d="${d}" pathLength="1"/>
+    ${label ? `<text class="tf-edge-label" x="${x}" y="${y}" text-anchor="middle">${label}</text>` : ''}
+  </g>`
+
+/** Native plots use the 256 recorded planned samples; emphasis never changes data. */
+export function mountTrajectoryFlow(stage: HTMLElement) {
+  const holder = stage.querySelector<HTMLElement>('[data-traj-graph]')!
+  holder.innerHTML = `<svg class="trajectory-flow-svg" viewBox="0 0 1600 604" role="group" aria-labelledby="tf-title tf-desc">
+    <title id="tf-title">Préparation d’une trajectoire du robot 2</title>
+    <desc id="tf-desc">La cible est résolue par cinématique inverse, puis un corridor organise le passage. Des quintiques définissent la durée et les raccords sous contraintes de vitesse, accélération et jerk. Des vues successives du même transfert chargé montrent la cible, les poses A–B–C–D, les profils planifiés de J1 et les marges aux limites dynamiques. MoveIt valide 256 états échantillonnés dans la scène avant d’autoriser l’envoi au contrôleur. Ce contrôle discret ne prouve pas l’absence de collision entre les échantillons.</desc>
+    <defs>
+      <marker id="tf-arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#8ba4b0" stroke-width="1.6"/></marker>
+      <marker id="tf-arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#ff493d" stroke-width="1.8"/></marker>
+    </defs>
+    <text class="tf-entry" x="24" y="17" data-tf-cues="1">ENTRÉE · cible de prise ou de dépose</text>
+    ${edge('waypoints','M450 100 H575','3 4','points de passage',512.5,84)}
+    ${edge('trajectory','M1025 100 H1150','5')}
+    <g class="tf-edge" data-tf-cues="5">${math(1087.5,84,'command',18,'tf-edge-label',false,'middle')}</g>
+    ${node(0,'1 2',1,'01 · GÉOMÉTRIE','Construire le passage','IK analytique + points de passage','analytic_ik.py · multi_carton_cycle.py')}
+    ${node(575,'3 4',3,'02 · TEMPORISATION','Composer la trajectoire','Quintiques · raccords · limites dynamiques','multi_carton_core.py')}
+    ${node(1150,'5 6',5,'03 · VALIDATION','Vérifier dans la scène','Charge attachée + cartons déjà placés','MoveIt 2 · /check_state_validity')}
+    ${trajectoryPlatesMarkup()}
+  </svg>`
+
+  let animation: gsap.core.Timeline | undefined
+  const finish = () => {
+    animation?.kill()
+    stage.querySelectorAll<SVGElement>('.tp-panel, .tp-comment').forEach(panel => {
+      panel.style.removeProperty('transform'); panel.style.removeProperty('transform-origin'); panel.style.removeProperty('opacity')
+      panel.removeAttribute('transform')
+      gsap.set(panel, { clearProps: 'transform,transformOrigin,opacity' })
+    })
+    stage.querySelectorAll<SVGElement>('.tf-edge-lit').forEach(path => {
+      path.style.removeProperty('stroke-dashoffset')
+      path.style.removeProperty('stroke-dasharray')
+    })
+  }
+  const update = (view: HTMLElement, cue: number, noMotion: boolean, step = 0, poseOverride?: number) => {
+    view.dataset.trajectoryCue = String(cue)
+    updateTrajectoryPlates(view, cue)
+    updateTrajectoryPose(view, poseOverride ?? trajectoryComments[cue][step].pose ?? 1)
+    updateTrajectoryCommentary(view, cue, step)
+    view.dataset.trajectoryStatic = String(noMotion)
+    view.querySelectorAll<SVGElement>('[data-tf-cues]').forEach(el => {
+      const active = el.dataset.tfCues?.split(' ').includes(String(cue)) ?? false
+      el.classList.toggle('is-current', active)
+      if (el.hasAttribute('data-traj-goto')) {
+        if (active) el.setAttribute('aria-current','step')
+        else el.removeAttribute('aria-current')
+      }
+    })
+    const caption = view.querySelector<HTMLElement>('[data-traj-caption]')
+    const label = view.querySelector<HTMLElement>('[data-traj-label]')
+    const position = view.querySelector<HTMLElement>('[data-traj-position]')
+    if (caption) caption.textContent = ''
+    if (label) label.textContent = `${trajectoryCues[cue].label} · ${trajectoryComments[cue][step].topic}`
+    if (position) position.textContent = `${String(cue+1).padStart(2,'0')} / 07`
+    const prev = view.querySelector<HTMLButtonElement>('[data-traj-prev]')
+    const next = view.querySelector<HTMLButtonElement>('[data-traj-next]')
+    if (prev) prev.disabled = cue === 0
+    if (next) next.disabled = cue === trajectoryCues.length - 1 && step === trajectoryComments[cue].length - 1
+  }
+  const play = (newCard = true) => {
+    finish()
+    animation = gsap.timeline()
+    const cue = Number(stage.dataset.trajectoryCue)
+    const panel = stage.querySelector('.tp-panel.is-visible')
+    if (panel && cue > 0 && newCard) animation.fromTo(panel,
+      { opacity: 0, scaleX: .46, scaleY: .08, y: -12, svgOrigin: String(cue < 3 ? 225 : cue < 5 ? 800 : 1375) + ' 190' },
+      { opacity: 1, scaleX: 1, scaleY: 1, y: 0, duration: .48, ease: 'power2.out', clearProps: 'transform,transformOrigin,opacity' }, 0)
+
+    const comment = stage.querySelector('.tp-comment.is-visible')
+    if (comment) animation.fromTo(comment,{opacity:0,y:7},{opacity:1,y:0,duration:.32,ease:'power2.out',clearProps:'transform,opacity'},newCard ? .24 : 0)
+
+    if(newCard)stage.querySelectorAll('.tf-edge.is-current .tf-edge-lit').forEach(path => {
+      animation!.fromTo(path,{ strokeDasharray:1, strokeDashoffset:1 },{ strokeDashoffset:0, duration:.65, ease:'power1.inOut', clearProps:'strokeDasharray,strokeDashoffset' },0)
+    })
+  }
+  return { update, play, finish, dispose: finish }
+}

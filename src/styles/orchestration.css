@@ -1,0 +1,90 @@
+/* One invariant activity graph; focus travels, the topology never moves. */
+.orchestration-stage { --of-red: #f13c30; --of-muted: #587176; --of-ink: #142d37; }
+.orchestration-stage .pipeline-stage__heading { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: calc(2 * var(--su)); }
+.orchestration-stage .pipeline-stage__heading .display { max-width: none; font-size: calc(2.12 * var(--su)); letter-spacing: -.045em; line-height: 1.15; margin: 0; }
+.orchestration-stage .pipeline-stage__heading .lede { margin: 0; font-family: var(--font-sans); font-size: calc(.69 * var(--su)); line-height: 1.55; }
+.orchestration-stage .pipeline-stage__heading .lede strong { color: var(--teal-deep); font-weight: 680; }
+.orch-flow-board { min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: calc(.25 * var(--su)); }
+.orch-flow-viewport { min-height: 0; display: grid; place-items: center; }
+.orch-flow-svg { display: block; width: 100%; height: 100%; min-height: 0; overflow: visible; font-family: var(--font-sans); }
+.of-node { cursor: pointer; }
+.of-node-surface { fill: #f9fbf8; fill-opacity: .36; stroke: #789195; stroke-opacity: .55; stroke-width: 1.4; transition: fill-opacity 320ms, stroke 320ms, filter 320ms; }
+.of-node-accent { fill: none; stroke: #c3a574; stroke-width: 2.8; opacity: .2; transition: opacity 320ms; }
+.of-node-label { fill: #55777a; font-size: 12px; font-weight: 750; letter-spacing: 1.15px; }
+.of-node-title { fill: var(--of-muted); font-size: 21px; font-weight: 690; letter-spacing: -.5px; transition: fill 320ms; }
+.of-node-detail { fill: #62777b; font-size: 14px; }
+.of-node-software { fill: #62777b; font-size: 12.7px; }
+.of-node.is-current .of-node-surface { fill: #fffef9; fill-opacity: 1; stroke: #bc934f; stroke-opacity: 1; filter: drop-shadow(0 0 7px rgb(191 151 80 / 24%)); }
+.of-node.is-current .of-node-accent { opacity: 1; }
+.of-node.is-current .of-node-title { fill: var(--of-ink); }
+.of-node.is-current .of-node-detail, .of-node.is-current .of-node-software { fill: #31565f; }
+.of-node.is-current .of-node-label { fill: #8e662e; }
+.of-node:hover .of-node-surface { fill-opacity: .85; stroke-opacity: 1; }
+.of-node:focus-visible { outline: none; }
+.of-node:focus-visible .of-node-surface { stroke: var(--of-red); stroke-width: 2.5; }
+.of-edge { pointer-events: none; }
+.of-edge-base, .of-edge-lit, .of-edge-pulse { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.of-edge-base { stroke: #739095; stroke-width: 1.8; opacity: .38; }
+.of-edge-lit { stroke: var(--of-red); stroke-width: 2.7; opacity: 0; transition: opacity 180ms; }
+.of-edge-pulse { stroke: #ff4234; stroke-width: 4.5; stroke-dasharray: .1 .9; opacity: 0; filter: drop-shadow(0 0 4px rgb(241 60 48 / 45%)); }
+.of-edge.is-current .of-edge-lit { opacity: 1; }
+.of-edge.is-current .of-edge-pulse { animation: of-data-travel 3.2s linear infinite; animation-delay: 1.05s; }
+.of-edge-label { fill: #637a7e; font-size: 12px; font-weight: 620; paint-order: stroke; stroke: #edf1ee; stroke-width: 5; stroke-linejoin: round; }
+.of-edge.is-current .of-edge-label { fill: #b7352c; }
+.of-region rect { fill: #e4ece7; fill-opacity: .14; stroke: #8ca09c; stroke-opacity: .28; stroke-width: 1.1; stroke-dasharray: 5 7; transition: fill-opacity 320ms; }
+.of-region text { fill: #68817f; font-size: 12px; font-weight: 720; letter-spacing: 1.2px; }
+.of-region.is-current rect { fill-opacity: .48; stroke-opacity: .6; }
+.of-region.is-current text { fill: #23535b; }
+.of-fork path { fill: none; stroke: #789494; stroke-width: 6; stroke-linecap: round; opacity: .4; }
+.of-fork text { fill: #738681; font-size: 11px; font-weight: 780; }
+.of-fork.is-current path { stroke: var(--of-red); opacity: 1; filter: drop-shadow(0 0 5px rgb(241 60 48 / 20%)); }
+.of-fork.is-current text { fill: #b7352c; }
+.of-entry text, .of-memory text, .of-loop-label text, .of-wait text { fill: #617a7c; font-size: 13px; }
+.of-entry text { font-size: 12px; letter-spacing: .5px; }
+.of-entry path, .of-memory path, .of-wait path, .of-wait circle { stroke: #8ba09f; fill: none; stroke-width: 1.2; opacity: .5; }
+.of-memory.is-current text, .of-loop-label.is-current text, .of-entry.is-current text { fill: var(--teal-deep); font-weight: 680; }
+.of-wait.is-current text { fill: #8c642b; }
+.of-wait.is-current path, .of-wait.is-current circle { opacity: 1; stroke: #b38b50; }
+.of-loop-label { cursor: pointer; }
+.of-loop-label:focus-visible { outline: 1px solid #bb924d; outline-offset: 5px; }
+.orch-flow-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: calc(1.4 * var(--su)); min-height: calc(3.3 * var(--su)); padding-top: calc(.55 * var(--su)); border-top: 1px solid rgb(23 72 99 / 18%); }
+.orch-flow-focus { min-width: 0; }
+.orch-flow-focus > span { display: block; color: #966c30; font-size: calc(.56 * var(--su)); font-weight: 780; letter-spacing: .09em; text-transform: uppercase; margin-bottom: calc(.28 * var(--su)); }
+.orch-flow-focus p { color: var(--ink); font-size: calc(.88 * var(--su)); line-height: 1.35; }
+.orch-flow-reader { display: flex; align-items: center; gap: calc(.65 * var(--su)); }
+.orch-flow-reader button { display: grid; place-items: center; min-width: calc(1.9 * var(--su)); min-height: calc(1.7 * var(--su)); border: 1px solid rgb(23 72 99 / 24%); border-radius: 3px; background: rgb(249 252 249 / 65%); color: var(--teal-deep); font-size: calc(.9 * var(--su)); cursor: pointer; }
+.orch-flow-reader button[data-orch-goto] { padding: 0 calc(.7 * var(--su)); font-size: calc(.58 * var(--su)); }
+.orch-flow-reader button:disabled { opacity: .25; cursor: default; }
+.orch-flow-reader button:focus-visible { outline: 2px solid var(--of-red); outline-offset: 3px; }
+.orch-flow-reader [data-orch-position] { color: var(--slate); font-size: calc(.59 * var(--su)); font-variant-numeric: tabular-nums; }
+.orch-flow-legend { display: flex; align-items: center; gap: calc(.75 * var(--su)); color: #657a7d; font-size: calc(.54 * var(--su)); margin-bottom: calc(.25 * var(--su)); }
+.orch-flow-legend i { width: calc(1.7 * var(--su)); height: 2px; background: var(--of-red); }
+.orch-flow-legend b { font-weight: 600; color: #536d73; }
+@keyframes of-data-travel { 0% { stroke-dashoffset: 1; opacity: 0; } 10%, 65% { opacity: .9; } 77%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+.orchestration-stage[data-orchestration-static='true'] *, .orchestration-stage[data-orchestration-static='true'] *::before { animation: none !important; transition: none !important; }
+.pipeline-camera .of-edge-pulse { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .orchestration-stage * { animation: none !important; transition: none !important; } }
+@media (max-aspect-ratio: 4 / 5) {
+  .orchestration-stage { --su: 20px; }
+  .orchestration-stage .pipeline-stage__heading { display: block; }
+  .orchestration-stage .pipeline-stage__heading .display { font-size: 2rem; }
+  .orchestration-stage .pipeline-stage__heading .lede { margin-top: .8rem; font-size: .8rem; }
+  .orch-flow-board { display: block; min-width: 0; }
+  .orch-flow-viewport { display: block; place-items: start; width: 100%; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; padding: .75rem 0; }
+  .orch-flow-svg { width: 1150px; height: auto; max-width: none; }
+  .orch-flow-controls { grid-template-columns: 1fr; gap: 1rem; padding-top: 1rem; }
+  .orch-flow-reader { justify-content: flex-end; }
+  .orch-flow-reader button { min-height: 44px; min-width: 44px; }
+  .orch-flow-focus p { font-size: 1rem; }
+  .orch-flow-legend { font-size: .7rem; margin-bottom: .8rem; flex-wrap: wrap; }
+  .orch-flow-legend::after { content: 'Glisser ↔ pour parcourir le graphe'; width: 100%; color: var(--teal-deep); }
+}
+@media print {
+  #indexeur .orch-flow-reader { display: none; }
+  #indexeur .of-edge-pulse { display: none; }
+  #indexeur .of-node-title { fill: #142d37; }
+  #indexeur .of-node-surface { fill-opacity: .85; stroke-opacity: .8; filter: none; }
+  #indexeur .of-edge-base { opacity: .8; }
+  #indexeur .orch-flow-viewport { overflow: visible; }
+  #indexeur .orch-flow-svg { width: 100%; height: auto; }
+}

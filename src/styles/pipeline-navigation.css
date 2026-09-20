@@ -1,0 +1,81 @@
+/* Shared simulation orientation: one miniature of the master graph. */
+.deck-sections { top: calc((100dvh - min(100dvh, 56.25vw)) / 2 + 1.65 * var(--su)); }
+.deck-footer__count { grid-column: -2 / -1; justify-self: end; }
+
+[data-pipeline-node] > .slide-stage {
+  padding-top: calc(4.8 * var(--su));
+  padding-bottom: calc(.9 * var(--su));
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: calc(.85 * var(--su));
+}
+.models-heading .display { margin-top: 0; }
+[data-pipeline-node] .pipeline-stage__heading .display { margin-top: 0; }
+.pipeline-minimap {
+  position: relative;
+  z-index: 3;
+  width: calc(54 * var(--su));
+  max-width: 100%;
+  justify-self: center;
+  margin: calc(.4 * var(--su)) auto 0;
+}
+.pipeline-minimap__graph { width: 100%; height: auto; overflow: visible; }
+.pipeline-minimap [data-ce-node] { opacity: .28; transition: opacity 180ms ease; }
+.pipeline-minimap a { cursor: pointer; }
+.pipeline-minimap a:hover [data-ce-node],
+.pipeline-minimap a:focus-visible [data-ce-node] { opacity: .8; }
+.pipeline-minimap .is-minimap-active { opacity: 1; }
+.pipeline-minimap .is-minimap-active .ce-pipeline__node-frame { fill: var(--teal-deep); stroke: var(--teal-deep); stroke-width: 2.5; }
+.pipeline-minimap .is-minimap-active .ce-pipeline__title,
+.pipeline-minimap .is-minimap-active .ce-pipeline__eyebrow { fill: #fff; }
+.pipeline-minimap .is-minimap-active .ce-pipeline__node-accent { fill: var(--gold); }
+.pipeline-minimap .ce-pipeline__wire,
+.pipeline-minimap .ce-pipeline__junction { opacity: .22; }
+.pipeline-minimap .ce-pipeline__wire { stroke-width: 1.5; }
+.pipeline-minimap .ce-pipeline__port { stroke-width: 2; }
+.theme-ink .pipeline-minimap [data-ce-node] { opacity: .33; }
+.theme-ink .pipeline-minimap .is-minimap-active { opacity: 1; }
+.theme-ink .pipeline-minimap .ce-pipeline__wire { stroke: #96c9ce; opacity: .38; }
+.theme-ink .pipeline-minimap .is-minimap-active .ce-pipeline__node-frame { fill: #147680; stroke: #91d1cf; }
+
+/* A full-size master map is the middle waypoint of each camera transition. */
+.pipeline-camera {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  overflow: hidden;
+  pointer-events: none;
+  background: #dde2e0;
+}
+.pipeline-camera__viewport {
+  position: relative;
+  width: min(100vw, 177.7778dvh);
+  height: min(100dvh, 56.25vw);
+  overflow: hidden;
+  isolation: isolate;
+}
+.pipeline-camera__pane { position: absolute; inset: 0; transform-origin: 0 0; }
+.pipeline-camera__pane > .slide-stage { position: absolute; inset: 0; }
+.pipeline-camera .pipeline-stage--overview { gap: calc(.58 * var(--su)); }
+.pipeline-camera .pipeline-stage--overview .pipeline-stage__heading { grid-template-columns: minmax(0, 1.48fr) minmax(25ch, .52fr); }
+.pipeline-camera .pipeline-stage--overview .display { max-width: 19ch; font-size: calc(3.05 * var(--su)); letter-spacing: -.055em; }
+.pipeline-camera__pane:not([data-camera-pane='graph']) > .slide-stage {
+  padding-top: calc(4.8 * var(--su));
+  padding-bottom: calc(.9 * var(--su));
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: calc(.85 * var(--su));
+}
+.pipeline-camera__pane:not([data-camera-pane='graph']) .pipeline-stage__heading .display { margin-top: 0; }
+.pipeline-camera .pipeline-pulse { display: none; }
+
+@media (max-aspect-ratio: 4 / 5) {
+  .deck-sections { top: 1rem; }
+  .deck-footer__count { display: none; }
+  [data-pipeline-node] > .slide-stage { padding: 4.6rem 1.25rem 1.5rem; gap: 1.4rem; }
+  .pipeline-minimap { width: 100%; margin-top: 1rem; overflow-x: auto; scrollbar-width: thin; }
+  .pipeline-minimap__graph { width: 44rem; max-width: none; }
+  .models-source--bodies::after { display: none; }
+}
+@media print { .pipeline-camera { display: none !important; } }

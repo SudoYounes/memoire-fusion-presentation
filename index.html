@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Robot 2 — présentation de soutenance scroll-driven sur la conception mécanique et la qualification numérique d’une cellule de palettisation." />
+    <meta name="theme-color" content="#0d1821" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <title>Robot 2 — Soutenance PFE</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#robot-2">Aller à la présentation</a>
+    <div class="deck-grid" aria-hidden="true"></div>
+    <div class="deck-progress" aria-hidden="true"><span class="deck-progress__fill"></span></div>
+
+    <nav class="deck-sections" aria-label="Chapitres de la présentation" data-deck-sections></nav>
+    <nav class="deck-rail" aria-label="Navigation dans la présentation" data-deck-rail></nav>
+    <footer class="deck-footer" data-deck-chrome>
+      <p class="deck-footer__count"><span data-slide-current>01</span><i></i><span data-slide-total>19</span></p>
+    </footer>
+
+    <main id="presentation" class="deck" data-deck>
+      <section class="deck-slide deck-slide--hero theme-paper" id="robot-2" data-slide data-chapter="Ouverture" data-title="Robot 2" data-theme="light" aria-labelledby="slide-01-title">
+        <div class="slide-stage slide-stage--hero">
+          <div class="hero-index" aria-hidden="true">02</div>
+          <div class="hero-copy" data-reveal>
+            <p class="kicker">Conception mécanique · Qualification numérique</p>
+            <h1 id="slide-01-title"><span>Robot</span><em>2</em></h1>
+            <p class="hero-deck">De la CAO paramétrique à une cellule de palettisation quatre axes qualifiée en simulation.</p>
+          </div>
+          <figure class="hero-robot" data-visual><img src="./media/robot-placing-wide.png" alt="Vue CAO de Robot 2 en posture de dépose" /></figure>
+          <p class="hero-cue">Défiler · flèches · espace</p>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-ink" id="enjeu" data-slide data-chapter="Cadrage" data-title="L’enjeu" data-theme="dark" aria-labelledby="slide-02-title">
+        <div class="slide-stage statement-stage">
+          <p class="kicker" data-reveal>Le point de départ</p>
+          <h2 id="slide-02-title" class="display display--wide" data-reveal>Transformer un geste répétitif en un cycle <em>maîtrisé.</em></h2>
+          <ol class="verb-line" aria-label="Séquence fonctionnelle" data-reveal>
+            <li><span>01</span>Prendre</li><li><span>02</span>Transporter</li><li><span>03</span>Déposer</li>
+          </ol>
+          <p class="side-note" data-reveal>L’objectif n’était pas de dessiner un bras isolé, mais de produire une cellule vérifiable qui préserve le flux de ligne.</p>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-paper" id="contrat" data-slide data-chapter="Cadrage" data-title="Le contrat de réussite" data-theme="light" aria-labelledby="slide-03-title">
+        <div class="slide-stage metric-stage">
+          <div class="metric-stage__heading" data-reveal><p class="kicker">Le contrat de réussite</p><h2 id="slide-03-title" class="display">Quatre nombres ont cadré la conception.</h2></div>
+          <dl class="spec-axis" data-reveal>
+            <div><dt>9,6 <small>kg</small></dt><dd>Produit maximal observé</dd></div>
+            <div><dt>15 <small>kg</small></dt><dd>Carton de calcul simulé</dd></div>
+            <div><dt>4 <small>axes</small></dt><dd>Architecture Robot 2</dd></div>
+            <div class="spec-axis__target"><dt>&lt; 12 <small>s</small></dt><dd>Exigence par cycle</dd></div>
+          </dl>
+          <p class="evidence-note">300 cartons/h est une équivalence théorique, hors arrêts et hors TRS.</p>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-mist" id="cellule" data-slide data-chapter="Architecture" data-title="Une cellule, pas seulement un bras" data-theme="light" aria-labelledby="slide-04-title">
+        <div class="slide-stage split-stage split-stage--image-left">
+          <figure class="visual-frame visual-frame--assembly" data-visual><img src="./media/robot-assembly-iso.png" alt="Vue isométrique de l’assemblage complet Robot 2" /><figcaption>Assemblage numérique · posture de travail</figcaption></figure>
+          <div class="split-stage__copy" data-reveal>
+            <p class="kicker">Choix système</p><h2 id="slide-04-title" class="display">Une cellule, pas seulement un bras.</h2>
+            <p class="lede">Le robot donne la portée. L’indexeur présente la rangée. La préhension et la supervision ferment la boucle.</p>
+            <ul class="line-list"><li>Robot quatre axes</li><li>Palette indexée</li><li>Préhension trois zones</li><li>Perception et interverrouillages</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-paper" id="anatomie" data-slide data-chapter="Architecture" data-title="L’anatomie de Robot 2" data-theme="light" aria-labelledby="slide-05-title">
+        <div class="slide-stage anatomy-stage">
+          <div class="anatomy-stage__copy" data-reveal><p class="kicker">Chaîne cinématique</p><h2 id="slide-05-title" class="display">Chaque axe a une responsabilité nette.</h2></div>
+          <div class="webgl-shell robot-overview-shell" data-visual>
+            <img class="webgl-poster" src="./media/robot-atlas.png" alt="Atlas CAO annoté des articulations J1 à J4" />
+            <canvas data-robot-canvas data-robot-model="./models/robot2-complete.glb" data-robot-kind="overview" aria-label="Modèle 3D interactif complet de Robot 2"></canvas>
+            <p class="webgl-status" data-webgl-status>Chargement du robot complet</p>
+            <p class="robot-overview-label">Assemblage complet · posture de dépose</p>
+            <div class="robot-view-controls" aria-label="Sous-ensembles du robot">
+              <button type="button" data-robot-focus="all" aria-pressed="true">Ensemble</button>
+              <button type="button" data-robot-focus="structure" aria-pressed="false">Structure</button>
+              <button type="button" data-robot-focus="transmission" aria-pressed="false">Transmission J3</button>
+              <button type="button" data-robot-focus="tool" aria-pressed="false">Préhension</button>
+            </div>
+          </div>
+          <ol class="joint-strip" data-reveal>
+            <li><b>J1</b><span>Tourner le plan</span></li><li><b>J2</b><span>Lever le bras</span></li><li><b>J3</b><span>Orienter l’avant-bras</span></li><li><b>J4</b><span>Régler le lacet outil</span></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-ink" id="decision-j3" data-slide data-chapter="Décisions mécaniques" data-title="Le moteur J3 reste à l’épaule" data-theme="dark" aria-labelledby="slide-06-title">
+        <div class="slide-stage webgl-stage">
+          <div class="webgl-stage__copy" data-reveal>
+            <p class="kicker">Décision n° 01 · Distribution des masses</p><h2 id="slide-06-title" class="display">Le moteur J3 reste à <em>l’épaule.</em></h2>
+            <p class="lede">Un distributeur, deux demi-arbres et deux biellettes transmettent le mouvement jusqu’au coude — sans embarquer le moteur en bout de bras.</p>
+            <p class="decision-line"><span>Gain recherché</span> Réduire l’inertie portée sans perdre la fermeture cinématique.</p>
+          </div>
+          <div class="webgl-shell" data-visual>
+            <img class="webgl-poster" src="./media/j3-articulation-exploded.png" alt="Articulation J3 en vue éclatée" />
+            <canvas data-robot-canvas data-robot-model="./models/j3-articulation.glb" data-robot-kind="detail" aria-label="Modèle 3D interactif de l’articulation J3"></canvas>
+            <p class="webgl-status" data-webgl-status>Chargement du modèle 3D</p>
+          </div>
+          <p class="webgl-hint">Glisser pour inspecter · modèle CAO optimisé</p>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-paper" id="structure" data-slide data-chapter="Décisions mécaniques" data-title="Le calcul a empêché un faux gain" data-theme="light" aria-labelledby="slide-07-title">
+        <div class="slide-stage chart-stage">
+          <div class="chart-stage__copy" data-reveal>
+            <p class="kicker">Décision n° 02 · Allègement</p><h2 id="slide-07-title" class="display">Le calcul a empêché un faux gain de masse.</h2>
+            <p class="lede">La colonne offrait une piste locale crédible. Les bras restaient gouvernants : les allègements non démontrés ont été refusés.</p>
+            <dl class="mini-ledger"><div><dt>−12,29 kg</dt><dd>Candidat colonne, conditionnel</dd></div><div><dt>CS<sub>y</sub> 3,70</dt><dd>Cas sévère du candidat</dd></div><div><dt>CS<sub>y</sub> 1,87</dt><dd>Bras supérieur gouvernant</dd></div></dl>
+          </div>
+          <figure class="chart-visual" data-visual><img src="./media/fea-comparison.svg" alt="Comparaison des coefficients de sécurité issus de la campagne de calcul" /><figcaption>Campagne EF gelée · décision traçable</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-teal" id="cao-parametrique" data-slide data-chapter="Ingénierie numérique" data-title="La CAO devient un système" data-theme="dark" aria-labelledby="slide-08-title">
+        <div class="slide-stage system-stage">
+          <div class="system-stage__number" data-reveal>36</div>
+          <div class="system-stage__copy" data-reveal><p class="kicker">CAO paramétrique · STEP-first</p><h2 id="slide-08-title" class="display">La géométrie devient un système reproductible.</h2><p class="lede">Une source unique de paramètres, un vocabulaire de conception partagé, puis un contrôle automatique avant export.</p></div>
+          <ol class="code-flow" data-reveal>
+            <li><code>params.py</code><span>dimensions & matériaux</span></li><li><code>cadlib.py</code><span>règles de conception</span></li><li><code>parts/r2_*.py</code><span>36 générateurs</span></li><li><code>tools/check.py</code><span>géométrie · masse · contrat</span></li><li><code>STEP / GLB</code><span>livrables contrôlés</span></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-paper" id="chaine-numerique" data-slide data-pipeline-slide="overview" data-chapter="Ingénierie numérique" data-title="La pipeline numérique complète" data-theme="light" aria-labelledby="slide-09-title">
+        <div class="slide-stage pipeline-stage pipeline-stage--overview">
+          <header class="pipeline-stage__heading" data-reveal>
+            <div><p class="kicker">Chaîne numérique · Vue système</p><h2 id="slide-09-title" class="display">Du modèle au résultat, sans rupture d’autorité.</h2></div>
+            <p class="lede">Six responsabilités structurent le flux. La physique retourne ses états avant que l’orchestrateur n’engage l’étape suivante.</p>
+          </header>
+          <div class="ce-pipeline" data-pipeline-visual role="img" aria-labelledby="ce-pipeline-title ce-pipeline-desc">
+            <svg class="ce-pipeline__canvas" viewBox="0 0 1780 520" xmlns="http://www.w3.org/2000/svg">
+              <title id="ce-pipeline-title">Chaîne numérique du simulateur Robot 2</title>
+              <desc id="ce-pipeline-desc">Six blocs alignés de gauche à droite : modèles, perception, orchestration, trajectoire, commande et physique, puis résultats. Une boucle turquoise retourne les états de la physique vers la perception et l'orchestration. Les quatre blocs centraux sont contenus dans le runtime Docker.</desc>
+              <defs>
+                <filter id="ce-node-shadow" x="-20%" y="-30%" width="140%" height="170%">
+                  <feDropShadow dx="0" dy="9" stdDeviation="11" flood-color="#0d1821" flood-opacity="0.08" />
+                </filter>
+                <marker id="ce-arrow-navy" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" /></marker>
+                <marker id="ce-arrow-teal" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" /></marker>
+                <marker id="ce-arrow-gold" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" /></marker>
+                <marker id="ce-arrow-proof" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10Z" /></marker>
+              </defs>
+
+              <g class="ce-pipeline__foundation" data-ce-foundation>
+                <rect class="ce-pipeline__boundary" x="306" y="76" width="1176" height="358" rx="16" />
+                <rect class="ce-pipeline__boundary-label-bg" x="330" y="62" width="552" height="30" rx="4" />
+                <text class="ce-pipeline__boundary-label" x="346" y="83">RUNTIME DOCKER · ROS 2 JAZZY · GAZEBO HARMONIC</text>
+              </g>
+
+              <g class="ce-pipeline__connector ce-pipeline__connector--contract" data-ce-wire data-ce-seq="02">
+                <path class="ce-pipeline__wire" d="M270 253H322" marker-end="url(#ce-arrow-gold)" />
+                <rect class="ce-pipeline__label-bg" x="268" y="216" width="52" height="22" rx="4" />
+                <text class="ce-pipeline__label" x="294" y="231">contrat</text>
+              </g>
+              <g class="ce-pipeline__connector ce-pipeline__connector--command" data-ce-wire data-ce-seq="04">
+                <path class="ce-pipeline__wire" d="M566 253H618" marker-end="url(#ce-arrow-navy)" />
+                <rect class="ce-pipeline__label-bg" x="565" y="216" width="50" height="22" rx="4" />
+                <text class="ce-pipeline__label" x="590" y="231">pose</text>
+              </g>
+              <g class="ce-pipeline__connector ce-pipeline__connector--command" data-ce-wire data-ce-seq="06">
+                <path class="ce-pipeline__wire" d="M862 253H914" marker-end="url(#ce-arrow-navy)" />
+                <rect class="ce-pipeline__label-bg" x="860" y="216" width="52" height="22" rx="4" />
+                <text class="ce-pipeline__label" x="886" y="231">cible</text>
+              </g>
+              <g class="ce-pipeline__connector ce-pipeline__connector--command" data-ce-wire data-ce-seq="08">
+                <path class="ce-pipeline__wire" d="M1158 253H1210" marker-end="url(#ce-arrow-navy)" />
+                <rect class="ce-pipeline__label-bg" x="1156" y="216" width="52" height="22" rx="4" />
+                <text class="ce-pipeline__label" x="1182" y="231">traj.</text>
+              </g>
+              <g class="ce-pipeline__connector ce-pipeline__connector--proof" data-ce-wire data-ce-seq="10">
+                <path class="ce-pipeline__wire" d="M1454 253H1506" marker-end="url(#ce-arrow-proof)" />
+                <rect class="ce-pipeline__label-bg" x="1450" y="216" width="54" height="22" rx="4" />
+                <text class="ce-pipeline__label" x="1477" y="231">lot daté</text>
+              </g>
+
+              <g class="ce-pipeline__node ce-pipeline__node--contract" data-ce-node data-ce-seq="01" transform="translate(34 168)">
+                <rect class="ce-pipeline__node-frame" width="230" height="170" rx="10" />
+                <rect class="ce-pipeline__node-accent" width="6" height="170" rx="3" />
+                <circle class="ce-pipeline__port ce-pipeline__port--out" cx="230" cy="85" r="6" />
+                <text class="ce-pipeline__eyebrow" x="24" y="32">01 · DÉCRIRE</text>
+                <text class="ce-pipeline__title" x="24" y="67"><tspan x="24">Modèles &amp;</tspan><tspan x="24" dy="28">contrats</tspan></text>
+                <line class="ce-pipeline__divider" x1="24" y1="113" x2="206" y2="113" />
+                <text class="ce-pipeline__detail" x="24" y="140">CAO · URDF/SRDF · SDF</text>
+              </g>
+
+              <g class="ce-pipeline__node ce-pipeline__node--state" data-ce-node data-ce-seq="03" transform="translate(330 168)">
+                <rect class="ce-pipeline__node-frame" width="230" height="170" rx="10" />
+                <rect class="ce-pipeline__node-accent" width="6" height="170" rx="3" />
+                <circle class="ce-pipeline__port ce-pipeline__port--in" cx="0" cy="85" r="6" />
+                <circle class="ce-pipeline__port ce-pipeline__port--out" cx="230" cy="85" r="6" />
+                <circle class="ce-pipeline__port ce-pipeline__port--return" cx="115" cy="170" r="6" />
+                <text class="ce-pipeline__eyebrow" x="24" y="32">02 · OBSERVER</text>
+                <text class="ce-pipeline__title" x="24" y="67"><tspan x="24">Perception</tspan><tspan x="24" dy="28">validée</tspan></text>
+                <line class="ce-pipeline__divider" x1="24" y1="113" x2="206" y2="113" />
+                <text class="ce-pipeline__detail" x="24" y="140">pose · âge · identité</text>
+              </g>
+
+              <g class="ce-pipeline__node ce-pipeline__node--decision" data-ce-node data-ce-seq="05" transform="translate(626 168)">
+                <rect class="ce-pipeline__node-frame" width="230" height="170" rx="10" />
+                <rect class="ce-pipeline__node-accent" width="6" height="170" rx="3" />
+                <circle class="ce-pipeline__port ce-pipeline__port--in" cx="0" cy="85" r="6" />
+                <circle class="ce-pipeline__port ce-pipeline__port--out" cx="230" cy="85" r="6" />
+                <circle class="ce-pipeline__port ce-pipeline__port--return" cx="115" cy="170" r="6" />
+                <text class="ce-pipeline__eyebrow" x="24" y="32">03 · DÉCIDER</text>
+                <text class="ce-pipeline__title" x="24" y="77">Orchestration</text>
+                <line class="ce-pipeline__divider" x1="24" y1="113" x2="206" y2="113" />
+                <text class="ce-pipeline__detail" x="24" y="140">phases · interlocks</text>
+              </g>
+
+              <g class="ce-pipeline__node ce-pipeline__node--decision" data-ce-node data-ce-seq="07" transform="translate(922 168)">
+                <rect class="ce-pipeline__node-frame" width="230" height="170" rx="10" />
+                <rect class="ce-pipeline__node-accent" width="6" height="170" rx="3" />
+                <circle class="ce-pipeline__port ce-pipeline__port--in" cx="0" cy="85" r="6" />
+                <circle class="ce-pipeline__port ce-pipeline__port--out" cx="230" cy="85" r="6" />
+                <text class="ce-pipeline__eyebrow" x="24" y="32">04 · PRÉPARER</text>
+                <text class="ce-pipeline__title" x="24" y="67"><tspan x="24">Trajectoire</tspan><tspan x="24" dy="28">vérifiée</tspan></text>
+                <line class="ce-pipeline__divider" x1="24" y1="113" x2="206" y2="113" />
+                <text class="ce-pipeline__detail" x="24" y="140">IK · quintiques · MoveIt</text>
+              </g>
+
+              <g class="ce-pipeline__node ce-pipeline__node--execution" data-ce-node data-ce-seq="09" transform="translate(1218 168)">
+                <rect class="ce-pipeline__node-frame" width="230" height="170" rx="10" />
+                <rect class="ce-pipeline__node-accent" width="6" height="170" rx="3" />
+                <circle class="ce-pipeline__port ce-pipeline__port--in" cx="0" cy="85" r="6" />
+                <circle class="ce-pipeline__port ce-pipeline__port--out" cx="230" cy="85" r="6" />
+                <circle class="ce-pipeline__port ce-pipeline__port--return" cx="115" cy="170" r="6" />
+                <text class="ce-pipeline__eyebrow" x="24" y="32">05 · EXÉCUTER</text>
+                <text class="ce-pipeline__title" x="24" y="67"><tspan x="24">Commande &amp;</tspan><tspan x="24" dy="28">physique</tspan></text>
+                <line class="ce-pipeline__divider" x1="24" y1="113" x2="206" y2="113" />
+                <text class="ce-pipeline__detail" x="24" y="140">JTC · Gazebo / DART</text>
+              </g>
+
+              <g class="ce-pipeline__node ce-pipeline__node--proof" data-ce-node data-ce-seq="11" transform="translate(1514 168)">
+                <rect class="ce-pipeline__node-frame" width="230" height="170" rx="10" />
+                <rect class="ce-pipeline__node-accent" width="6" height="170" rx="3" />
+                <circle class="ce-pipeline__port ce-pipeline__port--in" cx="0" cy="85" r="6" />
+                <text class="ce-pipeline__eyebrow" x="24" y="32">06 · ÉVALUER</text>
+                <text class="ce-pipeline__title" x="24" y="77">Résultats</text>
+                <line class="ce-pipeline__divider" x1="24" y1="113" x2="206" y2="113" />
+                <text class="ce-pipeline__detail" x="24" y="140">cadence · placement · suivi</text>
+              </g>
+
+              <g class="ce-pipeline__feedback" data-ce-wire data-ce-seq="12">
+                <path class="ce-pipeline__wire ce-pipeline__wire--feedback" d="M1333 344V402H445V346" marker-end="url(#ce-arrow-teal)" />
+                <path class="ce-pipeline__wire ce-pipeline__wire--feedback-branch" d="M741 402V346" marker-end="url(#ce-arrow-teal)" />
+                <circle class="ce-pipeline__junction" cx="741" cy="402" r="5" />
+                <rect class="ce-pipeline__feedback-label-bg" x="790" y="384" width="500" height="31" rx="5" />
+                <text class="ce-pipeline__feedback-label" x="1040" y="405">ÉTATS MESURÉS · images · positions · contacts · confirmations</text>
+              </g>
+
+              <g class="ce-pipeline__legend" data-ce-foundation aria-hidden="true">
+                <line class="ce-pipeline__legend-line ce-pipeline__legend-line--command" x1="42" y1="482" x2="92" y2="482" />
+                <text x="106" y="488">flux de commande</text>
+                <line class="ce-pipeline__legend-line ce-pipeline__legend-line--state" x1="330" y1="482" x2="380" y2="482" />
+                <text x="394" y="488">états &amp; confirmations</text>
+                <line class="ce-pipeline__legend-line ce-pipeline__legend-line--contract" x1="704" y1="482" x2="754" y2="482" />
+                <text x="768" y="488">contrat de modèle</text>
+                <line class="ce-pipeline__legend-line ce-pipeline__legend-line--proof" x1="1046" y1="482" x2="1096" y2="482" />
+                <text x="1110" y="488">traces d’exécution</text>
+              </g>
+            </svg>
+          </div>
+          <p class="pipeline-stage__note" data-reveal>Docker enferme le runtime — pas les modèles d’entrée ni les résultats de sortie.</p>
+        </div>
+      </section>
+
+
+      <section class="deck-slide theme-paper" id="modeles-contrats" data-slide data-pipeline-slide="models" data-chapter="Ingénierie numérique" data-title="Décrire — Modèles et contrats" data-theme="light" aria-labelledby="models-title">
+        <div class="slide-stage models-stage" data-models-step="0" data-models-static="false">
+          <header class="models-heading">
+            <div><h2 class="display" id="models-title">De la CAO aux descriptions<br />du simulateur.</h2></div>
+            <p class="models-intro">Nous décrivons <strong>ce qui bouge, comment les corps sont reliés et dans quel monde ils évoluent.</strong> Chaque fichier répond à une question précise.</p>
+          </header>
+
+          <div class="models-map" aria-label="Les données CAO et les choix de simulation alimentent quatre descriptions complémentaires : URDF, SRDF, SDF et modèle dynamique fermé.">
+            <div class="models-preparation">
+              <p class="models-column-label">Préparer les données</p>
+              <div class="models-source" data-models-block="0">
+                <span class="models-source__tool">Python · build123d</span>
+                <h3>CAO paramétrique</h3>
+                <p>Les STEP existants et leurs placements fournissent la géométrie de Robot 2.</p>
+                <span class="models-source__file">params.py · pièces STEP</span>
+              </div>
+              <div class="models-down" aria-hidden="true"><span>regrouper les pièces solidaires</span></div>
+              <div class="models-source models-source--bodies" data-models-block="1">
+                <span class="models-source__tool">Python · NumPy</span>
+                <h3>Corps rigides</h3>
+                <p>Nous regroupons les masses, centres de gravité et inerties dans le repère de chaque corps.</p>
+                <span class="models-source__file">table d’appartenance · propriétés</span>
+              </div>
+              <p class="models-preparation__note">Ces données sont complétées par nos choix de cellule, de commande et de simulation.</p>
+            </div>
+
+            <div class="models-lanes">
+              <span class="models-flow-bus" aria-hidden="true"></span>
+              <article class="models-lane" data-models-block="2">
+                <div class="models-format">
+                  <p class="models-format__type">Structure du robot</p>
+                  <h3>URDF</h3>
+                  <p class="models-format__target">TF · ros2_control · Gazebo</p>
+                </div>
+                <div class="models-explanation">
+                  <h3>Quels corps ? Quels axes ? Quels repères ?</h3>
+                  <ul>
+                    <li>Robot 2 est réduit à <strong>cinq corps principaux, reliés par J1 à J4</strong> : base, colonne, bras, avant-bras et outil.</li>
+                    <li>Nous déclarons les repères locaux, axes et limites des articulations, les masses et inerties, avec des formes simplifiées pour les collisions.</li>
+                  </ul>
+                </div>
+              </article>
+              <article class="models-lane" data-models-block="3">
+                <div class="models-format">
+                  <p class="models-format__type">Règles de planification</p>
+                  <h3>SRDF</h3>
+                  <p class="models-format__target">MoveIt 2</p>
+                </div>
+                <div class="models-explanation">
+                  <h3>Quels axes MoveIt doit-il considérer ensemble ?</h3>
+                  <ul>
+                    <li>Nous réunissons <strong>les quatre axes du bras dans le groupe de planification</strong>.</li>
+                    <li>MoveIt associe cette sélection aux géométries de collision de l’URDF pour vérifier les postures du robot.</li>
+                  </ul>
+                </div>
+              </article>
+              <article class="models-lane models-lane--world" data-models-block="4">
+                <div class="models-format">
+                  <p class="models-format__type">Monde et capteurs</p>
+                  <h3>SDF</h3>
+                  <p class="models-format__target">Gazebo Harmonic · DART</p>
+                </div>
+                <div class="models-explanation">
+                  <h3>Dans quelle cellule le robot va-t-il travailler ?</h3>
+                  <ul>
+                    <li>Notre monde décrit <strong>le poste de prise, la caméra RGB-D et la palette indexée suivant Y</strong>, avec la gravité et les contacts.</li>
+                    <li>Le lancement charge le robot URDF dans cette cellule ; l’indexeur est un axe de cellule distinct de J1–J4.</li>
+                  </ul>
+                </div>
+              </article>
+              <article class="models-lane models-lane--dynamics" data-models-block="5">
+                <div class="models-format">
+                  <p class="models-format__type">Dynamique fermée</p>
+                  <h3>JSON</h3>
+                  <p class="models-format__target">Solveur Python · NumPy</p>
+                </div>
+                <div class="models-explanation">
+                  <h3>Comment conserver la contribution des bielles ?</h3>
+                  <ul>
+                    <li>Nous gardons <strong>le crank et les deux bielles dans un modèle fermé séparé</strong> pour calculer leur contribution aux efforts.</li>
+                    <li>L’URDF reste un substitut série à quatre axes : il ne reproduit pas explicitement la fermeture du mécanisme.</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="deck-slide theme-mist" id="prehension" data-slide data-pipeline-slide="perception" data-chapter="Commande" data-title="De l’image caméra à la pose validée" data-theme="light" aria-labelledby="slide-11-title">
+        <div class="slide-stage observer-stage">
+          <header class="observer-heading">
+            <h2 id="slide-11-title" class="display">Voir le carton.<br>En extraire la pose.</h2>
+            <p>Deux flux synchronisés entrent. <strong>Un dessus, une pose métrique et une décision supervisée</strong> en sortent.</p>
+          </header>
+          <div class="observer-workspace" data-pipeline-visual>
+            <div class="observer-measurement" data-camera-mode="depth">
+              <div class="observer-capture-headings">
+                <div class="observer-phase observer-phase--capture" data-observer-phase="0"><button class="observer-beat" type="button" data-observer-beat="0"><b>01</b><span>CAPTER</span></button><h3>Ce que voit la caméra <span>RGB · Gazebo</span></h3></div>
+                <div class="observer-phase observer-phase--isolate" data-observer-phase="1"><div><button class="observer-beat" type="button" data-observer-beat="1"><b>02</b><span>ISOLER</span></button><h3>Ce que l’on en extrait</h3></div><div class="observer-camera-controls" role="group" aria-label="Canal du détail annoté"><button type="button" data-observer-channel="depth" aria-pressed="true">Profondeur</button><button type="button" data-observer-channel="rgb" aria-pressed="false">Couleur</button></div></div>
+              </div>
+              <figure class="observer-camera-figure">
+                <div data-observer-camera role="region" aria-label="Capture et détail annoté, défilement horizontal sur petit écran" tabindex="0"></div>
+                <p class="observer-pan-hint">Faire glisser pour voir le détail annoté →</p>
+                <figcaption>
+                  <div class="observer-source-caption"><p>Dans la zone de prise, <strong>les pixels bruns</strong> donnent une première profondeur du carton.</p><p class="observer-capture-provenance">Capture Gazebo · RGB-D synchronisés · HD d’illustration</p></div>
+                  <div>
+                    <div class="observer-depth-key"><span>1,0 m</span><i></i><span>3,3 m</span><small>profondeur · fausses couleurs</small></div>
+                    <p><strong>La bande ±3 mm retrouve le dessus.</strong> Centre et axe PCA sont calculés sur ces pixels.</p>
+                  </div>
+                </figcaption>
+              </figure>
+              <div class="observer-pose observer-phase" data-observer-phase="2" aria-label="Pose extraite de la capture haute définition, sans correction de biais nominale">
+                <svg class="observer-project-flow" viewBox="0 0 24 30" aria-hidden="true"><path d="M12 0V23" pathLength="1"/><polygon points="12,29 6,20 18,20"/></svg>
+                <header class="observer-project-heading">
+                  <button class="observer-beat" type="button" data-observer-beat="2"><b>03</b><span>PROJETER</span></button>
+                  <h3>Du pixel au repère cellule</h3>
+                </header>
+                <div class="observer-project-body">
+                  <div class="observer-project-method">
+                    <ol aria-label="Conversion de la position">
+                      <li><strong>Pixels + profondeur</strong><small>u, v, d</small></li>
+                      <li><strong>Projection K⁻¹</strong><small>repère caméra</small></li>
+                      <li><strong>Transformation</strong><small>caméra → cellule</small></li>
+                    </ol>
+                    <p>Axe PCA → orientation θ dans la cellule.</p>
+                  </div>
+                  <div class="observer-project-result">
+                    <dl data-observer-pose aria-label="Centre et orientation du carton dans le repère cellule"></dl>
+                    <p>Z = dessus − h/2 <span>· h = 0,30 m</span></p>
+                  </div>
+                </div>
+                <span class="observer-pose__port" aria-hidden="true"></span>
+              </div>
+            </div>
+            <aside class="observer-supervision observer-phase" data-observer-phase="3" aria-labelledby="observer-supervision-title">
+              <div class="observer-section-label"><span class="observer-supervision__port" aria-hidden="true"></span><button class="observer-beat" type="button" data-observer-beat="3"><b>04</b><span>AUTORISER</span></button><span>SUPERVISEUR <b>· ROS 2</b></span></div>
+              <h3 id="observer-supervision-title">Vérifier avant d’autoriser la prise.</h3>
+              <p class="observer-supervision__intro">Quatre conditions à réunir pour le carton en cours.</p>
+              <ol class="observer-checks">
+                <li data-observer-check="A"><button type="button" data-observer-cue="3" aria-label="Présenter le contrôle A : Présence"><span class="observer-check-letter">A</span><span class="observer-check-copy"><strong>Présence</strong><span>Un carton est au poste de prise.</span></span></button></li>
+                <li data-observer-check="B"><button type="button" data-observer-cue="4" aria-label="Présenter le contrôle B : Validité"><span class="observer-check-letter">B</span><span class="observer-check-copy"><strong>Validité</strong><span>Les flux et l’estimation sont exploitables.</span></span></button></li>
+                <li data-observer-check="C"><button type="button" data-observer-cue="5" aria-label="Présenter le contrôle C : Fraîcheur"><span class="observer-check-letter">C</span><span class="observer-check-copy"><strong>Fraîcheur</strong><span>Âge de l’observation ≤ 200 ms</span></span></button></li>
+                <li data-observer-check="D"><button type="button" data-observer-cue="6" aria-label="Présenter le contrôle D : Association"><span class="observer-check-letter">D</span><span class="observer-check-copy"><strong>Association</strong><span>Une nouvelle observation pour le carton courant.</span></span></button></li>
+              </ol>
+              <div class="observer-decision">
+                <button class="observer-authorized" type="button" data-observer-cue="7" aria-label="Présenter la décision après les quatre contrôles"><span>SI LES QUATRE CONTRÔLES PASSENT</span><strong>Pose acceptée</strong></button>
+                <div class="observer-destinations"><p>Cible de prise</p><p>Objet de collision <b>MoveIt</b></p></div>
+                <p class="observer-hold"><strong>Sinon · HOLD_SENSOR</strong><span>La séquence attend une observation valable.</span></p>
+              </div>
+              <svg class="observer-handoff" aria-hidden="true"><path pathLength="1"/><polygon/></svg>
+            </aside>
+          </div>
+          <p class="deck-live" data-observer-live aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-paper" id="indexeur" data-slide data-pipeline-slide="coordination" data-chapter="Commande" data-title="Orchestrer un cycle confirmé" data-theme="light" aria-labelledby="slide-12-title">
+        <div class="slide-stage pipeline-stage pipeline-stage--detail orchestration-stage" data-orchestration-cue="0">
+          <header class="pipeline-stage__heading" data-reveal>
+            <h2 id="slide-12-title" class="display">Un cycle piloté par les confirmations.</h2>
+            <p class="lede"><strong>MultiCartonCycle</strong><br />Python · rclpy · ROS 2</p>
+          </header>
+          <div class="pipeline-zoom orch-flow-board" data-pipeline-visual>
+            <div class="orch-flow-viewport" data-orch-graph aria-label="Graphe du cycle ; cliquer une opération pour l’éclairer"></div>
+            <div>
+              <p class="orch-flow-legend"><i aria-hidden="true"></i><span>Commandes &amp; confirmations</span><span>·</span><b>Deux branches, une synchronisation</b></p>
+              <div class="orch-flow-controls">
+                <div class="orch-flow-focus"><span data-orch-label>Vue d’ensemble</span><p data-orch-caption>Observer, agir, confirmer : l’état du procédé fait avancer le cycle.</p></div>
+                <nav class="orch-flow-reader" aria-label="Parcours oral de l’orchestration">
+                  <button type="button" data-orch-goto="0">Vue globale</button>
+                  <button type="button" data-orch-prev aria-label="Phase précédente">←</button>
+                  <span data-orch-position>01 / 08</span>
+                  <button type="button" data-orch-next aria-label="Phase suivante">→</button>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-ink" id="dynamique" data-slide data-pipeline-slide="motion" data-chapter="Commande" data-title="Préparer une trajectoire vérifiable" data-theme="dark" aria-labelledby="slide-13-title">
+        <div class="slide-stage pipeline-stage pipeline-stage--detail trajectory-stage" data-trajectory-cue="0">
+          <header class="pipeline-stage__heading" data-reveal>
+            <h2 id="slide-13-title" class="display">Préparer une trajectoire vérifiable</h2>
+            <p class="lede"><strong>Constructeur Python</strong><br />MoveIt 2 · ROS 2</p>
+          </header>
+          <div class="pipeline-zoom trajectory-board" data-pipeline-visual>
+            <div class="trajectory-viewport" data-traj-graph aria-label="Préparation de trajectoire ; cliquer une étape ou une figure pour l’éclairer"></div>
+            <div>
+              <p class="trajectory-source">Commande planifiée · campagne v6 · séquence 4 · carton 9 · transfert chargé</p>
+              <div class="trajectory-controls">
+                <div class="trajectory-focus"><span data-traj-label>Vue d’ensemble</span><p data-traj-caption>Le code construit le passage et sa durée. MoveIt vérifie les états avant l’envoi.</p></div>
+                <nav class="trajectory-reader" aria-label="Parcours oral de la préparation de trajectoire">
+                  <button type="button" data-traj-goto="0">Vue globale</button>
+                  <button type="button" data-traj-prev aria-label="Étape précédente">←</button>
+                  <span data-traj-position>01 / 07</span>
+                  <button type="button" data-traj-next aria-label="Étape suivante">→</button>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-ink" id="stack" data-slide data-pipeline-slide="runtime" data-chapter="Commande" data-title="Commande en effort et réponse simulée" data-theme="dark" aria-labelledby="slide-runtime-title">
+        <div class="slide-stage pipeline-stage pipeline-stage--detail runtime-stage" data-runtime-cue="0">
+          <header class="pipeline-stage__heading">
+            <div><h2 id="slide-runtime-title" class="display">Commande en effort et réponse simulée</h2></div>
+            <p class="lede"><strong>Boucle de suivi en effort</strong><br>ros2_control · Gazebo / DART</p>
+          </header>
+          <div class="runtime-board">
+            <div class="runtime-viewport" data-runtime-graph></div>
+            <div>
+              <p class="runtime-source" data-runtime-source>Traces de simulation · campagne v6 · séquence 4 · carton 9 · transfert chargé</p>
+              <div class="runtime-controls">
+                <div class="runtime-focus"><span data-runtime-label>Vue d’ensemble</span><p data-runtime-caption>Une référence, des efforts et des états simulés qui ferment la boucle.</p></div>
+              <nav class="runtime-reader" aria-label="Vues de la commande et de la physique">
+                  <button type="button" data-runtime-goto="0">Vue globale</button>
+                <button type="button" data-runtime-prev aria-label="Vue précédente">←</button>
+                  <span data-runtime-position>01 / 06</span>
+                <button type="button" data-runtime-next aria-label="Vue suivante">→</button>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-mist" id="cycle" data-slide data-pipeline-slide="results" data-chapter="Résultats" data-title="Résultats de simulation" data-theme="light" aria-labelledby="slide-results-title">
+        <div class="slide-stage pipeline-stage pipeline-stage--detail results-stage">
+          <header class="pipeline-stage__heading">
+            <div><h2 id="slide-results-title" class="display">Résultats de simulation</h2></div>
+            <p class="lede"><strong>Campagne v6</strong><br>9 séquences de 12 cartons</p>
+          </header>
+          <div class="results-board">
+            <nav class="results-tabs" aria-label="Vues des résultats de simulation">
+              <button type="button" data-results-goto="0"><span>01</span>Vue d’ensemble</button>
+              <button type="button" data-results-goto="1"><span>02</span>Cadence</button>
+              <button type="button" data-results-goto="2"><span>03</span>Qualité</button>
+            </nav>
+            <div class="results-viewport" data-results-flow></div>
+            <p class="results-scope">Simulation v6 · 9 séquences distinctes · 8 réinitialisations exclues des durées · aucune qualification de performance terrain</p>
+            <div class="results-controls">
+              <div class="results-focus"><span data-results-label>01 · Résultat d’ensemble</span><p data-results-caption>Neuf séquences complètes de douze cartons, avec un verdict accepté pour chacun des 108 cycles.</p></div>
+              <nav class="results-reader" aria-label="Avancement dans les résultats">
+                <button type="button" data-results-prev aria-label="Vue précédente">←</button>
+                <span data-results-position>01 / 06</span>
+                <button type="button" data-results-next aria-label="Vue suivante">→</button>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-paper" id="hold-pass" data-slide data-chapter="Qualification" data-title="De HOLD à PASS" data-theme="light" aria-labelledby="slide-15-title">
+        <div class="slide-stage hold-stage">
+          <div class="hold-stage__copy" data-reveal><p class="kicker">Rigueur de qualification</p><h2 id="slide-15-title" class="display">De <span class="status-hold">HOLD</span> à <span class="status-pass">PASS</span>, sans changer les seuils.</h2><p class="lede">Les campagnes incomplètes n’ont jamais été recombinées. Chaque défaut de preuve a arrêté l’essai.</p></div>
+          <ol class="campaign-line" data-reveal><li class="is-hold"><b>v1</b><span>2 cycles &gt; 12 s</span></li><li class="is-hold"><b>v2</b><span>preuve manquante</span></li><li class="is-hold"><b>v3</b><span>fraîcheur invalide</span></li><li class="is-hold"><b>v4</b><span>arrêt fail-closed</span></li><li class="is-hold"><b>v5</b><span>arrêt fail-closed</span></li><li class="is-pass"><b>v6</b><span>108 / 108</span></li></ol>
+          <blockquote data-reveal>Le résultat final vaut aussi par les essais que nous avons refusé de faire passer.</blockquote>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-teal" id="protocole" data-slide data-chapter="Qualification" data-title="Neuf séquences, 108 verdicts" data-theme="dark" aria-labelledby="slide-16-title">
+        <div class="slide-stage campaign-stage">
+          <div class="campaign-stage__copy" data-reveal><p class="kicker">Protocole v6</p><h2 id="slide-16-title" class="display">Neuf séquences. Cent huit verdicts.</h2><p class="lede">Le seuil s’applique à chaque cycle — jamais à la seule moyenne.</p><ul class="line-list line-list--light"><li>9 démarrages frais</li><li>12 cartons par séquence</li><li>9 fermetures propres</li><li>8 resets déclarés, hors durée</li></ul></div>
+          <div class="cycle-matrix" data-cycle-matrix aria-label="Matrice des 108 cycles acceptés"></div>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-paper" id="resultat" data-slide data-chapter="Résultats" data-title="Les 108 cycles passent" data-theme="light" aria-labelledby="slide-17-title">
+        <div class="slide-stage result-stage">
+          <div class="result-stage__heading" data-reveal><p class="kicker">Résultat principal</p><h2 id="slide-17-title" class="display"><span>108 / 108</span> cycles restent sous 12 secondes.</h2></div>
+          <div class="cycle-plot" data-cycle-plot data-visual aria-label="Durée des 108 cycles par rapport au seuil de 12 secondes"></div>
+          <dl class="result-ledger" data-reveal><div><dt>10,556 s</dt><dd>Moyenne</dd></div><div><dt>11,526 s</dt><dd>Maximum</dd></div><div><dt>0,474 s</dt><dd>Marge minimale</dd></div><div><dt>PASS</dt><dd>Commissioning simulé</dd></div></dl>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-mist" id="qualite" data-slide data-chapter="Résultats" data-title="Cadence et qualité passent ensemble" data-theme="light" aria-labelledby="slide-18-title">
+        <div class="slide-stage quality-stage">
+          <div class="quality-stage__copy" data-reveal><p class="kicker">Verdicts associés</p><h2 id="slide-18-title" class="display">La cadence et la qualité passent ensemble.</h2><p class="lede">Le temps n’a pas été obtenu en relâchant l’horizontalité, le placement ou la saturation.</p></div>
+          <dl class="acceptance-ledger" data-reveal><div><dt>0,805°</dt><dd>Horizontalité max.</dd><span>&lt; 1°</span></div><div><dt>14,492 mm</dt><dd>Erreur XY max.</dd><span>PASS</span></div><div><dt>5,121 mm</dt><dd>Erreur Z max.</dd><span>PASS</span></div><div><dt>0,985°</dt><dd>Erreur lacet max.</dd><span>PASS</span></div><div><dt>10 ms</dt><dd>Saturation contiguë</dd><span>&lt; 50 ms</span></div></dl>
+          <figure class="quality-plot" data-visual><img src="./media/placement-trends.svg" alt="Tendances des erreurs de placement pendant la campagne" /></figure>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-ink" id="livrables" data-slide data-chapter="Transfert" data-title="Une référence prête pour le transfert" data-theme="dark" aria-labelledby="slide-19-title">
+        <div class="slide-stage deliverable-stage">
+          <div class="deliverable-stage__heading" data-reveal><p class="kicker">Ce que le projet livre</p><h2 id="slide-19-title" class="display">Une référence numérique prête pour le transfert.</h2></div>
+          <div class="artifact-ribbon" data-reveal><div><b>01</b><strong>CAD</strong><span>Sources paramétriques · STEP · GLB</span></div><div><b>02</b><strong>Calcul</strong><span>Charges · EF · décisions gelées</span></div><div><b>03</b><strong>Modèles</strong><span>URDF · SRDF · SDF</span></div><div><b>04</b><strong>Programme</strong><span>ROS 2 · contrôle · supervision</span></div><div><b>05</b><strong>Runtime</strong><span>Docker · CI · replays</span></div><div><b>06</b><strong>Preuves</strong><span>Traces · audits · rapport</span></div></div>
+          <div class="boundary-line" data-reveal><div><span>Acquis</span><p>Conception et commissioning numérique traçables.</p></div><div><span>À établir</span><p>Fabrication, mise en service, sécurité et performance terrain.</p></div></div>
+          <p class="closing-line" data-reveal>Nous n’avons pas seulement conçu une machine. Nous avons construit la manière de la vérifier.</p>
+        </div>
+      </section>
+    </main>
+
+    <div class="deck-live" aria-live="polite" aria-atomic="true" data-deck-live></div>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

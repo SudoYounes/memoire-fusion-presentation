@@ -1,0 +1,55 @@
+.has-js [data-reveal],
+.has-js [data-visual] {
+  will-change: transform, opacity;
+}
+
+.deck-slide.is-active .hero-cue {
+  animation: cue-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes cue-pulse {
+  0%, 100% { opacity: 0.42; transform: translateY(0); }
+  50% { opacity: 0.9; transform: translateY(4px); }
+}
+
+html.is-motion-off .hero-cue,
+html.is-reduced-motion .hero-cue {
+  animation: none;
+}
+
+html.is-reduced-motion {
+  scroll-snap-type: y mandatory;
+}
+
+html.is-reduced-motion .deck-slide {
+  scroll-snap-align: start;
+}
+
+html.is-capture .deck-slide {
+  display: none;
+}
+
+html.is-capture .deck-slide.is-capture-target {
+  display: grid;
+}
+
+html.is-reduced-motion [data-reveal],
+html.is-reduced-motion [data-visual] {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  will-change: auto;
+}
+
+html.is-reduced-motion .slide-atmosphere,
+html.is-motion-off .slide-atmosphere,
+html.is-capture .slide-atmosphere {
+  opacity: var(--atmosphere-opacity);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .has-js [data-reveal],
+  .has-js [data-visual] {
+    will-change: auto;
+  }
+}

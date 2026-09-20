@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+<title id="title">Chronogramme des phases</title>
+<desc id="desc">Étapes robot sur le temps ROS simulé ; les espaces blancs sont les attentes process et orchestration.</desc>
+<style>text{font-family:system-ui,sans-serif;fill:#172033} .axis{stroke:#6b7280;stroke-width:1} .grid{stroke:#d1d5db;stroke-width:1} .limit{stroke:#b42318;stroke-width:2;stroke-dasharray:7 5} .s1{stroke:#1769aa;fill:none}.s2{stroke:#d97706;fill:none}.s3{stroke:#16803b;fill:none}.s4{stroke:#7c3aed;fill:none}.s1mark{stroke:#1769aa;fill:#1769aa}.s2mark{stroke:#d97706;fill:#d97706}.s3mark{stroke:#16803b;fill:#16803b}.s4mark{stroke:#7c3aed;fill:#7c3aed}.muted{fill:#667085}.label{font-size:12px}.small{font-size:10px}.title{font-size:18px;font-weight:600}</style>
+<rect width="1200" height="680" fill="#ffffff"/>
+<text class="title" x="70" y="28">Chronogramme des phases</text>
+<text class="small" x="177" y="71.1" text-anchor="end">composite_startup_to_first_pick</text>
+<rect class="s1mark" x="185.0" y="57.0" width="10.9" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="93.9" text-anchor="end">composite_loaded_lift_transfer_1</text>
+<rect class="s2mark" x="200.9" y="79.8" width="36.2" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="116.7" text-anchor="end">composite_empty_return_1</text>
+<rect class="s1mark" x="241.9" y="102.6" width="29.4" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="139.5" text-anchor="end">composite_loaded_lift_transfer_2</text>
+<rect class="s2mark" x="275.9" y="125.4" width="36.1" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="162.3" text-anchor="end">composite_empty_return_2</text>
+<rect class="s1mark" x="317.1" y="148.2" width="28.7" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="185.1" text-anchor="end">composite_loaded_lift_transfer_3</text>
+<rect class="s2mark" x="351.1" y="171.0" width="36.0" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="207.9" text-anchor="end">composite_empty_return_3</text>
+<rect class="s1mark" x="392.8" y="193.8" width="29.4" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="230.7" text-anchor="end">composite_loaded_lift_transfer_4</text>
+<rect class="s2mark" x="427.2" y="216.6" width="36.1" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="253.5" text-anchor="end">composite_empty_return_4</text>
+<rect class="s1mark" x="468.2" y="239.4" width="28.6" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="276.3" text-anchor="end">composite_loaded_lift_transfer_5</text>
+<rect class="s2mark" x="505.1" y="262.2" width="39.7" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="299.1" text-anchor="end">composite_empty_return_5</text>
+<rect class="s1mark" x="549.8" y="285.0" width="33.3" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="321.9" text-anchor="end">composite_loaded_lift_transfer_6</text>
+<rect class="s2mark" x="587.8" y="307.8" width="40.5" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="344.7" text-anchor="end">composite_empty_return_6</text>
+<rect class="s1mark" x="632.9" y="330.6" width="33.4" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="367.5" text-anchor="end">composite_loaded_lift_transfer_7</text>
+<rect class="s2mark" x="670.7" y="353.4" width="40.0" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="390.3" text-anchor="end">composite_empty_return_7</text>
+<rect class="s1mark" x="714.9" y="376.2" width="33.4" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="413.1" text-anchor="end">composite_loaded_lift_transfer_8</text>
+<rect class="s2mark" x="752.3" y="399.0" width="39.8" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="435.9" text-anchor="end">composite_empty_return_8</text>
+<rect class="s1mark" x="796.8" y="421.8" width="33.4" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="458.7" text-anchor="end">composite_loaded_lift_transfer_9</text>
+<rect class="s2mark" x="835.1" y="444.6" width="41.2" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="481.5" text-anchor="end">composite_empty_return_9</text>
+<rect class="s1mark" x="881.0" y="467.4" width="38.9" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="504.3" text-anchor="end">composite_loaded_lift_transfer_10</text>
+<rect class="s2mark" x="923.4" y="490.2" width="39.7" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="527.1" text-anchor="end">composite_empty_return_10</text>
+<rect class="s1mark" x="966.9" y="513.0" width="38.9" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="549.9" text-anchor="end">composite_loaded_lift_transfer_11</text>
+<rect class="s2mark" x="1008.9" y="535.8" width="39.7" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="572.7" text-anchor="end">composite_empty_return_11</text>
+<rect class="s1mark" x="1051.8" y="558.6" width="38.9" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="595.5" text-anchor="end">composite_loaded_lift_transfer_12</text>
+<rect class="s2mark" x="1093.5" y="581.4" width="39.7" height="18.8" opacity="0.78"/>
+<text class="small" x="177" y="618.3" text-anchor="end">composite_empty_return_12</text>
+<rect class="s1mark" x="1135.4" y="604.2" width="34.6" height="18.8" opacity="0.78"/>
+<line class="grid" x1="185.0" y1="55" x2="185.0" y2="625"/>
+<text class="label" x="185.0" y="652" text-anchor="middle">0.0</text>
+<line class="grid" x1="325.7" y1="55" x2="325.7" y2="625"/>
+<text class="label" x="325.7" y="652" text-anchor="middle">18.3</text>
+<line class="grid" x1="466.4" y1="55" x2="466.4" y2="625"/>
+<text class="label" x="466.4" y="652" text-anchor="middle">36.6</text>
+<line class="grid" x1="607.1" y1="55" x2="607.1" y2="625"/>
+<text class="label" x="607.1" y="652" text-anchor="middle">54.8</text>
+<line class="grid" x1="747.9" y1="55" x2="747.9" y2="625"/>
+<text class="label" x="747.9" y="652" text-anchor="middle">73.1</text>
+<line class="grid" x1="888.6" y1="55" x2="888.6" y2="625"/>
+<text class="label" x="888.6" y="652" text-anchor="middle">91.4</text>
+<line class="grid" x1="1029.3" y1="55" x2="1029.3" y2="625"/>
+<text class="label" x="1029.3" y="652" text-anchor="middle">109.7</text>
+<line class="grid" x1="1170.0" y1="55" x2="1170.0" y2="625"/>
+<text class="label" x="1170.0" y="652" text-anchor="middle">127.9</text>
+<text class="label" x="677.5" y="672" text-anchor="middle">Temps ROS depuis le premier mouvement (s)</text>
+<rect class="s1mark" x="185" y="656" width="12" height="12"/><text class="label" x="203" y="666">vide</text>
+<rect class="s2mark" x="260" y="656" width="12" height="12"/><text class="label" x="278" y="666">chargé</text>
+</svg>
