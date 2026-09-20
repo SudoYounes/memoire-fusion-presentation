@@ -1,5 +1,7 @@
 # Robot 2 — Présentation HTML de soutenance
 
+**Présentation en ligne :** https://sudoyounes.github.io/memoire-fusion-presentation/
+
 Deck scroll-driven de 20 diapositives consacré à la conception mécanique et à
 la qualification numérique de Robot 2. Le récit est calibré pour un jury de
 docteurs et professeurs : décisions, résultats, livrables et limites de preuve,
