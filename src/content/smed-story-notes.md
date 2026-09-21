@@ -204,6 +204,19 @@ des acteurs et des seuils, plutôt que le logigramme entier.
 
 ## 5. Impact — présenter l'essai et organiser le suivi
 
+La slide 5 reprend la composition des solutions : chaîne verticale fixe à
+gauche, quatre blocs et une fenêtre de preuve à droite. Bas active le bloc
+suivant et sa fenêtre dans le même mouvement ; Haut revient à l'état précédent.
+Les quatre états restent Test, Cible, Écart et Suivi. Le bloc actif reprend
+le reflet sur les lettres et la bordure de la slide 15.
+
+La fenêtre Test agrandit uniquement la cellule CDF du relevé original.
+Cible utilise une comparaison native à zéro commun. Écart reprend la même
+échelle et matérialise les 65 min entre le test et l'objectif. Suivi montre
+les colonnes originales Objectifs, Temps réel, Équipes et Explication des
+deux fiches BOB et BOBINETTE, sans remplir les champs ni modifier les images.
+Leur recadrage exclut les opérations qui ne servent pas ce point du récit.
+
 ### Sources et portée
 
 | Mesure ou document | Source | Valeur et limite |
