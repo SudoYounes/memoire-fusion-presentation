@@ -141,7 +141,7 @@ export function renderSmedSolutions(): void {
     <header class="ss-heading"><p class="kicker">SMED · Amélioration</p><h2 class="display" id="smed-solutions-title">Mise en œuvre des <em>solutions d’amélioration</em></h2></header>
     <div class="ss-workspace">
       <nav class="ss-rail" aria-label="Solutions d’amélioration">
-        ${groups.map((g, index) => `<button type="button" class="ss-block" data-smed-goto="${g.start}" data-solution-group="${g.id}" aria-controls="smed-solutions-document" aria-expanded="${index === 0}"><span class="ss-block-number">0${index + 1}</span><span class="ss-block-title">${g.label}</span><span class="ss-block-progress" data-solution-progress="${g.id}"></span><i class="ss-block-sweep" aria-hidden="true"></i></button>`).join('')}
+        ${groups.map((g, index) => `<button type="button" class="ss-block" data-smed-goto="${g.start}" data-solution-group="${g.id}" aria-controls="smed-solutions-document" aria-expanded="${index === 0}"><span class="ss-block-number">0${index + 1}</span><span class="ss-block-title">${g.label}</span><span class="ss-block-progress" data-solution-progress="${g.id}"></span></button>`).join('')}
       </nav>
       <section class="ss-window" id="smed-solutions-document" aria-label="Document de la solution active">${scenes.join('')}</section>
     </div>
@@ -161,17 +161,13 @@ export function mountSmedSolutions(): () => void {
   let previousGroup = ''
   let previousStep = -1
   let entrance: Animation | undefined
-  let sweep: Animation | undefined
-  let illumination: Animation[] = []
   let printing = false
   let activationFrame = 0
   let activationPending = false
 
   const stopMotion = () => {
     entrance?.cancel()
-    sweep?.cancel()
-    illumination.forEach(animation => animation.cancel())
-    illumination = []
+    delete section.dataset.smedSweep
   }
   const sync = (activate = false) => {
     const raw = Number(section.dataset.smedStep)
@@ -192,7 +188,7 @@ export function mountSmedSolutions(): () => void {
     const changed = previousStep !== step
     const changedGroup = previousGroup !== group.id
     const active = blocks.find(block => block.dataset.solutionGroup === group.id)
-    if (changed || activate) stopMotion()
+    if (changed || activate) entrance?.cancel()
     if ((activate || (changed && previousStep >= 0 && !activationPending)) && windowElement && active && !motion.matches && !preview && !printing && section.classList.contains('is-active')) {
       const panelRect = windowElement.getBoundingClientRect()
       const blockRect = active.getBoundingClientRect()
@@ -207,32 +203,9 @@ export function mountSmedSolutions(): () => void {
         { opacity: .55, transform: `translateX(${step > previousStep ? 14 : -14}px)` },
         { opacity: 1, transform: 'translateX(0)' },
       ], { duration: changedGroup || activate ? 650 : 340, easing: 'cubic-bezier(.2,.8,.2,1)' })
-      const sheen = active.querySelector<HTMLElement>('.ss-block-sweep')
-      if (sheen) sweep = sheen.animate([
-        { transform: 'translateX(-160%)', opacity: 0 },
-        { opacity: 1, offset: .2 },
-        { opacity: 1, offset: .75 },
-        { transform: 'translateX(240%)', opacity: 0 },
-      ], { duration: 1150, easing: 'linear' })
-      // Let the gold light reach the lettering, not just its background.
-      // Restore the exact resting style at the end and on every cancellation.
-      active.querySelectorAll<HTMLElement>('.ss-block-title, .ss-block-number').forEach(text => {
-        const restingColor = getComputedStyle(text).color
-        illumination.push(text.animate([
-          { color: restingColor, textShadow: 'none', offset: 0 },
-          { color: restingColor, textShadow: 'none', offset: .2 },
-          { color: '#a85c00', textShadow: '0 0 1px #fff8c4, 0 0 5px #ffd400, 0 0 13px #ffb800, 0 0 22px #ffb8009c', offset: .43 },
-          { color: '#b86d00', textShadow: '0 0 1px #fff8c4, 0 0 5px #ffdb30, 0 0 12px #ffb800, 0 0 20px #ffa80080', offset: .6 },
-          { color: restingColor, textShadow: 'none', offset: 1 },
-        ], { duration: 1150, easing: 'linear' }))
-      })
-      const resting = getComputedStyle(active)
-      illumination.push(active.animate([
-        { borderColor: resting.borderColor, boxShadow: resting.boxShadow, offset: 0 },
-        { borderColor: '#ffbd00', boxShadow: 'inset 3px 0 0 #ffc400, inset 0 0 14px #ffcc0040, 0 0 20px #ffb80066', offset: .43 },
-        { borderColor: '#ed9e00', boxShadow: 'inset 3px 0 0 #ffb800, inset 0 0 10px #ffcc0030, 0 0 16px #ffb80040', offset: .65 },
-        { borderColor: resting.borderColor, boxShadow: resting.boxShadow, offset: 1 },
-      ], { duration: 1150, easing: 'linear' }))
+      // Use the existing slide 15 lettering/border sweep, including its cadence.
+      // It continues through documents of the same block, like the reference.
+      section.dataset.smedSweep = 'on'
     }
     previousStep = step
     previousGroup = group.id
@@ -263,9 +236,12 @@ export function mountSmedSolutions(): () => void {
     }
     activationFrame = requestAnimationFrame(enterWhenSettled)
   }
-  const onMotionChange = () => { cancelActivation(); stopMotion() }
+  const resumeSweep = () => {
+    if (!motion.matches && !preview && !printing && section.classList.contains('is-active')) section.dataset.smedSweep = 'on'
+  }
+  const onMotionChange = () => { cancelActivation(); stopMotion(); resumeSweep() }
   const onBeforePrint = () => { printing = true; cancelActivation(); stopMotion() }
-  const onAfterPrint = () => { printing = false }
+  const onAfterPrint = () => { printing = false; resumeSweep() }
   window.addEventListener('deck:slide-active', onActive)
   window.addEventListener('beforeprint', onBeforePrint)
   window.addEventListener('afterprint', onAfterPrint)
