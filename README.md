@@ -2,8 +2,8 @@
 
 **Présentation en ligne :** https://sudoyounes.github.io/memoire-fusion-presentation/
 
-Deck scroll-driven de 21 diapositives, ouvert par le contexte industriel du
-conditionnement pharmaceutique, puis consacré à la conception mécanique et à
+Deck scroll-driven de 27 diapositives, ouvert par les périmètres du projet,
+puis consacré au chantier SMED et à la conception mécanique et à
 la qualification numérique de Robot 2. Le récit est calibré pour un jury de
 docteurs et professeurs : décisions, résultats, livrables et limites de preuve,
 sans dérouler le mémoire chapitre par chapitre.
@@ -30,7 +30,9 @@ la commande et la qualification.
 
 ## Arc narratif
 
-1. Cadrer le geste et le contrat de réussite.
+1. Cadrer les deux périmètres, puis parcourir le chantier SMED : enjeu,
+   diagnostic, coordination, supports, standards, résultat et suivi.
+   Cadrer ensuite le geste Robot 2 et son contrat de réussite.
 2. Montrer l’architecture quatre axes et les décisions mécaniques structurantes.
 3. Parcourir les six blocs dans l'ordre de la vue maître : décrire, observer,
    décider, préparer, exécuter, prouver. Une miniature du même graphe situe le
@@ -61,7 +63,7 @@ réseau après `npm run build`.
 - `↑`, `←`, `PageUp`, `Maj+Espace` : précédente.
 - `Home` / `End` : première / dernière.
 - `F` : plein écran.
-- Barre haute segmentée : accès direct aux six chapitres provisoires ; le
+- Barre haute segmentée : accès direct aux sept chapitres ; le
   segment actif s'assombrit automatiquement avec l'avancement.
 - Rail droit : accès direct ; chaque diapositive possède aussi une URL ancrée.
 - Pied des slides de simulation : miniature translucide du graphe maître,
@@ -77,7 +79,7 @@ Options de répétition :
 
 ## Architecture
 
-- `index.html` — contenu sémantique des 21 diapositives.
+- `index.html` — contenu sémantique des 27 diapositives.
 - `src/deck/setupModelsZoom.ts` — ancrage du bus de descriptions.
 - `src/deck/pipelineNavigation.ts` — miniatures et transitions de caméra
   communes aux six blocs de la chaîne numérique.
@@ -116,7 +118,8 @@ contexte industriel, impact CDF, impact automatisation. Les cartes actives
 s’éclairent et un feuillet souple se courbe depuis le coin supérieur droit pour
 dévoiler chacun des deux versos. Le pied de la face CDF porte le libellé SMED.
 
-Flèches, Espace et molette parcourent les étapes avant de rejoindre Robot 2.
+Flèches, Espace et molette parcourent les étapes avant de rejoindre le SMED,
+puis Robot 2.
 Les titres de carte et les boutons locaux permettent un accès direct. Le fond
 sombre reprend celui de l’ancienne slide 8. Sa déclinaison claire est accessible
 par `?industrial-theme=light#contexte-industriel` ; `industrial-step=0` à `5`
@@ -127,7 +130,35 @@ Le contenu et les sources sont consignés dans `src/content/industrial-context-n
 Le module et ses styles restent isolés dans `src/visuals/industrialContext.ts`
 et `src/styles/industrial-context.css`.
 
-## Notations mathématiques — slides 13 à 15
+## Chantier SMED
+
+Six écrans suivent l'ouverture, sans modifier les vingt slides Robot :
+
+- `#smed-enjeu` : cible de 12 h, ligne de conditionnement et opérations par machine.
+- `#smed-diagnostic` : 377 minutes classées dans le Pareto, puis causes et réponses.
+- `#smed-organisation` : quatre coordinations du nouveau scénario opératoire.
+- `#smed-supports` : supports de visserie, CAO et photos de fabrication.
+- `#smed-standards` : fiche NA014 et seuils de mobilisation en cas de blocage.
+- `#smed-impact` : test de 655 minutes, comparaison à la cible et suivi prévu.
+
+Haut/Bas parcourent toutes les étapes du récit sans clic obligatoire. Le retour
+depuis un écran suivant reprend le dernier état de l'écran précédent.
+Les cinq nouveaux écrans ont respectivement 5, 4, 4, 3 et 4 états. Les liens
+de pied de slide restent disponibles pour la répétition et le tactile.
+
+`?capture=smed-impact&smed-step=2` permet de capturer un état précis (index à
+partir de zéro). `?motion=off#smed-diagnostic` conserve la progression sans
+animation. Le contrôleur local est `src/visuals/smedStory.ts`, son habillage
+`src/styles/smed-story.css`. Les preuves et la trame orale figurent dans
+`src/content/smed-story-notes.md`.
+
+Les graphiques et schémas sont éditables en HTML/CSS. Les photographies sont
+des copies des preuves originales, sans génération ni retouche. La durée du
+test, les charges d'activité et les temps du Pareto gardent des périmètres
+distincts. Aucun gain durable ni pourcentage avant/après non confirmé n'est
+introduit.
+
+## Notations mathématiques — séquence numérique Robot
 
 Les expressions LaTeX sont précompilées en SVG vectoriels autonomes : aucun
 moteur MathJax ni chargement de police externe n’est nécessaire dans le navigateur.
@@ -141,7 +172,7 @@ Les formules et leurs données sources sont définies dans
 Régénérer les notations après toute modification des données concernées, puis
 vérifier le cadrage des figures et des commentaires dans les slides.
 
-## Fenêtres d’artefacts — slide 10
+## Fenêtres d’artefacts — modèles Robot
 
 Les fenêtres s’ajoutent au premier plan sans remplacer la structure ni le texte
 de la slide. Leur contenu réside dans `src/visuals/modelsArtifacts.ts` et leur

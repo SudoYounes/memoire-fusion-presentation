@@ -16,7 +16,7 @@
     <nav class="deck-sections" aria-label="Chapitres de la présentation" data-deck-sections></nav>
     <nav class="deck-rail" aria-label="Navigation dans la présentation" data-deck-rail></nav>
     <footer class="deck-footer" data-deck-chrome>
-      <p class="deck-footer__count"><span data-slide-current>01</span><i></i><span data-slide-total>22</span></p>
+      <p class="deck-footer__count"><span data-slide-current>01</span><i></i><span data-slide-total>27</span></p>
     </footer>
 
     <main id="presentation" class="deck" data-deck>
@@ -182,6 +182,129 @@
             <p>Source : soutenance VIATRIS, slides 6, 13, 15 et 18.</p>
             <button type="button" class="smed-detail-trigger" data-smed-detail-open aria-expanded="false" aria-controls="smed-challenge-detail">Changement étudié et intervenants <span aria-hidden="true">↗</span></button>
           </footer>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-mist smed-story-slide" id="smed-diagnostic" data-slide data-chapter="SMED" data-title="Les temps classés dans le diagnostic" data-theme="light" data-smed-story data-smed-steps="5" data-smed-step="0" aria-labelledby="smed-diagnostic-title">
+        <div class="slide-stage smed-story-stage">
+          <header class="smed-story-heading" data-reveal><p class="kicker">SMED · Diagnostic</p><h2 class="display" id="smed-diagnostic-title">Les temps classés<br>dans le <em>diagnostic</em></h2></header>
+          <div class="smed-story-body">
+            <div class="smed-diagnostic-layout" data-smed-scene="0,1">
+              <figure class="smed-pareto" aria-labelledby="smed-pareto-caption">
+                <figcaption id="smed-pareto-caption">Classement du Pareto source <span>Minutes</span></figcaption>
+                <div class="smed-bar-row smed-bar-row--major"><span>Attente</span><div class="smed-bar-track"><i style="--bar-width:89.5%"></i></div><strong>179 <small>min</small></strong></div>
+                <div class="smed-bar-row smed-bar-row--major"><span>Contrôle</span><div class="smed-bar-track"><i style="--bar-width:86.5%"></i></div><strong>173 <small>min</small></strong></div>
+                <div class="smed-bar-row smed-bar-row--minor"><span>Transport</span><div class="smed-bar-track"><i style="--bar-width:12.5%"></i></div><strong>25 <small>min</small></strong></div>
+                <div class="smed-bar-axis" aria-hidden="true"><span>0</span><span>50</span><span>100</span><span>150</span><span>200</span></div>
+                <p class="smed-chart-scope">377 min classées dans ce Pareto.<br>Ce classement ne représente pas toute la durée d’arrêt.</p>
+              </figure>
+              <aside class="smed-reading" data-smed-scene="0" data-smed-caption="Le Pareto classe 377 minutes : attente 179, contrôle 173, transport 25."><p class="smed-eyebrow">Périmètre de lecture</p><p class="smed-reading-number">377 <span>min</span></p><h3>Trois catégories<br>de temps classés</h3><p>Une base pour cibler l’analyse des opérations et de leur organisation.</p></aside>
+              <aside class="smed-reading" data-smed-scene="1" data-smed-caption="Attente et contrôle représentent 352 des 377 minutes classées. Les contrôles nécessaires restent à conserver." hidden><p class="smed-eyebrow">Attente et contrôle</p><p class="smed-reading-number">93,4 <span>%</span></p><h3>352 des 377 min<br>du classement</h3><p>Les contrôles nécessaires restent présents. Le chantier porte aussi sur leur préparation et leur coordination.</p></aside>
+            </div>
+            <div class="smed-causes" data-smed-scene="2,3,4" hidden>
+              <p class="smed-cause-intro">L’analyse des causes précise les réponses à construire</p>
+              <div class="smed-cause-head" aria-hidden="true"><span>Constat de terrain</span><span>Effet sur le déroulement</span><span>Réponse retenue</span></div>
+              <button class="smed-cause-row" type="button" data-smed-goto="2"><span><b>01</b> Visserie mal organisée</span><span>Recherche au remontage<br>et attente des pièces</span><strong>Supports compartimentés</strong></button>
+              <button class="smed-cause-row" type="button" data-smed-goto="3"><span><b>02</b> Maîtrise inégale des gestes</span><span>Hésitations et demandes<br>d’assistance</span><strong>Standards illustrés</strong></button>
+              <button class="smed-cause-row" type="button" data-smed-goto="4"><span><b>03</b> Absence de règle de mobilisation</span><span>Appels variables ou<br>résolution autonome prolongée</span><strong>Règles d’escalade</strong></button>
+              <p class="smed-cause-caption" data-smed-scene="2" data-smed-caption="La visserie mal organisée entraîne des recherches et des attentes. La réponse matérielle est un support compartimenté." hidden>Préparer la disponibilité des pièces au moment du remontage.</p>
+              <p class="smed-cause-caption" data-smed-scene="3" data-smed-caption="Les hésitations et demandes d’assistance motivent la formalisation des gestes dans des standards illustrés." hidden>Donner aux opérateurs un repère commun pour les gestes.</p>
+              <p class="smed-cause-caption" data-smed-scene="4" data-smed-caption="Les pratiques d’appel variables motivent des règles communes de mobilisation des intervenants." hidden>Préciser quand mobiliser le bon intervenant.</p>
+              <p class="smed-small-note">Analyse qualitative des causes. Aucune part du gain n’est attribuée à chaque levier.</p>
+            </div>
+          </div>
+          <footer class="smed-story-footer"><p>Soutenance VIATRIS, slides 21–23.</p><nav aria-label="Étapes du diagnostic"><button type="button" data-smed-goto="0">Mesure</button><button type="button" data-smed-goto="1">Concentration</button><button type="button" data-smed-goto="2">Visserie</button><button type="button" data-smed-goto="3">Gestes</button><button type="button" data-smed-goto="4">Blocages</button></nav><span class="smed-step-hint">↑ ↓ <span data-smed-count>01 / 05</span></span></footer>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-teal smed-story-slide" id="smed-organisation" data-slide data-chapter="SMED" data-title="Coordonner les interventions" data-theme="dark" data-smed-story data-smed-steps="4" data-smed-step="0" aria-labelledby="smed-organisation-title">
+        <div class="slide-stage smed-story-stage">
+          <header class="smed-story-heading" data-reveal><p class="kicker">SMED · Nouveau scénario</p><h2 class="display" id="smed-organisation-title">Coordonner<br>les <em>interventions</em></h2></header>
+          <div class="smed-story-body smed-coordination">
+            <div class="smed-coordination-scene" data-smed-scene="0" data-smed-caption="Le nouveau scénario coordonne l’appel de BOB et le nettoyage du rouleau de scellage par la maintenance, 5 minutes en temps masqué.">
+              <div class="smed-coordination-label"><span>01</span><h3>Le relais avec la maintenance</h3><p>Séquence BOB 13</p></div>
+              <div class="smed-coordination-pair"><div class="smed-actor"><p>BOB</p><h4>Appel du technicien<br>de maintenance</h4><span>Repère du scénario</span></div><div class="smed-coordination-join" aria-hidden="true"><i></i><span>Coordination</span><i></i></div><div class="smed-actor smed-actor--accent"><p>Maintenance</p><h4>Nettoyage du rouleau<br>de scellage</h4><span><strong>5 min</strong> en temps masqué</span></div></div>
+              <p class="smed-coordination-takeaway">L’opération reste dans le scénario, avec une intervention coordonnée.</p>
+            </div>
+            <div class="smed-coordination-scene" data-smed-scene="1" data-smed-caption="BOB et BOBINETTE contribuent au nettoyage final dans la même séquence du scénario." hidden>
+              <div class="smed-coordination-label"><span>02</span><h3>L’entraide au nettoyage final</h3><p>BOB 16 / BOBINETTE 7</p></div>
+              <div class="smed-coordination-pair"><div class="smed-actor"><p>BOB</p><h4>Nettoyage final</h4><span>Opération principale</span></div><div class="smed-coordination-join" aria-hidden="true"><i></i><span>Entraide</span><i></i></div><div class="smed-actor smed-actor--accent"><p>BOBINETTE</p><h4>Aide au<br>nettoyage final</h4><span>Intervention dans la même séquence</span></div></div>
+              <p class="smed-coordination-takeaway">Le scénario prévoit explicitement l’aide d’un second opérateur.</p>
+            </div>
+            <div class="smed-coordination-scene" data-smed-scene="2" data-smed-caption="Pendant la séquence du vide de ligne opérateur de BOB, BOBINETTE prépare le coding et le chef d’équipe intervient sur Linemaster, 10 minutes en temps masqué." hidden>
+              <div class="smed-coordination-label"><span>03</span><h3>La préparation pendant le vide de ligne opérateur</h3><p>BOB 19 / BOBINETTE 10</p></div>
+              <div class="smed-coordination-pair"><div class="smed-actor"><p>BOB</p><h4>Vide de ligne<br>opérateur</h4><span>Repère de la séquence</span></div><div class="smed-coordination-join" aria-hidden="true"><i></i><span>Coordination</span><i></i></div><div class="smed-actor-stack"><div class="smed-actor"><p>BOBINETTE</p><h4>Préparation du coding</h4></div><div class="smed-actor smed-actor--accent"><p>Chef d’équipe</p><h4>Arrêt / chargement Linemaster</h4><span><strong>10 min</strong> en temps masqué</span></div></div></div>
+              <p class="smed-coordination-takeaway">« Temps masqué » décrit l’organisation du travail, sans établir un gain net équivalent.</p>
+            </div>
+            <div class="smed-coordination-scene" data-smed-scene="3" data-smed-caption="Le vide de ligne par le chef d’équipe et la qualité reste dans le nouveau scénario, 25 minutes. BOB et BOBINETTE sont en attente du vide de ligne." hidden>
+              <div class="smed-coordination-label"><span>04</span><h3>Le passage qualité reste présent</h3><p>BOB 20 / BOBINETTE 11</p></div>
+              <div class="smed-coordination-pair"><div class="smed-actor"><p>BOB et BOBINETTE</p><h4>Attente du<br>vide de ligne</h4><span>Point de synchronisation</span></div><div class="smed-coordination-join" aria-hidden="true"><i></i><span>Vide de ligne</span><i></i></div><div class="smed-actor smed-actor--accent"><p>Chef d’équipe et qualité</p><h4>Vide de ligne</h4><span><strong>25 min</strong> dans le scénario</span></div></div>
+              <p class="smed-coordination-takeaway">La réorganisation conserve cette étape de contrôle.</p>
+            </div>
+            <p class="smed-coordination-scope">Schéma de coordination par séquence du tableau source, sans échelle de temps.</p>
+          </div>
+          <footer class="smed-story-footer"><p>Soutenance VIATRIS, slide 25.</p><nav aria-label="Étapes de coordination"><button type="button" data-smed-goto="0">Maintenance</button><button type="button" data-smed-goto="1">Entraide</button><button type="button" data-smed-goto="2">Préparation</button><button type="button" data-smed-goto="3">Qualité</button></nav><span class="smed-step-hint">↑ ↓ <span data-smed-count>01 / 04</span></span></footer>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-mist smed-story-slide" id="smed-supports" data-slide data-chapter="SMED" data-title="Des supports dédiés à la visserie" data-theme="light" data-smed-story data-smed-steps="4" data-smed-step="0" aria-labelledby="smed-supports-title">
+        <div class="slide-stage smed-story-stage">
+          <header class="smed-story-heading" data-reveal><p class="kicker">SMED · Préparation matérielle</p><h2 class="display" id="smed-supports-title">Des supports dédiés<br>à la <em>visserie</em></h2></header>
+          <div class="smed-story-body">
+            <div class="smed-support-layout" data-smed-scene="0" data-smed-caption="Le support de visserie commune fabriqué matérialise la séparation des familles de pièces.">
+              <div class="smed-support-copy"><p class="smed-eyebrow">Support de visserie commune</p><h3>Un rangement<br>compartimenté</h3><p>L’inventaire repère les pièces par machine et par zone, puis distingue leur destination : laverie ou ligne.</p><div class="smed-support-chain"><span>Inventaire</span><i aria-hidden="true"></i><span>Compartiments</span></div><p class="smed-small-note">La photo documente le support fabriqué. Son effet sur la durée du changement n’est pas mesuré isolément.</p></div>
+              <figure class="smed-support-hero"><img src="./media/smed/support-common-built.png" alt="Photo du support métallique fabriqué pour la visserie commune, avec compartiments et deux poignées" width="653" height="692"><figcaption>Fabriqué <span>Support de visserie commune</span></figcaption></figure>
+            </div>
+            <div class="smed-support-comparison" data-smed-scene="1" data-smed-caption="Le modèle CAO du support de visserie commune porte les repères des compartiments. La photo montre sa fabrication." hidden>
+              <figure><img src="./media/smed/support-common-cad.png" alt="Modèle CAO du support de visserie commune avec repères des familles de pièces" width="549" height="385"><figcaption>Conçu <span>Repères et compartiments en CAO</span></figcaption></figure><span class="smed-pair-link" aria-hidden="true">/</span><figure><img src="./media/smed/support-common-built.png" alt="Fabrication du support de visserie commune" width="653" height="692"><figcaption>Fabriqué <span>Support de visserie commune</span></figcaption></figure><p>Les familles de pièces structurent les compartiments du support.</p>
+            </div>
+            <div class="smed-support-comparison" data-smed-scene="2" data-smed-caption="La boîte à brosses dispose également d’un support de visserie, montré en CAO puis en fabrication." hidden>
+              <figure><img src="./media/smed/support-brush-cad.png" alt="CAO du support de visserie de la boîte à brosses" width="652" height="411"><figcaption>Conçu <span>Support de visserie de la boîte à brosses</span></figcaption></figure><span class="smed-pair-link" aria-hidden="true">/</span><figure><img src="./media/smed/support-brush-built.png" alt="Photo du support fabriqué pour la visserie de la boîte à brosses" width="738" height="496"><figcaption>Fabriqué <span>Support de visserie de la boîte à brosses</span></figcaption></figure><p>Un support adapté à une autre famille de pièces.</p>
+            </div>
+            <div class="smed-support-comparison" data-smed-scene="3" data-smed-caption="Le support de visserie de descente constitue une troisième paire CAO et fabrication documentée." hidden>
+              <figure><img src="./media/smed/support-descent-cad.png" alt="CAO du support de visserie de descente" width="708" height="372"><figcaption>Conçu <span>Support de visserie de descente</span></figcaption></figure><span class="smed-pair-link" aria-hidden="true">/</span><figure><img src="./media/smed/support-descent-built.png" alt="Photo du support fabriqué pour la visserie de descente" width="693" height="441"><figcaption>Fabriqué <span>Support de visserie de descente</span></figcaption></figure><p>Trois paires CAO et fabrication documentent la réalisation des supports.</p>
+            </div>
+          </div>
+          <footer class="smed-story-footer"><p>Soutenance VIATRIS, slides 26–27.</p><nav aria-label="Supports de visserie"><button type="button" data-smed-goto="0">Support commun</button><button type="button" data-smed-goto="1">Conception</button><button type="button" data-smed-goto="2">Boîte à brosses</button><button type="button" data-smed-goto="3">Descente</button></nav><span class="smed-step-hint">↑ ↓ <span data-smed-count>01 / 04</span></span></footer>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-teal smed-story-slide" id="smed-standards" data-slide data-chapter="SMED" data-title="Des repères pour les gestes et les blocages" data-theme="dark" data-smed-story data-smed-steps="3" data-smed-step="0" aria-labelledby="smed-standards-title">
+        <div class="slide-stage smed-story-stage">
+          <header class="smed-story-heading" data-reveal><p class="kicker">SMED · Repères communs</p><h2 class="display" id="smed-standards-title">Les gestes<br>et les <em>blocages</em></h2></header>
+          <div class="smed-story-body">
+            <div class="smed-standard-layout" data-smed-scene="0" data-smed-caption="La fiche NA014 formalise le montage de la bobine aluminium NOACK avec des photos et des points de vigilance. Les champs d’approbation de l’extrait sont vierges.">
+              <figure class="smed-document"><img src="./media/smed/standard-na014.png" alt="Extrait source de la fiche de standard NA014, montage de la bobine aluminium sur NOACK, avec photos et commentaires" width="733" height="583"><figcaption>Fiche NA014 <span>Extrait présenté dans la soutenance</span></figcaption></figure>
+              <div class="smed-standard-copy"><p class="smed-eyebrow">Formaliser le geste</p><h3>Montage de la<br>bobine aluminium</h3><p>Un même document associe la photo, le commentaire et le point de vigilance.</p><ul class="smed-vigilance"><li><span>01</span> État de la bobine</li><li><span>02</span> Serrage du mandrin</li><li><span>03</span> Vis de blocage</li></ul><p class="smed-small-note">La fiche démontre la formalisation. Les champs d’approbation de cet extrait sont vierges.</p></div>
+            </div>
+            <div class="smed-blockage" data-smed-scene="1" data-smed-caption="Le logigramme distingue les problèmes qualité et maintenance. Pour la maintenance : check-list 10 minutes maximum, puis analyse du chef d’équipe 20 minutes maximum s’il est disponible, sinon maintenance." hidden>
+              <p class="smed-blockage-question">Quelle est la nature du blocage ?</p>
+              <div class="smed-blockage-branches"><div><p class="smed-eyebrow">Qualité</p><h3>Informer la qualité<br>et le chef d’équipe</h3><p>Analyse du problème qualité.</p></div><div><p class="smed-eyebrow">Maintenance</p><ol class="smed-escalation-list"><li><strong>10 <small>min max</small></strong><span>Check-list opérateur</span></li><li><strong>20 <small>min max</small></strong><span>Si le problème persiste<br>et le chef est disponible : analyse<small>Sinon : maintenance directement.<br>Si non résolu après l’analyse : maintenance.</small></span></li></ol></div></div>
+              <p class="smed-coordination-takeaway">Des repères communs pour déclencher l’aide.</p>
+            </div>
+            <div class="smed-escalation" data-smed-scene="2" data-smed-caption="Le logigramme prévoit une escalade aux responsables au seuil de 3 heures sans diagnostic et solution identifiés, puis une cellule de crise si le blocage total dépasse 8 heures. Ce sont des seuils de mobilisation, pas des délais garantis de résolution." hidden>
+              <p class="smed-eyebrow">Si le blocage persiste</p><h3>Une escalade vers les responsables</h3>
+              <div class="smed-escalation-thresholds"><div><p>Diagnostic ou solution encore manquant après</p><strong>3 <span>h</span></strong><h4>Responsable maintenance<br><small>Responsable production informé</small></h4></div><i aria-hidden="true"></i><div><p>Blocage total</p><strong>&gt; 8 <span>h</span></strong><h4>Cellule de crise</h4></div></div>
+              <p class="smed-coordination-takeaway">Ces seuils déclenchent une mobilisation. Ils ne garantissent pas la résolution.</p>
+            </div>
+          </div>
+          <footer class="smed-story-footer"><p>Soutenance VIATRIS, slides 29–30.</p><nav aria-label="Standards et blocages"><button type="button" data-smed-goto="0">Standard illustré</button><button type="button" data-smed-goto="1">Orientation</button><button type="button" data-smed-goto="2">Escalade</button></nav><span class="smed-step-hint">↑ ↓ <span data-smed-count>01 / 03</span></span></footer>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-mist smed-story-slide" id="smed-impact" data-slide data-chapter="SMED" data-title="Un test à 10 h 55" data-theme="light" data-smed-story data-smed-steps="4" data-smed-step="0" aria-labelledby="smed-impact-title">
+        <div class="slide-stage smed-story-stage">
+          <header class="smed-story-heading" data-reveal><p class="kicker">SMED · Résultat et suivi</p><h2 class="display" id="smed-impact-title">Un test à <em>10 h 55</em></h2><p class="smed-story-lede">Une durée sous la cible du chantier.</p></header>
+          <div class="smed-story-body">
+            <div class="smed-result-layout" data-smed-scene="0" data-smed-caption="Le test présenté dans la soutenance atteint 655 minutes, soit 10 heures 55."><div class="smed-result-number"><p class="smed-eyebrow">Durée du test présenté</p><p>10<span>h</span>55</p><strong>655 minutes</strong></div><aside class="smed-reading"><h3>Un résultat<br>chronométré</h3><p>La soutenance présente un test. Elle ne fournit pas de série de répétitions.</p><div class="smed-result-source"><img src="./media/smed/test-result-source.png" alt="Bandeau source : temps total CDF 655 minutes, affiché aussi 10,92 heures" width="1419" height="34"></div><p class="smed-small-note">Zoom sur la cellule « Temps total CDF » du relevé source.</p></aside></div>
+            <div class="smed-impact-comparison" data-smed-scene="1,2" hidden>
+              <figure class="smed-target-chart" aria-labelledby="smed-target-caption"><figcaption id="smed-target-caption">Test et cible sur une même échelle <span>Heures</span></figcaption><div class="smed-target-plot"><div class="smed-target-row"><span>Test</span><div class="smed-target-track"><i style="--bar-width:90.972222%"></i><span class="smed-target-gap" data-smed-scene="2" hidden><b>65 min</b></span></div><strong>10 h 55</strong></div><div class="smed-target-row smed-target-row--goal"><span>Cible</span><div class="smed-target-track"><i style="--bar-width:100%"></i></div><strong>12 h</strong></div><div class="smed-target-axis" aria-hidden="true"><span>0</span><span>3</span><span>6</span><span>9</span><span>12 h</span></div></div><p class="smed-chart-scope">Cible : 720 min. Test : 655 min.</p></figure>
+              <aside class="smed-reading" data-smed-scene="1" data-smed-caption="La cible est de 12 heures, soit 720 minutes. Le test présenté atteint 655 minutes." hidden><p class="smed-eyebrow">Comparaison à l’objectif</p><h3>Le test se situe<br>sous les 12 h</h3><p>Objectif du chantier : réaliser le changement de format en 12 h.</p></aside>
+              <aside class="smed-reading" data-smed-scene="2" data-smed-caption="L’écart entre la cible et le test est de 65 minutes, soit 1 heure 05 sous la cible." hidden><p class="smed-eyebrow">Écart à la cible</p><p class="smed-reading-number smed-margin-number">1 <span>h</span> 05</p><h3>65 min sous la cible</h3><p>720 − 655 = 65 min</p><p class="smed-small-note">Un test sous la cible ne démontre pas encore une performance durable.</p></aside>
+            </div>
+            <div class="smed-followup" data-smed-scene="3" data-smed-caption="Les fiches BOB et BOBINETTE prévoient de relever le temps réel, le comparer à l’objectif et expliquer les dépassements supérieurs à 10 minutes. Les exemplaires présentés sont vierges." hidden><div class="smed-followup-heading"><div><p class="smed-eyebrow">Suivi prévu</p><h3>Documenter les prochains changements</h3></div><p>Fiches BOB et BOBINETTE<br><strong>Exemplaires vierges dans la source</strong></p></div><figure class="smed-followup-document"><img src="./media/smed/followup-bob.png" alt="En-tête et premières lignes de la fiche de suivi BOB : objectifs, temps réel, équipes et explication des dépassements" width="1525" height="586"><figcaption>Fiche BOB, extrait du formulaire présenté</figcaption></figure><div class="smed-followup-fields"><div><span>01</span><h4>Relever le temps réel</h4></div><div><span>02</span><h4>Comparer à l’objectif</h4></div><div><span>03</span><h4>Expliquer les écarts</h4><p>Si le réel dépasse l’objectif de plus de 10 min</p></div></div><p class="smed-followup-conclusion">La tenue dans le temps reste à mesurer.</p></div>
+          </div>
+          <footer class="smed-story-footer"><p>Soutenance VIATRIS, slides 13, 33–34.</p><nav aria-label="Résultat et suivi"><button type="button" data-smed-goto="0">Test</button><button type="button" data-smed-goto="1">Cible</button><button type="button" data-smed-goto="2">Écart</button><button type="button" data-smed-goto="3">Suivi</button></nav><span class="smed-step-hint">↑ ↓ <span data-smed-count>01 / 04</span></span></footer>
         </div>
       </section>
 
