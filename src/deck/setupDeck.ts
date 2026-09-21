@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger)
 const deckEase = (t: number) => 1 - Math.pow(1 - t, 4)
 
 const deckSections = [
-  { label: 'Contexte industriel', startId: 'contexte-industriel' },
+  { label: 'Périmètres du projet', startId: 'contexte-industriel' },
   { label: 'Projet', startId: 'robot-2' },
   { label: 'Contexte & objectifs', startId: 'enjeu' },
   { label: 'Architecture & conception', startId: 'cellule' },

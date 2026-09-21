@@ -1,4 +1,4 @@
-# Contexte industriel
+# Périmètres du projet
 
 Première intégration du PowerPoint dans la présentation Vite. Une diapositive
 précède désormais l’ouverture Robot 2. Les identifiants et le contenu des vingt
@@ -26,8 +26,16 @@ automatisation, contexte industriel, impact CDF, impact automatisation.
 
 Flèches, Espace et molette avancent ou reculent d’une étape avant de changer de
 diapositive. Les titres sélectionnent les cartes. Les deux boutons « Tourner la
-page » permettent de revoir les versos. Les contrôles locaux restent disponibles
-sur mobile et en mouvement réduit. Le mode mouvement réduit supprime la rotation.
+page » permettent de revoir les versos. Le feuillet se soulève depuis le coin
+supérieur droit, puis s’incurve en diagonale pour découvrir le verso. Le mouvement
+dure 1,35 s et se déroule aussi à l’envers. Les contrôles locaux restent disponibles
+sur mobile et en mouvement réduit. Le mode mouvement réduit supprime la courbure.
+Les pieds des faces consacrées au changement de format portent le libellé SMED.
+
+L’effet est isolé dans `src/visuals/industrialPageCurl.ts`. Pendant la transition,
+des bandes de texte HTML suivent les tangentes d’une feuille courbée. Ces copies,
+masquées aux lecteurs d’écran, sont supprimées à la fin du mouvement, au changement
+de slide ou au redimensionnement. Les contenus d’origine restent modifiables.
 
 Le fond par défaut reprend exactement `theme-teal` de la slide 8 initiale. La
 déclinaison claire `theme-industrial-light` conserve la même maille triangulaire

@@ -91,7 +91,7 @@
 }
 .industrial-card__index { color: var(--industrial-accent); font-size: calc(.72 * var(--su)); font-weight: 550; }
 
-.industrial-pages { position: relative; min-height: 0; perspective: calc(95 * var(--su)); }
+.industrial-pages { position: relative; min-height: 0; overflow: hidden; }
 .industrial-page,
 .industrial-context { padding: calc(1.7 * var(--su)) calc(1.45 * var(--su)); }
 .industrial-page {
@@ -104,26 +104,41 @@
 .industrial-page--under { z-index: 0; }
 .industrial-page--sheet {
   z-index: 1;
-  transform-origin: left center;
-  backface-visibility: hidden;
-  transition: transform 850ms cubic-bezier(.3, .04, .22, 1), opacity 180ms 0ms;
 }
-.industrial-page--sheet::after {
+.industrial-card.is-turned .industrial-page--sheet {
+  visibility: hidden;
+  pointer-events: none;
+}
+.industrial-card.is-curling .industrial-page--sheet { visibility: hidden; }
+.industrial-page-curl {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+}
+.industrial-page-curl__strip {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+  background: var(--industrial-sheet);
+}
+.industrial-page-curl__strip > .industrial-page { z-index: 0; }
+.industrial-page-curl__strip::after {
   content: '';
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  background: linear-gradient(90deg, transparent 55%, rgb(0 20 25 / 30%));
-  opacity: 0;
-  transition: opacity 600ms ease;
+  background: var(--curl-shading, transparent);
 }
-.industrial-card.is-turned .industrial-page--sheet {
-  transform: rotateY(-112deg);
+.industrial-page-curl__shadow {
+  position: absolute;
+  inset: 0;
   opacity: 0;
-  pointer-events: none;
-  transition: transform 850ms cubic-bezier(.3, .04, .22, 1), opacity 180ms 500ms;
+  background: #001820;
+  filter: blur(9px);
 }
-.industrial-card.is-turned .industrial-page--sheet::after { opacity: 1; }
 .industrial-perimeter {
   color: var(--industrial-accent);
   font-size: calc(.69 * var(--su));

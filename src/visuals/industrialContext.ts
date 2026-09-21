@@ -1,3 +1,5 @@
+import { createIndustrialPageCurl, PAGE_CURL_DURATION } from './industrialPageCurl'
+
 type SlideActivation = CustomEvent<{ id: string; direction: number }>
 
 const captions = [
@@ -16,8 +18,10 @@ export function mountIndustrialContext(): () => void {
 
   const params = new URLSearchParams(window.location.search)
   const layout = window.matchMedia('(min-aspect-ratio: 4 / 5)')
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const capture = params.has('capture') || params.has('print')
   const cards = Array.from(stage.querySelectorAll<HTMLElement>('[data-industrial-card]'))
+  const curls = new Map(cards.filter(card => card.querySelector('.industrial-pages')).map(card => [card, createIndustrialPageCurl(card)]))
   const previous = stage.querySelector<HTMLButtonElement>('[data-industrial-prev]')
   const next = stage.querySelector<HTMLButtonElement>('[data-industrial-next]')
   const caption = stage.querySelector<HTMLElement>('[data-industrial-caption]')
@@ -45,6 +49,7 @@ export function mountIndustrialContext(): () => void {
       const turned = id === 'definition' ? step >= 2 : id === 'impact' && step === 5
       card.classList.toggle('is-current', active)
       card.classList.toggle('is-turned', turned)
+      curls.get(card)?.set(turned, announce && active && !capture && !motion.matches && params.get('motion') !== 'off')
       const heading = card.querySelector<HTMLButtonElement>('[data-industrial-goto]')
       if (active) heading?.setAttribute('aria-current', 'step')
       else heading?.removeAttribute('aria-current')
@@ -54,7 +59,7 @@ export function mountIndustrialContext(): () => void {
         page.inert = hidden
       })
       const label = card.querySelector<HTMLElement>('[data-industrial-perimeter-label]')
-      if (label) label.innerHTML = turned ? 'Automatisation <span>02 / 02</span>' : 'CDF <span>01 / 02</span>'
+      if (label) label.innerHTML = turned ? 'Automatisation <span>02 / 02</span>' : 'SMED <span>01 / 02</span>'
       const turn = card.querySelector<HTMLButtonElement>('[data-industrial-turn]')
       if (turn) turn.setAttribute('aria-label', `${id === 'definition' ? 'Définition' : 'Impact'} : tourner la page vers ${turned ? 'le changement de format' : 'l’automatisation'}`)
     })
@@ -62,7 +67,7 @@ export function mountIndustrialContext(): () => void {
     if (counter) counter.textContent = `${String(step).padStart(2, '0')} / 05`
     if (previous) previous.disabled = step === 0
     if (next) next.disabled = step === 5
-    if (announce && live) live.textContent = `Contexte industriel, étape ${step} sur 5. ${captions[step]}.`
+    if (announce && live) live.textContent = `Périmètres du projet, étape ${step} sur 5. ${captions[step]}.`
   }
   setStep(step, false)
 
@@ -99,12 +104,12 @@ export function mountIndustrialContext(): () => void {
     if (destination < 0 || destination > 5) return
     event.preventDefault()
     event.stopImmediatePropagation()
-    wheelLock = now + 900
+    wheelLock = now + PAGE_CURL_DURATION
     setStep(destination)
   }
   const onActive = (event: Event) => {
     const detail = (event as SlideActivation).detail
-    if (detail.id !== slide.id) return
+    if (detail.id !== slide.id) { curls.forEach(curl => curl.finish()); return }
     setStep(!entered || !layout.matches ? step : detail.direction < 0 ? 5 : 0, false)
     entered = true
     wheelLock = 0
@@ -115,10 +120,16 @@ export function mountIndustrialContext(): () => void {
   window.addEventListener('keydown', onKey, true)
   window.addEventListener('wheel', onWheel, { capture: true, passive: false })
   window.addEventListener('deck:slide-active', onActive)
+  const finishCurls = () => curls.forEach(curl => curl.finish())
+  window.addEventListener('resize', finishCurls)
+  motion.addEventListener('change', finishCurls)
   return () => {
+    curls.forEach(curl => curl.dispose())
     stage.removeEventListener('click', onClick)
     window.removeEventListener('keydown', onKey, true)
     window.removeEventListener('wheel', onWheel, true)
     window.removeEventListener('deck:slide-active', onActive)
+    window.removeEventListener('resize', finishCurls)
+    motion.removeEventListener('change', finishCurls)
   }
 }

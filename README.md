@@ -108,19 +108,20 @@ Options de répétition :
 
 La provenance détaillée des médias se trouve dans `public/media/SOURCES.md`.
 
-## Ouverture — Contexte industriel
+## Ouverture — Périmètres du projet
 
 La nouvelle première slide reprend la slide 6 de la soutenance VIATRIS. Les
 trois cartes suivent cinq étapes : définition CDF, définition automatisation,
 contexte industriel, impact CDF, impact automatisation. Les cartes actives
-s’éclairent et un feuillet tourne pour dévoiler chacun des deux versos.
+s’éclairent et un feuillet souple se courbe depuis le coin supérieur droit pour
+dévoiler chacun des deux versos. Le pied de la face CDF porte le libellé SMED.
 
 Flèches, Espace et molette parcourent les étapes avant de rejoindre Robot 2.
 Les titres de carte et les boutons locaux permettent un accès direct. Le fond
 sombre reprend celui de l’ancienne slide 8. Sa déclinaison claire est accessible
 par `?industrial-theme=light#contexte-industriel` ; `industrial-step=0` à `5`
 permet de revoir un état précis. Le mouvement réduit conserve les étapes et
-supprime les rotations.
+supprime la courbure.
 
 Le contenu et les sources sont consignés dans `src/content/industrial-context-notes.md`.
 Le module et ses styles restent isolés dans `src/visuals/industrialContext.ts`
