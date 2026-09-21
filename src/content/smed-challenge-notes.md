@@ -67,21 +67,31 @@ gain, gain TRS ou résultat final n'est introduit dans ce premier écran.
 
 ## Interaction et revue
 
-L'écran est une seule étape de navigation : les flèches et la molette gardent
-le comportement normal du deck. Pas de pas de narration obligatoires ajoutés.
+L'écran reste une seule diapositive, avec un parcours oral au clavier :
+vue d'ensemble → Noack → PC → Neri → Christ → Étiqueteuse → slide suivante.
+Chaque appui sur Bas active un nœud et ouvre simultanément sa fenêtre ; Haut
+revient à l'étape précédente. Depuis Noack, Haut revient à la vue d'ensemble,
+puis à la slide précédente. Le retour depuis la slide suivante affiche
+l'Étiqueteuse pour reprendre le parcours à rebours. Un appui maintenu ne
+saute pas les étapes. Droite/Gauche, Page suivante/précédente et Espace
+(Maj pour revenir) suivent le même parcours, y compris les boutons du mode
+présentation. Les autres slides et leur navigation ne sont pas modifiées.
 Les cinq nœuds sont des boutons natifs utilisables au clic, au toucher et au
 clavier. Une seule fenêtre peut être ouverte à la fois. Cliquer sur un autre
 équipement change l'extrait ; recliquer sur l'équipement actif referme sa
 fenêtre. Le bouton « Changement étudié et intervenants » reste disponible.
 Les fenêtres sont des régions non modales, comme les preuves Robot. Échap ou
 le bouton × ferme la fenêtre et restitue le focus au déclencheur. Le départ
-vers une autre slide referme la fenêtre. Dans une fenêtre machine, les flèches
-gauche/droite changent d'équipement ; Début/Fin accèdent au premier/dernier.
-Le clavier ne change alors pas la slide. La molette sur une fenêtre de bureau
+vers une autre slide referme la fenêtre. Dans une fenêtre machine, Début/Fin
+accèdent au premier/dernier équipement. Le détail « Changement étudié » reste
+optionnel : depuis cette fenêtre, Bas ouvre Noack et Haut revient à l'ensemble.
+La molette sur une fenêtre de bureau
 n'avance pas le deck. Hors de la fenêtre, la navigation reste inchangée.
 En portrait, le schéma initial est vertical ; à l'ouverture d'une fenêtre,
 les cinq nœuds forment un bandeau compact au-dessus du détail, dans le flux.
-Le cadrage réapparaît à la fermeture. Aucun parcours imposé des cinq fenêtres.
+Le cadrage réapparaît à la fermeture. Le clic et le toucher permettent toujours
+d'accéder directement à n'importe quel équipement, puis le clavier reprend
+à partir de cet équipement.
 La réduction du mouvement supprime les animations ; l'impression conserve
 l'écran principal sans sa fenêtre.
 
@@ -106,7 +116,7 @@ et de la qualité. »
 Exemple sur Noack : « Le relevé montre les démontages, l'identification des
 chariots et le nettoyage du rouleau par la maintenance. Cela donne une idée
 concrète du travail à coordonner ; ce ne sont que quelques opérations de
-l'observation. » Les autres fenêtres peuvent rester fermées à l'oral.
+l'observation. » Bas permet ensuite de poursuivre vers l'équipement suivant.
 
 ## Réversibilité
 
@@ -116,3 +126,5 @@ fichiers CSS/TS, le montage dans `main.ts` et l'entrée de chapitre SMED.
 Aucun changement des contenus Robot ni du PowerPoint source.
 Enrichissement des nœuds réalisé à partir du commit propre `f459c3a`, sans
 ajout de diapositive et sans modification de la navigation globale.
+Le parcours Haut/Bas est ajouté à partir du commit propre `a9f66f9`, dans le
+contrôleur SMED uniquement, avec adaptation de l'indication clavier à l'écran.
