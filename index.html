@@ -280,18 +280,12 @@
           <div class="models-map" aria-label="Les données CAO et les choix de simulation alimentent quatre descriptions complémentaires : URDF, SRDF, SDF et modèle dynamique fermé.">
             <div class="models-preparation">
               <p class="models-column-label">Préparer les données</p>
-              <div class="models-source" data-models-block="0">
-                <span class="models-source__tool">Python · build123d</span>
-                <h3>CAO paramétrique</h3>
-                <p>Les STEP existants et leurs placements fournissent la géométrie de Robot 2.</p>
-                <span class="models-source__file">params.py · pièces STEP</span>
+              <div class="models-source models-source--compact" data-models-block="0">
+                <h3>CAO</h3>
               </div>
               <div class="models-down" aria-hidden="true"><span>regrouper les pièces solidaires</span></div>
-              <div class="models-source models-source--bodies" data-models-block="1">
-                <span class="models-source__tool">Python · NumPy</span>
+              <div class="models-source models-source--bodies models-source--compact" data-models-block="1">
                 <h3>Corps rigides</h3>
-                <p>Nous regroupons les masses, centres de gravité et inerties dans le repère de chaque corps.</p>
-                <span class="models-source__file">table d’appartenance · propriétés</span>
               </div>
               <p class="models-preparation__note">Ces données sont complétées par nos choix de cellule, de commande et de simulation.</p>
             </div>

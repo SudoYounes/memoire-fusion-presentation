@@ -49,14 +49,23 @@ quantitatifs du deck viennent des traces CSV et des audits de campagne.
 - `models/pushrod.png` ← `.../figures/cad-atlas-04-pushrod-r.png`
 - `models/j4.png` ← `.../figures/cad-atlas-06-j4-wrist.png`
 - `models/world.png` ← `.../figures/cellule-gazebo-developpement.png`
+- `models/urdf-joint-frames.png` ←
+  `evidence/configuration-robot2/03-reperes-quatre-articulations.png`
+- `models/srdf-planning-chain.png` ←
+  `evidence/moveit-setup-assistant/03-chaine-base-link-tool0.png`
+- `models/srdf-self-collisions.png` ←
+  `evidence/moveit-setup-assistant/09-matrice-collisions.png`
+- `models/sdf-rgbd-cell.png` ←
+  `evidence/sdf-gazebo/05-camera-rgbd-cellule.png`
 - `j2-j3-transmission.png` ← `.../figures/cad-atlas-03-j2-j3-transmission.png`.
   La fenêtre montre les deux coupes principales de la rangée supérieure : les
   autres vues emploient leur propre numérotation. Le fichier original reste entier.
 - Les légendes numérotées reprennent les tableaux de
   `chapitres/robot/04-architecture.tex`, sans renumérotation des pièces.
-- La capture SDF est une vue de développement avec le robot présent, signalée
-  comme telle. Les deux repères ajoutés identifient le poste de prise et la palette.
-- L’extrait du groupe `palletizer` vient de `sim/robot_description/robot2.srdf`.
+- La capture SDF expose l’arbre des entités de la cellule et la caméra
+  `overhead_rgbd`; le robot est chargé séparément au lancement.
+- Les deux captures SRDF documentent le groupe `palletizer` et la matrice des
+  auto-collisions directement dans MoveIt Setup Assistant.
 - L’extrait JSON et le schéma de ses deux branches viennent de `topology` dans
   `sim/robot_description/robot2_constrained_dynamics.json`.
-- Le croquis URDF reste un emplacement réservé au dessin manuel de l’auteur.
+- La capture URDF montre les repères locaux des quatre articulations dans RViz.

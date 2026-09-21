@@ -10,7 +10,7 @@ export function setupModelsDiagram(): () => void {
   if (!slide || !stage || !map || !body || !lanes) return () => {}
 
   const labels = [
-    'CAO paramétrique',
+    'CAO',
     'corps rigides, masses et inerties',
     'URDF — structure du robot',
     'SRDF — règles de planification',

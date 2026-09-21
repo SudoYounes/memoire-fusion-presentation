@@ -15,8 +15,9 @@
    Les géométries de simulation sont simplifiées ; ce n'est pas un maillage fidèle
    de chaque pièce CAO.
 5. SRDF : les quatre axes du bras forment le groupe considéré par MoveIt.
-   La géométrie reste définie dans l'URDF. Cette slide ne détaille pas une liste
-   de collisions désactivées qui n'a pas été auditée pour cette présentation.
+   La géométrie reste définie dans l'URDF. La seconde capture montre les paires
+   actuellement désactivées dans la matrice d'auto-collisions ; chaque case doit
+   rester une exclusion volontaire et vérifiée, et non une validation implicite.
 6. SDF : le monde de cellule contient le poste, les capteurs et la palette
    indexée selon Y ; le robot URDF est chargé par le lancement dans ce monde.
 7. Modèle dynamique JSON : le crank et les deux bielles restent explicites

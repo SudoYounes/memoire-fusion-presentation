@@ -6,6 +6,11 @@ const cad = (src: string, alt: string, items: string[], note: string, principalC
     ? `<svg viewBox="0 0 1380 384" role="img" aria-label="${alt}"><svg width="1380" height="384" overflow="hidden"><image href="${src}" width="1380" height="662"/></svg></svg>`
     : `<img src="${src}" alt="${alt}"/>`}<figcaption>${note}</figcaption></figure>
   <aside><p class="ma-label">Repères de cette planche</p>${legend(items)}</aside></div>`
+const capture = (src: string, alt: string, caption: string) => `
+  <figure class="ma-capture">
+    <div class="ma-capture__frame"><img src="${src}" alt="${alt}"/></div>
+    <figcaption>${caption}</figcaption>
+  </figure>`
 
 export const modelsArtefacts: Partial<Record<number, Plate[]>> = {
   0: [
@@ -25,30 +30,44 @@ export const modelsArtefacts: Partial<Record<number, Plate[]>> = {
       'Carter de poignet F', 'Réducteur et guidage J4', 'Moyeu de sortie P', 'Bride d’interface Q', 'Plaque du préhenseur G',
     ], 'Le réducteur entraîne P, puis Q et G. Les ventouses ne sont pas détaillées sur cette planche.') },
   ],
-  2: [{ title: 'Chaîne cinématique de Robot 2', source: 'URDF · structure et repères', content: `
-    <div class="ma-placeholder" aria-label="Emplacement réservé au croquis manuel de la chaîne cinématique">
-      <span class="ma-placeholder__mark" aria-hidden="true">✎</span>
-      <h4>Ton croquis de la chaîne cinématique</h4>
-      <p>Emplacement réservé</p>
-      <small>Corps rigides · articulations J1–J4 · repères locaux</small>
-    </div>` }],
-  3: [{ title: 'Le groupe de planification', source: 'robot2.srdf · extrait exact du groupe palletizer', content: `
-    <div class="ma-semantics">
-      <p class="ma-label">Groupe déclaré dans notre fichier</p>
-      <pre class="ma-code"><code>&lt;group name="<em>palletizer</em>"&gt;
-  &lt;chain base_link="<em>base_link</em>"
-         tip_link="<em>tool0</em>"/&gt;
-&lt;/group&gt;</code></pre>
-      <div class="ma-group"><div class="ma-group__caption"><b>palletizer</b><span>de base_link à tool0</span></div>
-      <div class="ma-joints" aria-label="Quatre axes dans le groupe de planification"><b>J1</b><i></i><b>J2</b><i></i><b>J3</b><i></i><b>J4</b></div></div>
-      <p class="ma-takeaway">MoveIt considère les quatre axes ensemble pour préparer et vérifier le mouvement.</p>
-      <p class="ma-detail">La géométrie et les limites articulaires restent dans l’URDF.</p>
-    </div>` }],
-  4: [{ title: 'Le monde de la cellule', source: 'Capture Gazebo du projet · vue de développement, robot présent', content: `
-    <figure class="ma-world"><div class="ma-world__image"><img src="./media/models/world.png" alt="Capture Gazebo de la cellule avec poste de prise à droite, palette à gauche et robot au centre"/>
-      <span class="ma-world__pin ma-world__pin--pick">1</span><span class="ma-world__pin ma-world__pin--pallet">2</span></div>
-      <figcaption>${legend(['Poste de prise et carton', 'Palette de dépose'])}</figcaption>
-    </figure><p class="ma-detail">Le robot est chargé dans ce monde par le lancement de simulation.</p>` }],
+  2: [{
+    title: 'Repères des quatre articulations',
+    source: 'RViz · configuration Robot 2 · repères articulaires',
+    content: capture(
+      './media/models/urdf-joint-frames.png',
+      'Robot 2 affiché dans RViz avec les repères locaux de column_link, upper_arm_link, forearm_link et tool_link',
+      'La vue superpose le modèle URDF et les repères locaux utilisés pour définir les axes J1 à J4 et la transformation jusqu’à l’outil.',
+    ),
+  }],
+  3: [
+    {
+      title: 'Chaîne cinématique planifiée',
+      source: 'MoveIt Setup Assistant · Planning Groups',
+      content: capture(
+        './media/models/srdf-planning-chain.png',
+        'MoveIt Setup Assistant montrant la chaîne cinématique du groupe palletizer entre base_link et tool0',
+        'Le groupe « palletizer » est défini comme une chaîne de base_link à tool0 : les articulations intermédiaires J1 à J4 sont considérées ensemble par MoveIt.',
+      ),
+    },
+    {
+      title: 'Matrice des auto-collisions',
+      source: 'MoveIt Setup Assistant · Self-Collisions',
+      content: capture(
+        './media/models/srdf-self-collisions.png',
+        'MoveIt Setup Assistant affichant la matrice des paires de liens exclues du contrôle d’auto-collision',
+        'La matrice rend explicites les paires actuellement désactivées dans le SRDF ; chaque case doit correspondre à une exclusion volontaire et vérifiée.',
+      ),
+    },
+  ],
+  4: [{
+    title: 'Cellule et caméra RGB-D',
+    source: 'Gazebo Sim · monde SDF Robot 2',
+    content: capture(
+      './media/models/sdf-rgbd-cell.png',
+      'Gazebo Sim affichant la cellule de palettisation sans le robot et l’arbre des entités comprenant la caméra overhead_rgbd',
+      'Le monde SDF instancie le convoyeur, la cellule de prise, l’indexeur de palette et la caméra overhead_rgbd ; le robot est chargé séparément au lancement.',
+    ),
+  }],
   5: [{ title: 'Les corps du mécanisme fermé', source: 'robot2_constrained_dynamics.json · extrait de topology', content: `
     <div class="ma-semantics">
       <p class="ma-label">Corps conservés explicitement</p>
