@@ -17,7 +17,10 @@ import './styles/motion.css'
 import './styles/presentation-mode.css'
 import './styles/industrial-context.css'
 import './styles/smed-challenge.css'
+import './styles/smed-analysis.css'
 import './styles/smed-story.css'
+import './styles/smed-diagnostic.css'
+import './styles/smed-solutions.css'
 
 import { setupDeck } from './deck/setupDeck'
 import { mountPipelineMaps } from './deck/pipelineNavigation'
@@ -33,10 +36,14 @@ import { mountPresentationMode } from './deck/presentationMode'
 import { mountIndustrialContext } from './visuals/industrialContext'
 import { mountSmedChallenge } from './visuals/smedChallenge'
 import { mountSmedStory } from './visuals/smedStory'
+import { renderSmedDiagnostic, mountSmedDiagnostic } from './visuals/smedDiagnostic'
+import { renderSmedSolutions, mountSmedSolutions } from './visuals/smedSolutions'
 import type { RobotScene } from './webgl/RobotScene'
 
 document.documentElement.classList.add('has-js')
 mountPipelineMaps()
+renderSmedDiagnostic()
+renderSmedSolutions()
 mountSlideAtmospheres()
 renderCycleEvidence()
 const disposeObserverFigure = mountObserverFigure()
@@ -47,6 +54,8 @@ const disposeResultsNarrative = mountResultsNarrative()
 const disposeIndustrialContext = mountIndustrialContext()
 const disposeSmedChallenge = mountSmedChallenge()
 const disposeSmedStory = mountSmedStory()
+const disposeSmedDiagnostic = mountSmedDiagnostic()
+const disposeSmedSolutions = mountSmedSolutions()
 
 const disposeDeck = setupDeck()
 const disposePresentationMode = mountPresentationMode()
@@ -91,5 +100,7 @@ window.addEventListener('pagehide', () => {
   disposeIndustrialContext()
   disposeSmedChallenge()
   disposeSmedStory()
+  disposeSmedDiagnostic()
+  disposeSmedSolutions()
   robotScenes.forEach((scene) => scene.dispose())
 }, { once: true })

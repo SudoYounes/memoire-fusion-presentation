@@ -2,7 +2,7 @@
 
 **Présentation en ligne :** https://sudoyounes.github.io/memoire-fusion-presentation/
 
-Deck scroll-driven de 27 diapositives, ouvert par les périmètres du projet,
+Deck scroll-driven de 25 diapositives, ouvert par les périmètres du projet,
 puis consacré au chantier SMED et à la conception mécanique et à
 la qualification numérique de Robot 2. Le récit est calibré pour un jury de
 docteurs et professeurs : décisions, résultats, livrables et limites de preuve,
@@ -31,7 +31,7 @@ la commande et la qualification.
 ## Arc narratif
 
 1. Cadrer les deux périmètres, puis parcourir le chantier SMED : enjeu,
-   diagnostic, coordination, supports, standards, résultat et suivi.
+   observation, diagnostic, solutions déployées, résultat et suivi.
    Cadrer ensuite le geste Robot 2 et son contrat de réussite.
 2. Montrer l’architecture quatre axes et les décisions mécaniques structurantes.
 3. Parcourir les six blocs dans l'ordre de la vue maître : décrire, observer,
@@ -79,7 +79,8 @@ Options de répétition :
 
 ## Architecture
 
-- `index.html` — contenu sémantique des 27 diapositives.
+- `index.html` — structure des 25 diapositives ; le diagnostic et les fenêtres
+  de solutions SMED sont rendus par leurs modules dédiés.
 - `src/deck/setupModelsZoom.ts` — ancrage du bus de descriptions.
 - `src/deck/pipelineNavigation.ts` — miniatures et transitions de caméra
   communes aux six blocs de la chaîne numérique.
@@ -132,27 +133,34 @@ et `src/styles/industrial-context.css`.
 
 ## Chantier SMED
 
-Six écrans suivent l'ouverture, sans modifier les vingt slides Robot :
+Quatre écrans suivent l'ouverture, sans modifier les vingt slides Robot :
 
-- `#smed-enjeu` : cible de 12 h, ligne de conditionnement et opérations par machine.
-- `#smed-diagnostic` : 377 minutes classées dans le Pareto, puis causes et réponses.
-- `#smed-organisation` : quatre coordinations du nouveau scénario opératoire.
-- `#smed-supports` : supports de visserie, CAO et photos de fabrication.
-- `#smed-standards` : fiche NA014 et seuils de mobilisation en cas de blocage.
+- `#smed-enjeu` : cible de 12 h, opérations par machine, puis les quatre
+  analyses de la slide 20 source : machines, fonctions et croisements par
+  intervenant et par phase. Dix états, dont la vue initiale.
+- `#smed-diagnostic` : Pareto vertical, cumul et seuil 80 %, focus attente puis
+  contrôle, transformation de trois causes en leviers, synthèse des quatre
+  solutions retenues. Sept états.
+- `#smed-solutions` : chaîne verticale de quatre blocs, balayage lumineux gold
+  et fenêtres de preuves : nouveau scénario, inventaire et supports de
+  visserie, fiche NA014, logigramme de prise de décision. Quinze états.
 - `#smed-impact` : test de 655 minutes, comparaison à la cible et suivi prévu.
 
 Haut/Bas parcourent toutes les étapes du récit sans clic obligatoire. Le retour
 depuis un écran suivant reprend le dernier état de l'écran précédent.
-Les cinq nouveaux écrans ont respectivement 5, 4, 4, 3 et 4 états. Les liens
-de pied de slide restent disponibles pour la répétition et le tactile.
+La slide résultat conserve ses quatre états. Les liens de pied de slide et
+les quatre blocs de solutions restent disponibles pour la répétition et le tactile.
 
 `?capture=smed-impact&smed-step=2` permet de capturer un état précis (index à
 partir de zéro). `?motion=off#smed-diagnostic` conserve la progression sans
-animation. Le contrôleur local est `src/visuals/smedStory.ts`, son habillage
-`src/styles/smed-story.css`. Les preuves et la trame orale figurent dans
-`src/content/smed-story-notes.md`.
+animation. `?capture=smed-enjeu&smed-analysis=phases` isole la dernière analyse
+de la slide 2 (autres valeurs : `machines`, `functions`, `actors`).
+Le contrôleur local est `src/visuals/smedStory.ts`. Le diagnostic et les
+solutions ont leurs modules `smedDiagnostic.ts` / `smedSolutions.ts` et leurs
+styles isolés. Les preuves et la trame orale figurent dans
+`src/content/smed-story-notes.md` et `src/content/smed-solutions-notes.md`.
 
-Les graphiques et schémas sont éditables en HTML/CSS. Les photographies sont
+Les graphiques redessinés sont éditables en HTML/CSS/SVG. Les photographies sont
 des copies des preuves originales, sans génération ni retouche. La durée du
 test, les charges d'activité et les temps du Pareto gardent des périmètres
 distincts. Aucun gain durable ni pourcentage avant/après non confirmé n'est

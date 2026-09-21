@@ -77,8 +77,10 @@ Source commune : `/Users/macair/Downloads/Soutenance de stage_VIATRIS.pptx`,
 `15fb7d7ecd175f105c216037ad41c6a7a2667efc261936134f7551362c8eb01c`.
 Les numéros ci-dessous désignent les diapositives de ce PowerPoint.
 
-Les fichiers de `smed/` sont des copies binaires, sans retouche, des extractions
-déjà conservées dans `evidence/smed/figures/`. Pour les EMF contenant un bitmap,
+Les PNG de `smed/` sont des copies binaires, sans retouche, des extractions
+déjà conservées dans `evidence/smed/figures/`. Le SVG du logigramme est copié
+directement depuis `evidence/smed/source/ppt/media/image57.svg`.
+Pour les EMF contenant un bitmap,
 le PNG est l'image extraite ; il ne s'agit pas d'une reconstruction du contenu.
 Les deux détails du logigramme sont des recadrages antérieurs du rendu du SVG.
 Le PowerPoint original n'est pas modifié.
@@ -93,6 +95,7 @@ Le PowerPoint original n'est pas modifié.
 | `smed/support-descent-cad.png` | `image53.png` | 27 / `ppt/media/image53.emf` | Modèle du support de visserie de descente. Certaines quantités inscrites diffèrent de l'inventaire slide 26 ; ne pas en déduire une spécification dimensionnelle commune. |
 | `smed/support-descent-built.png` | `image54.png` | 27 / `ppt/media/image54.emf` | Photo du support de visserie de descente fabriqué. |
 | `smed/standard-na014.png` | `image56.png` | 29 / `ppt/media/image56.emf` | Extrait de la fiche NA014, montage bobine aluminium sur NOACK. Bas déjà tronqué dans la source ; champs rédaction et approbation vides. |
+| `smed/decision-source.svg` | `ppt/media/image57.svg` | 30 / SVG original | Copie binaire de l'original ; vue générale et fenêtres de zoom, sans changement de nœud ou de raccordement. Les marges blanches extérieures sont retirées à l'affichage. |
 | `smed/decision-left.png` | `decision-left.png` | 30 / rendu de `ppt/media/image57.svg` | Détail de l'orientation qualité/maintenance, checklist 10 min et intervention du chef d'équipe 20 min. Les raccordements se poursuivent hors du recadrage. |
 | `smed/decision-right.png` | `decision-right.png` | 30 / rendu de `ppt/media/image57.svg` | Détail de l'escalade maintenance : diagnostic/solution 3 h, responsables, blocage total supérieur à 8 h et cellule de crise. Les délais sont des seuils de décision, pas des résolutions garanties. |
 | `smed/test-result-source.png` | `image59.png` | 33 / `ppt/media/image59.png` | Bandeau du test : CDF 655 min, soit 10 h 55 (10,92 h arrondies). Une colonne de 202 min n'a pas de libellé visible ; ne pas l'attribuer ni additionner les charges pour reconstruire la durée. |
@@ -107,24 +110,37 @@ Les photos originales sont conservées, sans ajout de pièces ou de marquages.
 Le logigramme original comporte deux raccordements ambigus : la branche
 « blocage total non supérieur à 8 h » rejoint la reprise sans confirmation
 explicite de résolution ; la cellule de crise rejoint directement « CDF
-terminé ». La synthèse de présentation retient les acteurs et seuils
-d'escalade ; elle ne présente pas ces retours comme une procédure corrigée
-et approuvée.
+terminé ». La nouvelle fenêtre montre le document original et ses détails,
+avec ces raccordements inchangés ; elle ne les présente pas comme une
+procédure corrigée et approuvée. Les commentaires retiennent les acteurs
+et seuils d'escalade, sans promettre un délai de résolution.
 
 Les graphiques et schémas natifs de la séquence reprennent les sources
 suivantes, sans importer leurs fonds ou interfaces :
 
+- Slide 20, `image46.emf`, `image47.emf`, `chart1.xml` et `chart2.xml` : temps
+  par machine et fonction en heures décimales ; croisements machine / acteur
+  et phase / acteur en minutes. Les caches natifs sont lus avec leurs indices
+  `c:pt@idx`, y compris les contributions absentes. Chaque matrice totalise
+  1 121 min d'activité, pas une durée calendaire d'arrêt. Les contrôles 188 min
+  et attentes 43 min de cette analyse ne sont pas fusionnés avec le Pareto.
 - Slide 21, `ppt/charts/chart3.xml` : Pareto 179 min d'attente, 173 min de
   contrôle, 25 min de transport ; 352/377 min pour les deux premières
-  catégories. Le pourcentage concerne les temps classés de ce Pareto,
+  catégories. Barres verticales, courbe cumulée 47,5 / 93,4 / 100 % et seuil
+  de 80 % sur l'axe droit. Le pourcentage concerne les temps classés de ce Pareto,
   pas l'intégralité de l'arrêt.
 - Slide 25, tableau OOXML : nettoyage rouleau maintenance 5 min en temps
   masqué ; entraide au nettoyage ; programme Linemaster chef d'équipe 10 min
-  en temps masqué ; vide de ligne chef d'équipe + qualité 25 min. Le schéma
-  de coordination n'est pas un planning à l'échelle ni un gain net de 15 min.
+  en temps masqué ; vide de ligne chef d'équipe + qualité 25 min. Le tableau
+  est transcrit en trois vues, avec les 20 lignes et leurs alignements ; ce
+  n'est pas un planning à l'échelle ni un gain net de 15 min.
+- Slide 26, tableau OOXML : les 30 entrées de visserie sont transcrites en
+  trois vues ; machines, zones, quantités, désignations, dimensions et
+  destinations restent inchangées, ainsi que les cellules non renseignées.
 - Slides 13 et 33 : cible 12 h et résultat 655 min ; écart calculé de 65 min.
   Les bases 17 h de cadrage et 16 h d'observation slide 19 ne sont pas
   réconciliées. Aucun pourcentage de réduction avant/après n'en est déduit.
 
 Lecture détaillée et narration : `src/content/smed-selection.md` et
-`src/content/smed-story-notes.md`.
+`src/content/smed-story-notes.md`, `src/content/smed-challenge-notes.md` et
+`src/content/smed-solutions-notes.md`.

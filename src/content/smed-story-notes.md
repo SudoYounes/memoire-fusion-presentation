@@ -1,7 +1,9 @@
 # SMED — du diagnostic au résultat
 
-Cette note accompagne les cinq écrans ajoutés après l'enjeu : diagnostic,
-organisation, supports, standards et impact. Elle sépare les sources et
+Cette note accompagne le diagnostic et le résultat, et conserve le dossier de
+preuve des solutions. La révision fusionne organisation, supports et standards
+dans un seul écran à quatre blocs : `#smed-solutions`. Sa conduite détaillée est
+dans `smed-solutions-notes.md`. Cette note sépare les sources et
 leurs limites de la trame orale, afin que chaque écran porte un message
 simple et une preuve lisible. Le périmètre SMED concerne l'organisation du
 changement de format ; les résultats de Robot 2 restent distincts.
@@ -19,10 +21,9 @@ Les preuves ne changent ni de statut ni de portée lorsqu'elles sont agrandies.
 
 | Écran | États dans l'ordre du récit | Message central |
 | --- | --- | --- |
-| Diagnostic | Vue des trois catégories → focus 352 min → visserie → gestes → blocages | Comprendre les temps classés, puis relier les observations aux leviers. |
-| Organisation | Maintenance → nettoyage partagé → Linemaster → vide de ligne | Mieux coordonner le travail et conserver le passage qualité. |
-| Supports | Photo commune → CAO commune → paire boîte à brosses → paire descente | Montrer les réalisations et expliquer leur logique de rangement. |
-| Standards | NA014 → orientation qualité/maintenance → escalade 3 h / 8 h | Donner un repère au geste et à la décision. |
+| Enjeu | Ligne et opérations → machines → fonctions → intervenants → phases | Lire les quatre graphiques de la slide 20 sans confondre charge cumulée et arrêt calendaire. |
+| Diagnostic | Pareto → attente → attente + contrôle → visserie → gestes → blocages → quatre leviers | Comprendre les temps classés, puis transformer les observations en réponses. |
+| Solutions | Scénario → visserie → formation → prise de décision | Déployer les artefacts depuis une chaîne fixe, avec la preuve associée au bloc actif. |
 | Impact | Test 10 h 55 → cible 12 h → marge 65 min → suivi | Présenter le résultat de l'essai et l'outil de suivi qui lui succède. |
 
 ## 1. Diagnostic — relier les temps aux causes
@@ -46,8 +47,12 @@ n'est pas recombinée avec ce Pareto.
 
 L'Ishikawa `causes-source.png` reste disponible comme source documentaire.
 Le récit utilise sa synthèse native, sans ajouter un arrêt sur le diagramme complet.
-Le graphique principal garde trois barres sur une même échelle et le
-dénominateur 377 min. Les liens causes/réponses ont la même importance
+Le graphique principal garde la structure de la figure source : trois barres
+verticales, axe gauche 0–200 minutes, ligne cumulée non lissée et axe droit
+0–100 %. Cumul : 47,4801 %, 93,3687 %, 100 %. Le trait pointillé est à 80 %
+sur l'axe droit, pas un seuil de 160 minutes sur l'axe gauche. La ligne débute
+au centre de la première barre, sans point fictif à zéro. Le dénominateur reste
+377 min. Les liens causes/réponses ont la même importance
 graphique ; aucune épaisseur de trait ne représente un gain.
 
 ### Trame orale, état par état
@@ -55,18 +60,32 @@ graphique ; aucune épaisseur de trait ne représente un gain.
 0. **Vue d'ensemble.** « Le diagnostic classe ici trois familles de temps :
    l'attente, le contrôle et le transport. Elles représentent 377 minutes
    dans ce relevé. »
-1. **Focus 352 minutes.** « L'attente et le contrôle en concentrent 352.
+1. **Attente.** « L'attente représente 179 minutes, près de la moitié des
+   377 minutes classées dans ce Pareto. »
+2. **Attente et contrôle.** « L'attente et le contrôle en concentrent 352.
    Le levier consiste à mieux préparer et coordonner ces opérations,
    tout en conservant les exigences de qualité. »
-2. **Visserie.** « Sur le terrain, les recherches, les mélanges et
+3. **Visserie.** « Sur le terrain, les recherches, les mélanges et
    l'indisponibilité des vis perturbent le remontage. L'organisation des
    pièces devient donc une réponse concrète. »
-3. **Gestes.** « Les hésitations et les demandes d'assistance montrent aussi
+4. **Gestes.** « Les hésitations et les demandes d'assistance montrent aussi
    le besoin de rendre les opérations plus faciles à comprendre et à
    transmettre. »
-4. **Blocages.** « Enfin, les pratiques d'appel varient. Définir à qui passer
+5. **Blocages.** « Enfin, les pratiques d'appel varient. Définir à qui passer
    le relais et à quel moment évite de laisser chaque intervenant décider
    seul pendant une durée indéfinie. »
+6. **Quatre leviers.** « À ces trois réponses s'ajoute le nouveau scénario
+   opératoire, issu de l'observation du déroulement. Nous allons maintenant
+   parcourir leurs solutions et les artefacts réalisés. »
+
+Pendant les états 3–5, le libellé de la cause reste visible comme trace,
+tandis que son levier se déploie vers la droite. Les réponses déjà présentées
+restent en retrait. Le nouveau scénario ne devient jamais une quatrième
+cause de l'Ishikawa : son origine est explicitement différente à l'état 6.
+
+Les sections 2–4 ci-dessous documentent les trois familles de preuves autrefois
+séparées en écrans. Elles restent le dossier de référence ; la nouvelle
+séquence unique et ses quinze étapes sont décrites dans `smed-solutions-notes.md`.
 
 ## 2. Organisation — coordonner les interventions
 
