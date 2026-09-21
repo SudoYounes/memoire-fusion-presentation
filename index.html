@@ -16,7 +16,7 @@
     <nav class="deck-sections" aria-label="Chapitres de la présentation" data-deck-sections></nav>
     <nav class="deck-rail" aria-label="Navigation dans la présentation" data-deck-rail></nav>
     <footer class="deck-footer" data-deck-chrome>
-      <p class="deck-footer__count"><span data-slide-current>01</span><i></i><span data-slide-total>25</span></p>
+      <p class="deck-footer__count"><span data-slide-current>01</span><i></i><span data-slide-total>13</span></p>
     </footer>
 
     <main id="presentation" class="deck" data-deck>
@@ -191,53 +191,9 @@
 
       <section class="deck-slide theme-mist smed-story-slide smed-solutions-slide smed-impact-slide" id="smed-impact" data-slide data-chapter="SMED" data-title="Un test à 10 h 55" data-theme="light" data-smed-story data-smed-steps="4" data-smed-step="0" aria-labelledby="smed-impact-title"></section>
 
-      <section class="deck-slide deck-slide--hero theme-paper" id="robot-2" data-slide data-chapter="Ouverture" data-title="Robot 2" data-theme="light" aria-labelledby="slide-01-title">
-        <div class="slide-stage slide-stage--hero">
-          <div class="hero-index" aria-hidden="true">02</div>
-          <div class="hero-copy" data-reveal>
-            <p class="kicker">Conception mécanique · Qualification numérique</p>
-            <h1 id="slide-01-title"><span>Robot</span><em>2</em></h1>
-            <p class="hero-deck">De la CAO paramétrique à une cellule de palettisation quatre axes qualifiée en simulation.</p>
-          </div>
-          <figure class="hero-robot" data-visual><img src="./media/robot-placing-wide.png" alt="Vue CAO de Robot 2 en posture de dépose" /></figure>
-          <p class="hero-cue">Défiler · flèches · espace</p>
-        </div>
-      </section>
 
-      <section class="deck-slide theme-ink" id="enjeu" data-slide data-chapter="Cadrage" data-title="L’enjeu" data-theme="dark" aria-labelledby="slide-02-title">
-        <div class="slide-stage statement-stage">
-          <p class="kicker" data-reveal>Le point de départ</p>
-          <h2 id="slide-02-title" class="display display--wide" data-reveal>Transformer un geste répétitif en un cycle <em>maîtrisé.</em></h2>
-          <ol class="verb-line" aria-label="Séquence fonctionnelle" data-reveal>
-            <li><span>01</span>Prendre</li><li><span>02</span>Transporter</li><li><span>03</span>Déposer</li>
-          </ol>
-          <p class="side-note" data-reveal>L’objectif n’était pas de dessiner un bras isolé, mais de produire une cellule vérifiable qui préserve le flux de ligne.</p>
-        </div>
-      </section>
 
-      <section class="deck-slide theme-paper" id="contrat" data-slide data-chapter="Cadrage" data-title="Le contrat de réussite" data-theme="light" aria-labelledby="slide-03-title">
-        <div class="slide-stage metric-stage">
-          <div class="metric-stage__heading" data-reveal><p class="kicker">Le contrat de réussite</p><h2 id="slide-03-title" class="display">Quatre nombres ont cadré la conception.</h2></div>
-          <dl class="spec-axis" data-reveal>
-            <div><dt>9,6 <small>kg</small></dt><dd>Produit maximal observé</dd></div>
-            <div><dt>15 <small>kg</small></dt><dd>Carton de calcul simulé</dd></div>
-            <div><dt>4 <small>axes</small></dt><dd>Architecture Robot 2</dd></div>
-            <div class="spec-axis__target"><dt>&lt; 12 <small>s</small></dt><dd>Exigence par cycle</dd></div>
-          </dl>
-          <p class="evidence-note">300 cartons/h est une équivalence théorique, hors arrêts et hors TRS.</p>
-        </div>
-      </section>
 
-      <section class="deck-slide theme-mist" id="cellule" data-slide data-chapter="Architecture" data-title="Une cellule, pas seulement un bras" data-theme="light" aria-labelledby="slide-04-title">
-        <div class="slide-stage split-stage split-stage--image-left">
-          <figure class="visual-frame visual-frame--assembly" data-visual><img src="./media/robot-assembly-iso.png" alt="Vue isométrique de l’assemblage complet Robot 2" /><figcaption>Assemblage numérique · posture de travail</figcaption></figure>
-          <div class="split-stage__copy" data-reveal>
-            <p class="kicker">Choix système</p><h2 id="slide-04-title" class="display">Une cellule, pas seulement un bras.</h2>
-            <p class="lede">Le robot donne la portée. L’indexeur présente la rangée. La préhension et la supervision ferment la boucle.</p>
-            <ul class="line-list"><li>Robot quatre axes</li><li>Palette indexée</li><li>Préhension trois zones</li><li>Perception et interverrouillages</li></ul>
-          </div>
-        </div>
-      </section>
 
       <section class="deck-slide theme-paper" id="anatomie" data-slide data-chapter="Architecture" data-title="L’anatomie de Robot 2" data-theme="light" aria-labelledby="slide-05-title">
         <div class="slide-stage anatomy-stage">
@@ -260,42 +216,8 @@
         </div>
       </section>
 
-      <section class="deck-slide theme-ink" id="decision-j3" data-slide data-chapter="Décisions mécaniques" data-title="Le moteur J3 reste à l’épaule" data-theme="dark" aria-labelledby="slide-06-title">
-        <div class="slide-stage webgl-stage">
-          <div class="webgl-stage__copy" data-reveal>
-            <p class="kicker">Décision n° 01 · Distribution des masses</p><h2 id="slide-06-title" class="display">Le moteur J3 reste à <em>l’épaule.</em></h2>
-            <p class="lede">Un distributeur, deux demi-arbres et deux biellettes transmettent le mouvement jusqu’au coude — sans embarquer le moteur en bout de bras.</p>
-            <p class="decision-line"><span>Gain recherché</span> Réduire l’inertie portée sans perdre la fermeture cinématique.</p>
-          </div>
-          <div class="webgl-shell" data-visual>
-            <img class="webgl-poster" src="./media/j3-articulation-exploded.png" alt="Articulation J3 en vue éclatée" />
-            <canvas data-robot-canvas data-robot-model="./models/j3-articulation.glb" data-robot-kind="detail" aria-label="Modèle 3D interactif de l’articulation J3"></canvas>
-            <p class="webgl-status" data-webgl-status>Chargement du modèle 3D</p>
-          </div>
-          <p class="webgl-hint">Glisser pour inspecter · modèle CAO optimisé</p>
-        </div>
-      </section>
 
-      <section class="deck-slide theme-paper" id="structure" data-slide data-chapter="Décisions mécaniques" data-title="Le calcul a empêché un faux gain" data-theme="light" aria-labelledby="slide-07-title">
-        <div class="slide-stage chart-stage">
-          <div class="chart-stage__copy" data-reveal>
-            <p class="kicker">Décision n° 02 · Allègement</p><h2 id="slide-07-title" class="display">Le calcul a empêché un faux gain de masse.</h2>
-            <p class="lede">La colonne offrait une piste locale crédible. Les bras restaient gouvernants : les allègements non démontrés ont été refusés.</p>
-            <dl class="mini-ledger"><div><dt>−12,29 kg</dt><dd>Candidat colonne, conditionnel</dd></div><div><dt>CS<sub>y</sub> 3,70</dt><dd>Cas sévère du candidat</dd></div><div><dt>CS<sub>y</sub> 1,87</dt><dd>Bras supérieur gouvernant</dd></div></dl>
-          </div>
-          <figure class="chart-visual" data-visual><img src="./media/fea-comparison.svg" alt="Comparaison des coefficients de sécurité issus de la campagne de calcul" /><figcaption>Campagne EF gelée · décision traçable</figcaption></figure>
-        </div>
-      </section>
 
-      <section class="deck-slide theme-teal" id="cao-parametrique" data-slide data-chapter="Ingénierie numérique" data-title="La CAO devient un système" data-theme="dark" aria-labelledby="slide-08-title">
-        <div class="slide-stage system-stage">
-          <div class="system-stage__number" data-reveal>36</div>
-          <div class="system-stage__copy" data-reveal><p class="kicker">CAO paramétrique · STEP-first</p><h2 id="slide-08-title" class="display">La géométrie devient un système reproductible.</h2><p class="lede">Une source unique de paramètres, un vocabulaire de conception partagé, puis un contrôle automatique avant export.</p></div>
-          <ol class="code-flow" data-reveal>
-            <li><code>params.py</code><span>dimensions & matériaux</span></li><li><code>cadlib.py</code><span>règles de conception</span></li><li><code>parts/r2_*.py</code><span>36 générateurs</span></li><li><code>tools/check.py</code><span>géométrie · masse · contrat</span></li><li><code>STEP / GLB</code><span>livrables contrôlés</span></li>
-          </ol>
-        </div>
-      </section>
 
       <section class="deck-slide theme-paper" id="chaine-numerique" data-slide data-pipeline-slide="overview" data-chapter="Ingénierie numérique" data-title="La pipeline numérique complète" data-theme="light" aria-labelledby="slide-09-title">
         <div class="slide-stage pipeline-stage pipeline-stage--overview">
@@ -691,45 +613,10 @@
         </div>
       </section>
 
-      <section class="deck-slide theme-paper" id="hold-pass" data-slide data-chapter="Qualification" data-title="De HOLD à PASS" data-theme="light" aria-labelledby="slide-15-title">
-        <div class="slide-stage hold-stage">
-          <div class="hold-stage__copy" data-reveal><p class="kicker">Rigueur de qualification</p><h2 id="slide-15-title" class="display">De <span class="status-hold">HOLD</span> à <span class="status-pass">PASS</span>, sans changer les seuils.</h2><p class="lede">Les campagnes incomplètes n’ont jamais été recombinées. Chaque défaut de preuve a arrêté l’essai.</p></div>
-          <ol class="campaign-line" data-reveal><li class="is-hold"><b>v1</b><span>2 cycles &gt; 12 s</span></li><li class="is-hold"><b>v2</b><span>preuve manquante</span></li><li class="is-hold"><b>v3</b><span>fraîcheur invalide</span></li><li class="is-hold"><b>v4</b><span>arrêt fail-closed</span></li><li class="is-hold"><b>v5</b><span>arrêt fail-closed</span></li><li class="is-pass"><b>v6</b><span>108 / 108</span></li></ol>
-          <blockquote data-reveal>Le résultat final vaut aussi par les essais que nous avons refusé de faire passer.</blockquote>
-        </div>
-      </section>
 
-      <section class="deck-slide theme-teal" id="protocole" data-slide data-chapter="Qualification" data-title="Neuf séquences, 108 verdicts" data-theme="dark" aria-labelledby="slide-16-title">
-        <div class="slide-stage campaign-stage">
-          <div class="campaign-stage__copy" data-reveal><p class="kicker">Protocole v6</p><h2 id="slide-16-title" class="display">Neuf séquences. Cent huit verdicts.</h2><p class="lede">Le seuil s’applique à chaque cycle — jamais à la seule moyenne.</p><ul class="line-list line-list--light"><li>9 démarrages frais</li><li>12 cartons par séquence</li><li>9 fermetures propres</li><li>8 resets déclarés, hors durée</li></ul></div>
-          <div class="cycle-matrix" data-cycle-matrix aria-label="Matrice des 108 cycles acceptés"></div>
-        </div>
-      </section>
 
-      <section class="deck-slide theme-paper" id="resultat" data-slide data-chapter="Résultats" data-title="Les 108 cycles passent" data-theme="light" aria-labelledby="slide-17-title">
-        <div class="slide-stage result-stage">
-          <div class="result-stage__heading" data-reveal><p class="kicker">Résultat principal</p><h2 id="slide-17-title" class="display"><span>108 / 108</span> cycles restent sous 12 secondes.</h2></div>
-          <div class="cycle-plot" data-cycle-plot data-visual aria-label="Durée des 108 cycles par rapport au seuil de 12 secondes"></div>
-          <dl class="result-ledger" data-reveal><div><dt>10,556 s</dt><dd>Moyenne</dd></div><div><dt>11,526 s</dt><dd>Maximum</dd></div><div><dt>0,474 s</dt><dd>Marge minimale</dd></div><div><dt>PASS</dt><dd>Commissioning simulé</dd></div></dl>
-        </div>
-      </section>
 
-      <section class="deck-slide theme-mist" id="qualite" data-slide data-chapter="Résultats" data-title="Cadence et qualité passent ensemble" data-theme="light" aria-labelledby="slide-18-title">
-        <div class="slide-stage quality-stage">
-          <div class="quality-stage__copy" data-reveal><p class="kicker">Verdicts associés</p><h2 id="slide-18-title" class="display">La cadence et la qualité passent ensemble.</h2><p class="lede">Le temps n’a pas été obtenu en relâchant l’horizontalité, le placement ou la saturation.</p></div>
-          <dl class="acceptance-ledger" data-reveal><div><dt>0,805°</dt><dd>Horizontalité max.</dd><span>&lt; 1°</span></div><div><dt>14,492 mm</dt><dd>Erreur XY max.</dd><span>PASS</span></div><div><dt>5,121 mm</dt><dd>Erreur Z max.</dd><span>PASS</span></div><div><dt>0,985°</dt><dd>Erreur lacet max.</dd><span>PASS</span></div><div><dt>10 ms</dt><dd>Saturation contiguë</dd><span>&lt; 50 ms</span></div></dl>
-          <figure class="quality-plot" data-visual><img src="./media/placement-trends.svg" alt="Tendances des erreurs de placement pendant la campagne" /></figure>
-        </div>
-      </section>
 
-      <section class="deck-slide theme-ink" id="livrables" data-slide data-chapter="Transfert" data-title="Une référence prête pour le transfert" data-theme="dark" aria-labelledby="slide-19-title">
-        <div class="slide-stage deliverable-stage">
-          <div class="deliverable-stage__heading" data-reveal><p class="kicker">Ce que le projet livre</p><h2 id="slide-19-title" class="display">Une référence numérique prête pour le transfert.</h2></div>
-          <div class="artifact-ribbon" data-reveal><div><b>01</b><strong>CAD</strong><span>Sources paramétriques · STEP · GLB</span></div><div><b>02</b><strong>Calcul</strong><span>Charges · EF · décisions gelées</span></div><div><b>03</b><strong>Modèles</strong><span>URDF · SRDF · SDF</span></div><div><b>04</b><strong>Programme</strong><span>ROS 2 · contrôle · supervision</span></div><div><b>05</b><strong>Runtime</strong><span>Docker · CI · replays</span></div><div><b>06</b><strong>Preuves</strong><span>Traces · audits · rapport</span></div></div>
-          <div class="boundary-line" data-reveal><div><span>Acquis</span><p>Conception et commissioning numérique traçables.</p></div><div><span>À établir</span><p>Fabrication, mise en service, sécurité et performance terrain.</p></div></div>
-          <p class="closing-line" data-reveal>Nous n’avons pas seulement conçu une machine. Nous avons construit la manière de la vérifier.</p>
-        </div>
-      </section>
     </main>
 
     <div class="deck-live" aria-live="polite" aria-atomic="true" data-deck-live></div>
