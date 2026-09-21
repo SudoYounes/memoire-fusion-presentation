@@ -120,14 +120,14 @@
             <figure class="smed-line" aria-labelledby="smed-line-caption">
               <div class="smed-line-heading">
                 <p class="smed-challenge-label">Ligne de conditionnement</p>
-                <span>Schéma simplifié</span>
+                <span>Choisir un équipement pour voir les opérations</span>
               </div>
               <ol class="smed-line-machines" aria-label="Équipements dans l’ordre du schéma source">
-                <li><span class="smed-line-number">01</span><strong>Noack</strong></li>
-                <li><span class="smed-line-number">02</span><strong>PC</strong></li>
-                <li><span class="smed-line-number">03</span><strong>Neri</strong></li>
-                <li><span class="smed-line-number">04</span><strong>Christ</strong></li>
-                <li><span class="smed-line-number">05</span><strong>Étiqueteuse</strong></li>
+                <li><button type="button" data-smed-machine="noack" aria-expanded="false" aria-controls="smed-machine-panel" aria-label="Noack : ouvrir les opérations observées"><span class="smed-line-number">01</span><strong>Noack</strong><span class="smed-machine-cue">Opérations <i aria-hidden="true">↗</i></span></button></li>
+                <li><button type="button" data-smed-machine="pc" aria-expanded="false" aria-controls="smed-machine-panel" aria-label="PC : ouvrir les opérations observées"><span class="smed-line-number">02</span><strong>PC</strong><span class="smed-machine-cue">Opérations <i aria-hidden="true">↗</i></span></button></li>
+                <li><button type="button" data-smed-machine="neri" aria-expanded="false" aria-controls="smed-machine-panel" aria-label="Neri : ouvrir les opérations observées"><span class="smed-line-number">03</span><strong>Neri</strong><span class="smed-machine-cue">Opérations <i aria-hidden="true">↗</i></span></button></li>
+                <li><button type="button" data-smed-machine="christ" aria-expanded="false" aria-controls="smed-machine-panel" aria-label="Christ : ouvrir les opérations observées"><span class="smed-line-number">04</span><strong>Christ</strong><span class="smed-machine-cue">Opérations <i aria-hidden="true">↗</i></span></button></li>
+                <li><button type="button" data-smed-machine="etiqueteuse" aria-expanded="false" aria-controls="smed-machine-panel" aria-label="Étiqueteuse : ouvrir les opérations observées"><span class="smed-line-number">05</span><strong>Étiqueteuse</strong><span class="smed-machine-cue">Opérations <i aria-hidden="true">↗</i></span></button></li>
               </ol>
               <figcaption id="smed-line-caption">Ligne à l’arrêt pendant le changement de format</figcaption>
             </figure>
@@ -158,10 +158,28 @@
               </div>
               <footer class="smed-detail-source">Source : soutenance VIATRIS, slides 15–17. Produits et formats du CDF observé.</footer>
             </section>
+
+            <section id="smed-machine-panel" class="smed-challenge-detail smed-machine-panel" role="region" aria-labelledby="smed-machine-title" aria-describedby="smed-machine-summary" data-lenis-prevent hidden>
+              <header class="smed-detail-heading smed-machine-heading">
+                <div><p class="smed-detail-label">Extrait d’observation</p><h3 id="smed-machine-title"></h3></div>
+                <p id="smed-machine-summary" class="smed-machine-summary"></p>
+                <button type="button" data-smed-machine-close aria-label="Fermer les opérations observées">×</button>
+              </header>
+              <table class="smed-operations-table">
+                <caption class="deck-live">Opérations sélectionnées dans le relevé initial</caption>
+                <thead><tr><th scope="col">N° source</th><th scope="col">Opération observée</th><th scope="col">Intervenant</th></tr></thead>
+                <tbody data-smed-operations></tbody>
+              </table>
+              <footer class="smed-machine-footer">
+                <p class="smed-detail-source">Soutenance VIATRIS, slide 18. Libellés abrégés, extrait non exhaustif.</p>
+                <span data-smed-machine-count></span>
+              </footer>
+            </section>
+            <div class="smed-machine-link" aria-hidden="true" hidden></div>
           </div>
 
           <footer class="smed-challenge-footer">
-            <p>Source : soutenance VIATRIS, slides 6, 13 et 15.</p>
+            <p>Source : soutenance VIATRIS, slides 6, 13, 15 et 18.</p>
             <button type="button" class="smed-detail-trigger" data-smed-detail-open aria-expanded="false" aria-controls="smed-challenge-detail">Changement étudié et intervenants <span aria-hidden="true">↗</span></button>
           </footer>
         </div>

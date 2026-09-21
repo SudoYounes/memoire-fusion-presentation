@@ -68,13 +68,15 @@
 }
 
 .smed-challenge-evidence {
-  position: relative;
   display: grid;
   align-items: center;
   min-height: 0;
 }
 
-.smed-line { transition: opacity 220ms ease; }
+.smed-challenge-intro { transition: opacity 220ms ease; }
+.has-smed-window .smed-challenge-intro { opacity: .12; }
+.smed-line-heading { transition: opacity 220ms ease; }
+.has-smed-window .smed-line-heading { opacity: 0; }
 .smed-line-heading { display: flex; justify-content: space-between; align-items: baseline; }
 .smed-line-heading > span { color: #b5d3d3; font-size: calc(.74 * var(--su)); }
 .smed-line-machines {
@@ -93,16 +95,26 @@
   transform-origin: left;
 }
 
-.smed-line-machines li {
+.smed-line-machines button {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: calc(.6 * var(--su));
   padding-top: calc(2.05 * var(--su));
+  padding-inline: calc(.5 * var(--su));
+  padding-bottom: calc(.45 * var(--su));
+  width: 100%;
+  border: 0;
+  border-radius: calc(.3 * var(--su));
+  background: transparent;
+  color: inherit;
+  align-items: center;
   text-align: center;
+  cursor: pointer;
+  transition: color 220ms ease, opacity 220ms ease;
 }
 
-.smed-line-machines li::before {
+.smed-line-machines button::before {
   content: '';
   position: absolute;
   top: 0;
@@ -112,8 +124,18 @@
   border: 2px solid #aad5d3;
   border-radius: 50%;
   background: #0b626b;
+  transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
 }
 
+.smed-machine-cue { color: #acd4d3; font-size: calc(.68 * var(--su)); }
+.smed-machine-cue i { display: inline-block; margin-left: calc(.25 * var(--su)); font-size: 1.25em; font-style: normal; transition: transform 220ms ease; }
+.smed-line-machines button:hover, .smed-line-machines button[aria-expanded='true'] { color: #f1d5a3; }
+.smed-line-machines button:hover .smed-machine-cue i { transform: translate(2px, -2px); }
+.smed-line-machines button[aria-expanded='true']::before { background: #e4b968; border-color: #f5d394; box-shadow: 0 0 0 calc(.35 * var(--su)) #e4b96820; }
+.has-smed-machine .smed-line-machines button:not([aria-expanded='true']) { opacity: .4; }
+.has-smed-machine .smed-line-machines button:hover, .has-smed-machine .smed-line-machines button:focus-visible { opacity: 1; }
+.smed-machine-link[hidden] { display: none; }
+.smed-machine-link { position: absolute; z-index: 2; width: 1px; background: #e4b968; pointer-events: none; }
 .smed-line-number { color: #9bc9ca; font-size: calc(.68 * var(--su)); letter-spacing: .12em; }
 .smed-line-machines strong { font-size: calc(1.6 * var(--su)); font-weight: 570; letter-spacing: -.025em; }
 .smed-line figcaption {
@@ -159,7 +181,10 @@
 .smed-challenge-detail[hidden] { display: none; }
 .smed-challenge-detail {
   position: absolute;
-  inset: calc(-.6 * var(--su)) 0;
+  top: calc(8.3 * var(--su));
+  left: calc(5.6 * var(--su));
+  right: calc(5.6 * var(--su));
+  height: calc(20.8 * var(--su));
   z-index: 5;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
@@ -171,7 +196,6 @@
   box-shadow: 0 14px 40px #002b3240;
   color: var(--ink);
 }
-.smed-challenge-stage.has-smed-detail .smed-line { opacity: 0; pointer-events: none; }
 .smed-detail-heading { display: flex; justify-content: space-between; align-items: start; }
 .smed-detail-label { color: #93602a; font-size: calc(.66 * var(--su)); font-weight: 650; letter-spacing: .1em; text-transform: uppercase; }
 .smed-detail-heading h3 { margin: calc(.25 * var(--su)) 0 0; font-size: calc(1.55 * var(--su)); font-weight: 600; letter-spacing: -.025em; }
@@ -191,6 +215,20 @@
 .smed-detail-support { margin-top: calc(.7 * var(--su)); font-size: calc(.88 * var(--su)); line-height: 1.35; }
 .smed-detail-source { color: var(--slate); font-size: calc(.65 * var(--su)); line-height: 1.4; }
 
+.smed-machine-heading { gap: calc(2 * var(--su)); align-items: center; }
+.smed-machine-heading > div { min-width: calc(17 * var(--su)); }
+.smed-machine-heading h3 { font-size: calc(2 * var(--su)); }
+.smed-machine-summary { flex: 1; font-family: var(--font-serif); font-size: calc(1.3 * var(--su)); line-height: 1.3; color: var(--slate); }
+.smed-operations-table { width: 100%; border-collapse: collapse; text-align: left; font-size: calc(1.02 * var(--su)); line-height: 1.3; }
+.smed-operations-table th, .smed-operations-table td { padding: calc(.5 * var(--su)) 0; border-bottom: 1px solid #17486322; }
+.smed-operations-table thead th { color: var(--slate); font-size: calc(.68 * var(--su)); font-weight: 500; }
+.smed-operations-table th:first-child { width: 8%; }
+.smed-operations-table tbody th { color: #93602a; font-size: calc(.78 * var(--su)); font-weight: 500; font-variant-numeric: tabular-nums; }
+.smed-operations-table td:nth-child(2) { padding-right: calc(1.4 * var(--su)); }
+.smed-operations-table td:last-child { width: 17%; color: var(--slate); font-size: calc(.88 * var(--su)); }
+.smed-machine-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.smed-machine-footer > span { color: var(--slate); font-size: calc(.68 * var(--su)); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
 /* Reveal the scope, never imply the machines are producing during the stop. */
 html:not(.is-reduced-motion):not(.is-motion-off) .smed-challenge-slide.is-active .smed-line-machines::before { animation: smed-line-draw 850ms var(--ease-out) 200ms both; }
 html:not(.is-reduced-motion):not(.is-motion-off) .smed-challenge-slide.is-active .smed-line-machines li { animation: smed-node-enter 600ms var(--ease-out) both; }
@@ -202,7 +240,7 @@ html:not(.is-reduced-motion):not(.is-motion-off) .smed-challenge-slide.is-active
 @keyframes smed-node-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 @media screen and (max-aspect-ratio: 4 / 5) {
-  .smed-challenge-stage { gap: 2.7rem; padding-top: 7rem; }
+  .smed-challenge-stage { gap: 2.7rem; padding-top: 7rem; grid-template-rows: none; align-content: start; }
   .smed-challenge-intro { grid-template-columns: 1fr; gap: 2rem; }
   .smed-challenge-heading .display { margin-top: 1rem; font-size: clamp(2.2rem, 9vw, 4rem); }
   .smed-challenge-heading .display br { display: none; }
@@ -212,12 +250,13 @@ html:not(.is-reduced-motion):not(.is-motion-off) .smed-challenge-slide.is-active
   .smed-challenge-target .smed-challenge-label { grid-column: 2; grid-row: 1; align-self: end; }
   .smed-challenge-value { grid-column: 1; grid-row: 1 / 3; gap: .35rem; margin: 0; font-size: 6rem; }
   .smed-challenge-target-copy { grid-column: 2; grid-row: 2; margin-top: .5rem; font-size: .85rem; }
-  .smed-line-heading { gap: 1rem; }
-  .smed-line-heading > span { font-size: .68rem; }
+  .smed-line-heading { gap: 1rem; align-items: start; }
+  .smed-line-heading > span { font-size: .68rem; max-width: 18ch; text-align: right; }
   .smed-line-machines { grid-template-columns: 1fr; gap: 1.3rem; margin-top: 2rem; }
   .smed-line-machines::before { top: .35rem; bottom: .65rem; left: .35rem; width: 1px; height: auto; transform-origin: top; }
-  .smed-line-machines li { flex-direction: row; align-items: baseline; gap: .8rem; padding: 0 0 0 1.8rem; text-align: left; }
-  .smed-line-machines li::before { left: 0; top: .35rem; width: .75rem; height: .75rem; }
+  .smed-line-machines button { flex-direction: row; align-items: baseline; gap: .8rem; padding: .5rem 0 .5rem 1.8rem; min-height: 44px; text-align: left; }
+  .smed-line-machines button::before { left: 0; top: .85rem; width: .75rem; height: .75rem; }
+  .smed-machine-cue { margin-left: auto; font-size: .65rem; }
   .smed-line-number { font-size: .68rem; }
   .smed-line-machines strong { font-size: 1.2rem; }
   .smed-line figcaption { margin: 1.8rem 0 0; padding-top: 1rem; font-size: 1.15rem; text-align: left; }
@@ -225,8 +264,16 @@ html:not(.is-reduced-motion):not(.is-motion-off) .smed-challenge-slide.is-active
   .smed-challenge-footer { flex-direction: column-reverse; align-items: start; gap: 1.3rem; }
   .smed-challenge-footer > p { font-size: .65rem; }
   .smed-detail-trigger { gap: 1rem; min-height: 44px; font-size: .85rem; }
-  .smed-challenge-detail { position: relative; inset: auto; padding: 1rem; gap: 1rem; }
-  .has-smed-detail .smed-line { display: none; }
+  .smed-challenge-detail { position: relative; inset: auto; height: auto; margin-top: 1.4rem; padding: 1rem; gap: 1rem; }
+  .has-smed-window .smed-challenge-intro { display: none; }
+  .has-smed-window .smed-line-heading { opacity: 1; }
+  .has-smed-window .smed-line-heading > span { display: none; }
+  .has-smed-window .smed-line-machines { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin-top: 1.4rem; }
+  .has-smed-window .smed-line-machines::before { inset: .35rem 10% auto; width: auto; height: 1px; }
+  .has-smed-window .smed-line-machines button { flex-direction: column; align-items: center; gap: .5rem; padding: 1.35rem 0 .5rem; text-align: center; }
+  .has-smed-window .smed-line-machines button::before { left: calc(50% - .375rem); top: 0; }
+  .has-smed-window .smed-line-machines strong { font-size: clamp(.63rem, 2.8vw, 1rem); }
+  .has-smed-window .smed-machine-cue, .has-smed-window .smed-line figcaption { display: none; }
   .smed-detail-heading h3 { font-size: 1.35rem; margin-top: .3rem; }
   .smed-detail-label { font-size: .65rem; }
   .smed-detail-heading button { min-height: 44px; min-width: 44px; font-size: 2rem; margin: -.6rem -.6rem 0 0; }
@@ -242,10 +289,25 @@ html:not(.is-reduced-motion):not(.is-motion-off) .smed-challenge-slide.is-active
   .smed-detail-roles dd { font-size: .85rem; margin-top: .25rem; }
   .smed-detail-support { margin-top: 1rem; font-size: .85rem; }
   .smed-detail-source { font-size: .65rem; }
+  .smed-machine-heading { flex-wrap: wrap; gap: .65rem; }
+  .smed-machine-heading > div { min-width: 0; flex: 1; }
+  .smed-machine-heading h3 { font-size: 1.5rem; }
+  .smed-machine-summary { order: 3; flex-basis: 100%; font-size: 1.1rem; }
+  .smed-operations-table { font-size: .85rem; }
+  .smed-operations-table th, .smed-operations-table td { padding: .65rem 0; }
+  .smed-operations-table thead th { font-size: .62rem; }
+  .smed-operations-table th:first-child { width: 13%; }
+  .smed-operations-table tbody th { font-size: .7rem; }
+  .smed-operations-table td:nth-child(2) { padding-right: .6rem; }
+  .smed-operations-table td:last-child { width: 25%; font-size: .63rem; overflow-wrap: anywhere; }
+  .smed-machine-footer { align-items: end; gap: .7rem; }
+  .smed-machine-footer > span { font-size: .65rem; }
+  .smed-machine-link { display: none; }
 }
 
 @media print {
-  .smed-detail-trigger, .smed-challenge-detail { display: none !important; }
+  .smed-detail-trigger, .smed-challenge-detail, .smed-machine-link, .smed-machine-cue { display: none !important; }
+  .has-smed-window .smed-challenge-intro, .has-smed-window .smed-line-heading, .has-smed-machine .smed-line-machines button { opacity: 1 !important; }
   .smed-line { display: block !important; opacity: 1 !important; }
   .smed-line-machines::before, .smed-line-machines li { animation: none !important; }
 }

@@ -1,83 +1,166 @@
-type SlideActivation = CustomEvent<{ id: string }>
+import { smedMachineEvidence, type SmedMachineId } from '../content/smedMachineEvidence'
 
-/** A contextual evidence window. The framing slide remains a single deck step. */
+type SlideActivation = CustomEvent<{ id: string }>
+type Selection = SmedMachineId | 'context' | null
+
+/** Optional evidence windows, never mandatory narration steps. */
 export function mountSmedChallenge(): () => void {
   const slide = document.querySelector<HTMLElement>('#smed-enjeu')
   const stage = slide?.querySelector<HTMLElement>('.smed-challenge-stage')
-  const panel = stage?.querySelector<HTMLElement>('#smed-challenge-detail')
+  const context = stage?.querySelector<HTMLElement>('#smed-challenge-detail')
   const open = stage?.querySelector<HTMLButtonElement>('[data-smed-detail-open]')
-  const close = stage?.querySelector<HTMLButtonElement>('[data-smed-detail-close]')
-  const line = stage?.querySelector<HTMLElement>('.smed-line')
-  if (!slide || !stage || !panel || !open || !close || !line) return () => {}
+  const closeContext = stage?.querySelector<HTMLButtonElement>('[data-smed-detail-close]')
+  const panel = stage?.querySelector<HTMLElement>('#smed-machine-panel')
+  const closeMachine = stage?.querySelector<HTMLButtonElement>('[data-smed-machine-close]')
+  const link = stage?.querySelector<HTMLElement>('.smed-machine-link')
+  const title = stage?.querySelector<HTMLElement>('#smed-machine-title')
+  const summary = stage?.querySelector<HTMLElement>('#smed-machine-summary')
+  const rows = stage?.querySelector<HTMLTableSectionElement>('[data-smed-operations]')
+  const count = stage?.querySelector<HTMLElement>('[data-smed-machine-count]')
+  if (!slide || !stage || !context || !open || !closeContext || !panel || !closeMachine || !link || !title || !summary || !rows || !count) return () => {}
 
+  const nodes = Array.from(stage.querySelectorAll<HTMLButtonElement>('[data-smed-machine]'))
   const params = new URLSearchParams(window.location.search)
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const portrait = window.matchMedia('(max-aspect-ratio: 4 / 5)')
+  const live = document.querySelector<HTMLElement>('[data-deck-live]')
   const reduced = () => motion.matches || params.has('capture') || params.has('print') || params.get('motion') === 'off'
   let animation: Animation | undefined
-  let opened = false
+  let selected: Selection = null
+  let lastTrigger: HTMLButtonElement = open
+  let alive = true
 
-  const setOpen = (value: boolean, focus = true, animate = true) => {
+  const positionLink = () => {
+    const node = nodes.find(button => button.dataset.smedMachine === selected)
+    link.hidden = !node || portrait.matches
+    if (link.hidden || !node) return
+    const base = stage.getBoundingClientRect()
+    const target = node.getBoundingClientRect()
+    const windowBottom = panel.offsetTop + panel.offsetHeight
+    link.style.left = `${target.left + target.width / 2 - base.left}px`
+    link.style.top = `${windowBottom}px`
+    link.style.height = `${Math.max(0, target.top - base.top - windowBottom)}px`
+  }
+
+  const setSelection = (value: Selection, focus = true, animate = true) => {
     animation?.cancel()
-    opened = value
-    panel.hidden = !value
-    stage.classList.toggle('has-smed-detail', value)
-    open.setAttribute('aria-expanded', String(value))
-    line.setAttribute('aria-hidden', String(value))
-    line.inert = value
-    if (value && animate && !reduced()) {
-      animation = panel.animate([
-        { opacity: 0, transform: 'translateY(14px)' },
-        { opacity: 1, transform: 'translateY(0)' },
-      ], { duration: 340, easing: 'cubic-bezier(.22, 1, .36, 1)' })
+    const previous = selected
+    selected = value
+    const machine = smedMachineEvidence.find(item => item.id === value)
+    context.hidden = value !== 'context'
+    panel.hidden = !machine
+    stage.classList.toggle('has-smed-window', value !== null)
+    stage.classList.toggle('has-smed-machine', Boolean(machine))
+    open.setAttribute('aria-expanded', String(value === 'context'))
+    nodes.forEach(node => {
+      const active = node.dataset.smedMachine === value
+      node.setAttribute('aria-expanded', String(active))
+      node.closest('li')?.classList.toggle('is-current', active)
+    })
+    if (machine) {
+      lastTrigger = nodes.find(node => node.dataset.smedMachine === value) ?? open
+      title.textContent = machine.name
+      summary.textContent = machine.summary
+      rows.replaceChildren(...machine.operations.map(operation => {
+        const row = document.createElement('tr')
+        row.dataset.smedSourceRow = String(operation.row)
+        const reference = document.createElement('th')
+        reference.scope = 'row'
+        reference.textContent = String(operation.row).padStart(2, '0')
+        row.append(reference)
+        row.insertCell().textContent = operation.action
+        row.insertCell().textContent = operation.actor
+        return row
+      }))
+      count.textContent = `${String(smedMachineEvidence.indexOf(machine) + 1).padStart(2, '0')} / 05`
+    } else if (value === 'context') lastTrigger = open
+
+    const visible = machine ? panel : value === 'context' ? context : null
+    if (visible && animate && !reduced()) {
+      animation = visible.animate([
+        { opacity: 0, transform: previous && machine ? 'translateX(10px)' : 'translateY(12px)' },
+        { opacity: 1, transform: 'translate(0, 0)' },
+      ], { duration: 320, easing: 'cubic-bezier(.22, 1, .36, 1)' })
     }
+    positionLink()
     if (focus) {
-      if (value) {
-        if (portrait.matches) panel.scrollIntoView({ behavior: 'instant', block: 'center' })
-        close.focus({ preventScroll: true })
-      } else open.focus({ preventScroll: true })
+      if (visible) {
+        if (portrait.matches) stage.scrollIntoView({ behavior: 'instant', block: 'start' })
+        const closeButton = machine ? closeMachine : closeContext
+        closeButton.focus({ preventScroll: true })
+      } else lastTrigger.focus({ preventScroll: !portrait.matches })
+      if (live) live.textContent = machine
+        ? `${machine.name}. Extrait d’observation. ${machine.operations.length} opérations. ${machine.summary}`
+        : value === 'context' ? 'Le changement étudié et ses intervenants.' : 'Retour à la ligne de conditionnement.'
     }
   }
 
-  const onOpen = () => setOpen(!opened)
-  const onClose = () => setOpen(false)
+  const onClick = (event: MouseEvent) => {
+    const target = event.target instanceof Element ? event.target.closest<HTMLButtonElement>('button') : null
+    if (!target) return
+    const machine = smedMachineEvidence.find(item => item.id === target.dataset.smedMachine)
+    if (machine) setSelection(selected === machine.id ? null : machine.id)
+    else if (target === open) setSelection(selected === 'context' ? null : 'context')
+    else if (target === closeContext || target === closeMachine) setSelection(null)
+  }
   const onKey = (event: KeyboardEvent) => {
-    if (!opened || !slide.classList.contains('is-active') || event.altKey || event.ctrlKey || event.metaKey) return
+    if (!selected || !slide.classList.contains('is-active') || event.altKey || event.ctrlKey || event.metaKey) return
     if (event.key === 'Escape') {
       event.preventDefault()
       event.stopImmediatePropagation()
-      setOpen(false)
+      setSelection(null)
       return
     }
-    // Reading a table must not unexpectedly advance the deck. Tab remains free:
-    // this is a non-modal region, just like the existing Robot evidence panels.
-    const fromPanel = event.target instanceof Node && panel.contains(event.target)
-    if (fromPanel && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'].includes(event.key)) {
+    const fromWindow = event.target instanceof Node && (panel.contains(event.target) || context.contains(event.target))
+    const fromNode = event.target instanceof Element && Boolean(event.target.closest('[data-smed-machine]'))
+    if (!fromWindow && !fromNode) return
+    if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'].includes(event.key)) {
       event.stopImmediatePropagation()
-      if (!portrait.matches) event.preventDefault()
+      if (selected !== 'context' && ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+        event.preventDefault()
+        const current = smedMachineEvidence.findIndex(item => item.id === selected)
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? nodes.length - 1
+          : Math.max(0, Math.min(nodes.length - 1, current + (event.key === 'ArrowRight' ? 1 : -1)))
+        if (next !== current) setSelection(smedMachineEvidence[next].id)
+      } else if (!portrait.matches) event.preventDefault()
+    }
+  }
+  const onWheel = (event: WheelEvent) => {
+    if (!selected || portrait.matches || event.ctrlKey || !(event.target instanceof Node)) return
+    if (panel.contains(event.target) || context.contains(event.target)) {
+      event.preventDefault()
+      event.stopImmediatePropagation()
     }
   }
   const onActive = (event: Event) => {
-    if ((event as SlideActivation).detail.id !== slide.id && opened) {
-      if (panel.contains(document.activeElement)) (document.activeElement as HTMLElement)?.blur()
-      setOpen(false, false, false)
+    if ((event as SlideActivation).detail.id !== slide.id && selected) {
+      if (panel.contains(document.activeElement) || context.contains(document.activeElement)) (document.activeElement as HTMLElement)?.blur()
+      setSelection(null, false, false)
     }
   }
 
-  open.addEventListener('click', onOpen)
-  close.addEventListener('click', onClose)
+  const finish = () => { animation?.cancel(); positionLink() }
+  stage.addEventListener('click', onClick)
   window.addEventListener('keydown', onKey, true)
+  window.addEventListener('wheel', onWheel, { capture: true, passive: false })
   window.addEventListener('deck:slide-active', onActive)
-  const finish = () => animation?.cancel()
+  window.addEventListener('resize', finish)
   motion.addEventListener('change', finish)
-  if (params.get('smed-detail') === '1') setOpen(true, false, false)
+  portrait.addEventListener('change', finish)
+  void document.fonts.ready.then(() => { if (alive) positionLink() })
+  const requested = smedMachineEvidence.find(item => item.id === params.get('smed-machine'))
+  if (requested) setSelection(requested.id, false, false)
+  else if (params.get('smed-detail') === '1') setSelection('context', false, false)
 
   return () => {
+    alive = false
     animation?.cancel()
-    open.removeEventListener('click', onOpen)
-    close.removeEventListener('click', onClose)
+    stage.removeEventListener('click', onClick)
     window.removeEventListener('keydown', onKey, true)
+    window.removeEventListener('wheel', onWheel, true)
     window.removeEventListener('deck:slide-active', onActive)
+    window.removeEventListener('resize', finish)
     motion.removeEventListener('change', finish)
+    portrait.removeEventListener('change', finish)
   }
 }
