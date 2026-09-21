@@ -2,7 +2,8 @@
 
 **Présentation en ligne :** https://sudoyounes.github.io/memoire-fusion-presentation/
 
-Deck scroll-driven de 20 diapositives consacré à la conception mécanique et à
+Deck scroll-driven de 21 diapositives, ouvert par le contexte industriel du
+conditionnement pharmaceutique, puis consacré à la conception mécanique et à
 la qualification numérique de Robot 2. Le récit est calibré pour un jury de
 docteurs et professeurs : décisions, résultats, livrables et limites de preuve,
 sans dérouler le mémoire chapitre par chapitre.
@@ -60,7 +61,7 @@ réseau après `npm run build`.
 - `↑`, `←`, `PageUp`, `Maj+Espace` : précédente.
 - `Home` / `End` : première / dernière.
 - `F` : plein écran.
-- Barre haute segmentée : accès direct aux cinq chapitres provisoires ; le
+- Barre haute segmentée : accès direct aux six chapitres provisoires ; le
   segment actif s'assombrit automatiquement avec l'avancement.
 - Rail droit : accès direct ; chaque diapositive possède aussi une URL ancrée.
 - Pied des slides de simulation : miniature translucide du graphe maître,
@@ -76,7 +77,7 @@ Options de répétition :
 
 ## Architecture
 
-- `index.html` — contenu sémantique des 20 diapositives.
+- `index.html` — contenu sémantique des 21 diapositives.
 - `src/deck/setupModelsZoom.ts` — ancrage du bus de descriptions.
 - `src/deck/pipelineNavigation.ts` — miniatures et transitions de caméra
   communes aux six blocs de la chaîne numérique.
@@ -106,6 +107,24 @@ Options de répétition :
   restent à établir.
 
 La provenance détaillée des médias se trouve dans `public/media/SOURCES.md`.
+
+## Ouverture — Contexte industriel
+
+La nouvelle première slide reprend la slide 6 de la soutenance VIATRIS. Les
+trois cartes suivent cinq étapes : définition CDF, définition automatisation,
+contexte industriel, impact CDF, impact automatisation. Les cartes actives
+s’éclairent et un feuillet tourne pour dévoiler chacun des deux versos.
+
+Flèches, Espace et molette parcourent les étapes avant de rejoindre Robot 2.
+Les titres de carte et les boutons locaux permettent un accès direct. Le fond
+sombre reprend celui de l’ancienne slide 8. Sa déclinaison claire est accessible
+par `?industrial-theme=light#contexte-industriel` ; `industrial-step=0` à `5`
+permet de revoir un état précis. Le mouvement réduit conserve les étapes et
+supprime les rotations.
+
+Le contenu et les sources sont consignés dans `src/content/industrial-context-notes.md`.
+Le module et ses styles restent isolés dans `src/visuals/industrialContext.ts`
+et `src/styles/industrial-context.css`.
 
 ## Notations mathématiques — slides 13 à 15
 

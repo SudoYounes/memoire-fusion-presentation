@@ -9,7 +9,7 @@
     <title>Robot 2 — Soutenance PFE</title>
   </head>
   <body>
-    <a class="skip-link" href="#robot-2">Aller à la présentation</a>
+    <a class="skip-link" href="#contexte-industriel">Aller à la présentation</a>
     <div class="deck-grid" aria-hidden="true"></div>
     <div class="deck-progress" aria-hidden="true"><span class="deck-progress__fill"></span></div>
 
@@ -20,6 +20,87 @@
     </footer>
 
     <main id="presentation" class="deck" data-deck>
+      <section class="deck-slide theme-teal industrial-slide" id="contexte-industriel" data-slide data-chapter="Contexte industriel" data-title="Contexte industriel" data-theme="dark" aria-labelledby="industrial-title">
+        <div class="slide-stage industrial-stage" data-industrial-stage>
+          <header class="industrial-heading">
+            <p class="kicker">Conditionnement pharmaceutique</p>
+            <h2 id="industrial-title" class="display">Contexte <em>industriel</em></h2>
+          </header>
+
+          <div class="industrial-cards">
+            <article class="industrial-card" data-industrial-card="definition">
+              <h3 class="industrial-card__heading"><button type="button" data-industrial-goto="1"><span class="industrial-card__index">01</span><span>Définition du CDF</span></button></h3>
+              <div class="industrial-pages">
+                <div class="industrial-page industrial-page--under" data-industrial-page="automation" aria-hidden="true" inert>
+                  <p class="industrial-perimeter">Automatisation</p>
+                  <p class="industrial-definition">Automatiser la palettisation consiste à confier à une cellule robotisée la prise, le transport et la dépose des cartons.</p>
+                  <ol class="industrial-operations industrial-operations--robot" aria-label="Séquence de palettisation">
+                    <li><span>01</span><strong>Prendre</strong></li><li><span>02</span><strong>Transporter</strong></li><li><span>03</span><strong>Déposer</strong></li>
+                  </ol>
+                  <p class="industrial-note">Robot 2, préhension et palette indexée composent la cellule.</p>
+                </div>
+                <div class="industrial-page industrial-page--sheet" data-industrial-page="cdf">
+                  <p class="industrial-perimeter">Changement de format</p>
+                  <p class="industrial-definition">Le changement de format correspond à l’ensemble des opérations réalisées lors du passage du conditionnement d’un produit à celui d’un autre</p>
+                  <ol class="industrial-operations" aria-label="Opérations du changement de format">
+                    <li><span>01</span><strong>Démontage</strong></li><li><span>02</span><strong>Nettoyage</strong></li><li><span>03</span><strong>Remontage</strong></li><li><span>04</span><strong>Réglage</strong></li>
+                  </ol>
+                  <p class="industrial-note">Opérations réalisées sur l’ensemble des équipements de la ligne (à l’arrêt)</p>
+                </div>
+              </div>
+              <footer class="industrial-card__footer"><span data-industrial-perimeter-label>CDF <span>01 / 02</span></span><button type="button" data-industrial-turn="definition" aria-label="Définition : tourner la page vers l’automatisation">Tourner la page <span aria-hidden="true">↗</span></button></footer>
+            </article>
+
+            <article class="industrial-card industrial-card--context" data-industrial-card="context">
+              <h3 class="industrial-card__heading"><button type="button" data-industrial-goto="3"><span class="industrial-card__index">02</span><span>Contexte industriel</span></button></h3>
+              <div class="industrial-context">
+                <p class="industrial-perimeter">Site de Meyzieu</p>
+                <dl class="industrial-metrics">
+                  <div><dt>59</dt><dd>références<br>de produits</dd></div>
+                  <div><dt>9</dt><dd>formats<br>d’étuis</dd></div>
+                  <div><dt>5</dt><dd>formats<br>de blisters</dd></div>
+                </dl>
+                <p class="industrial-context__copy">Cette diversité de référence et de formats implique la réalisation régulière de changements de format sur les lignes de conditionnement</p>
+              </div>
+              <footer class="industrial-card__footer"><span>Lignes de conditionnement</span></footer>
+            </article>
+
+            <article class="industrial-card" data-industrial-card="impact">
+              <h3 class="industrial-card__heading"><button type="button" data-industrial-goto="4"><span class="industrial-card__index">03</span><span>Impact sur la production</span></button></h3>
+              <div class="industrial-pages">
+                <div class="industrial-page industrial-page--under" data-industrial-page="automation" aria-hidden="true" inert>
+                  <p class="industrial-perimeter">Automatisation</p>
+                  <ul class="industrial-impacts">
+                    <li><span>01</span><p>Prise en charge d’un geste <strong>répétitif</strong></p></li>
+                    <li><span>02</span><p>Coordination de la prise, du transport et de la dépose</p></li>
+                    <li><span>03</span><p>Objectif : un cycle maîtrisé qui préserve le <strong>flux de ligne</strong></p></li>
+                  </ul>
+                  <p class="industrial-note">Gains industriels à confirmer sur le terrain.</p>
+                </div>
+                <div class="industrial-page industrial-page--sheet" data-industrial-page="cdf">
+                  <p class="industrial-perimeter">Changement de format</p>
+                  <ul class="industrial-impacts">
+                    <li><span>01</span><p><strong>Arrêt temporaire</strong> de la ligne (aucune production)</p></li>
+                    <li><span>02</span><p>Mobilisation de <strong>plusieurs intervenants</strong></p></li>
+                    <li><span>03</span><p>Nombreuses opérations à réaliser sur <strong>chaque équipement</strong></p></li>
+                  </ul>
+                </div>
+              </div>
+              <footer class="industrial-card__footer"><span data-industrial-perimeter-label>CDF <span>01 / 02</span></span><button type="button" data-industrial-turn="impact" aria-label="Impact : tourner la page vers l’automatisation">Tourner la page <span aria-hidden="true">↗</span></button></footer>
+            </article>
+          </div>
+
+          <nav class="industrial-navigation" aria-label="Étapes du contexte industriel">
+            <p data-industrial-caption>Changement de format et automatisation</p>
+            <div class="industrial-navigation__steps">
+              <button type="button" data-industrial-prev aria-label="Étape précédente">←</button>
+              <span data-industrial-count>00 / 05</span>
+              <button type="button" data-industrial-next aria-label="Étape suivante">→</button>
+            </div>
+          </nav>
+        </div>
+      </section>
+
       <section class="deck-slide deck-slide--hero theme-paper" id="robot-2" data-slide data-chapter="Ouverture" data-title="Robot 2" data-theme="light" aria-labelledby="slide-01-title">
         <div class="slide-stage slide-stage--hero">
           <div class="hero-index" aria-hidden="true">02</div>

@@ -15,6 +15,7 @@ import './styles/results.css'
 import './styles/pipeline-navigation.css'
 import './styles/motion.css'
 import './styles/presentation-mode.css'
+import './styles/industrial-context.css'
 
 import { setupDeck } from './deck/setupDeck'
 import { mountPipelineMaps } from './deck/pipelineNavigation'
@@ -27,6 +28,7 @@ import { mountTrajectoryNarrative } from './visuals/trajectoryNarrative'
 import { mountRuntimeNarrative } from './visuals/runtimeNarrative'
 import { mountResultsNarrative } from './visuals/resultsNarrative'
 import { mountPresentationMode } from './deck/presentationMode'
+import { mountIndustrialContext } from './visuals/industrialContext'
 import type { RobotScene } from './webgl/RobotScene'
 
 document.documentElement.classList.add('has-js')
@@ -38,6 +40,7 @@ const disposeCoordinationNarrative = mountCoordinationNarrative()
 const disposeTrajectoryNarrative = mountTrajectoryNarrative()
 const disposeRuntimeNarrative = mountRuntimeNarrative()
 const disposeResultsNarrative = mountResultsNarrative()
+const disposeIndustrialContext = mountIndustrialContext()
 
 const disposeDeck = setupDeck()
 const disposePresentationMode = mountPresentationMode()
@@ -79,5 +82,6 @@ window.addEventListener('pagehide', () => {
   disposeTrajectoryNarrative()
   disposeRuntimeNarrative()
   disposeResultsNarrative()
+  disposeIndustrialContext()
   robotScenes.forEach((scene) => scene.dispose())
 }, { once: true })

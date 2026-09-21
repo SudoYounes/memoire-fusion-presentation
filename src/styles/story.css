@@ -113,7 +113,7 @@ html[data-chrome-theme='dark'] .deck-chrome__chapter {
   inset-inline: calc((100vw - min(100vw, 177.7778dvh)) / 2 + 4 * var(--su));
   z-index: 92;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--deck-section-count, 5), minmax(0, 1fr));
   gap: calc(0.52 * var(--su));
 }
 

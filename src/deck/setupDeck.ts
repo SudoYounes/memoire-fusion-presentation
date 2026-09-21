@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger)
 const deckEase = (t: number) => 1 - Math.pow(1 - t, 4)
 
 const deckSections = [
+  { label: 'Contexte industriel', startId: 'contexte-industriel' },
   { label: 'Projet', startId: 'robot-2' },
   { label: 'Contexte & objectifs', startId: 'enjeu' },
   { label: 'Architecture & conception', startId: 'cellule' },
@@ -66,6 +67,7 @@ export function setupDeck(): () => void {
     sectionsNav?.append(button)
     return button
   })
+  sectionsNav?.style.setProperty('--deck-section-count', String(sectionStops.length))
 
   let activeIndex = -1
   let lenis: Lenis | null = null
