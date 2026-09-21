@@ -31,6 +31,9 @@ supérieur droit, puis s’incurve en diagonale pour découvrir le verso. Le mou
 dure 1,35 s et se déroule aussi à l’envers. Les contrôles locaux restent disponibles
 sur mobile et en mouvement réduit. Le mode mouvement réduit supprime la courbure.
 Les pieds des faces consacrées au changement de format portent le libellé SMED.
+Les en-têtes et pieds des trois cartes ont un fond gris clair `#e7edef`,
+identique dans les variantes sombre et claire. L'opacité de la carte entière
+reste réduite lorsqu'elle n'est pas active.
 
 L’effet est isolé dans `src/visuals/industrialPageCurl.ts`. Pendant la transition,
 des bandes de texte HTML suivent les tangentes d’une feuille courbée. Ces copies,
