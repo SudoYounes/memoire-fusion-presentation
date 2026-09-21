@@ -1,7 +1,9 @@
 # SMED — lecture des preuves et proposition de narration
 
-Statut : proposition éditoriale, pas de nouvelles slides intégrées. Analyse du
-21 septembre 2026. Les choix d'intégration restent à valider par l'auteur.
+Statut : proposition éditoriale. Seul le premier écran, « Réduire l'arrêt lié
+au changement de format », a été autorisé puis intégré après cette analyse
+(voir `smed-challenge-notes.md`). Les autres choix restent à valider par l'auteur.
+Analyse du 21 septembre 2026.
 
 ## 1. Périmètre et méthode de lecture
 
@@ -325,4 +327,4 @@ gagnent plutôt à s'ouvrir, se recadrer et se révéler progressivement.
 
 Ces questions n'empêchent pas de préparer les écrans. Elles limitent les
 affirmations : conserver les formulations prudentes indiquées tant que les
-réponses manquent. Aucun nouvel écran SMED n'est ajouté par cette analyse.
+réponses manquent. Cette analyse n'autorise pas l'intégration des écrans suivants.

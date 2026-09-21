@@ -13,6 +13,7 @@ const deckEase = (t: number) => 1 - Math.pow(1 - t, 4)
 
 const deckSections = [
   { label: 'Périmètres du projet', startId: 'contexte-industriel' },
+  { label: 'SMED', startId: 'smed-enjeu' },
   { label: 'Projet', startId: 'robot-2' },
   { label: 'Contexte & objectifs', startId: 'enjeu' },
   { label: 'Architecture & conception', startId: 'cellule' },

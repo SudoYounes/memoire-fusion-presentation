@@ -16,7 +16,7 @@
     <nav class="deck-sections" aria-label="Chapitres de la présentation" data-deck-sections></nav>
     <nav class="deck-rail" aria-label="Navigation dans la présentation" data-deck-rail></nav>
     <footer class="deck-footer" data-deck-chrome>
-      <p class="deck-footer__count"><span data-slide-current>01</span><i></i><span data-slide-total>19</span></p>
+      <p class="deck-footer__count"><span data-slide-current>01</span><i></i><span data-slide-total>22</span></p>
     </footer>
 
     <main id="presentation" class="deck" data-deck>
@@ -98,6 +98,72 @@
               <button type="button" data-industrial-next aria-label="Étape suivante">→</button>
             </div>
           </nav>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-teal smed-challenge-slide" id="smed-enjeu" data-slide data-chapter="SMED" data-title="Réduire l’arrêt lié au changement de format" data-theme="dark" aria-labelledby="smed-challenge-title">
+        <div class="slide-stage smed-challenge-stage">
+          <div class="smed-challenge-intro">
+            <header class="smed-challenge-heading" data-reveal>
+              <p class="kicker">Chantier SMED</p>
+              <h2 id="smed-challenge-title" class="display">Réduire l’arrêt lié au <br><em>changement de format</em></h2>
+              <p class="smed-challenge-lede">Retrouver de la disponibilité,<br>sans compromettre la qualité.</p>
+            </header>
+            <div class="smed-challenge-target" data-reveal>
+              <p class="smed-challenge-label">Objectif du chantier</p>
+              <p class="smed-challenge-value">12 <span>h</span></p>
+              <p class="smed-challenge-target-copy">Durée cible du<br>changement de format</p>
+            </div>
+          </div>
+
+          <div class="smed-challenge-evidence">
+            <figure class="smed-line" aria-labelledby="smed-line-caption">
+              <div class="smed-line-heading">
+                <p class="smed-challenge-label">Ligne de conditionnement</p>
+                <span>Schéma simplifié</span>
+              </div>
+              <ol class="smed-line-machines" aria-label="Équipements dans l’ordre du schéma source">
+                <li><span class="smed-line-number">01</span><strong>Noack</strong></li>
+                <li><span class="smed-line-number">02</span><strong>PC</strong></li>
+                <li><span class="smed-line-number">03</span><strong>Neri</strong></li>
+                <li><span class="smed-line-number">04</span><strong>Christ</strong></li>
+                <li><span class="smed-line-number">05</span><strong>Étiqueteuse</strong></li>
+              </ol>
+              <figcaption id="smed-line-caption">Ligne à l’arrêt pendant le changement de format</figcaption>
+            </figure>
+
+            <section id="smed-challenge-detail" class="smed-challenge-detail" role="region" aria-labelledby="smed-detail-title" data-lenis-prevent hidden>
+              <header class="smed-detail-heading">
+                <div><p class="smed-detail-label">Périmètre de l’observation</p><h3 id="smed-detail-title">Le changement étudié</h3></div>
+                <button type="button" data-smed-detail-close aria-label="Fermer le détail du changement étudié">×</button>
+              </header>
+              <div class="smed-detail-body">
+                <table class="smed-format-table">
+                  <caption class="deck-live">Produits et formats du changement observé</caption>
+                  <thead><tr><th scope="col">Format</th><th scope="col">Produit précédent</th><th scope="col">Produit suivant</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Produit</th><td><strong>ACEBUTOLOL</strong><span>400 mg, 90 cps</span></td><td><strong>IBUPROFENE</strong><span>200 mg, 30 cps</span></td></tr>
+                    <tr><th scope="row">Étui</th><td>20</td><td>1</td></tr>
+                    <tr><th scope="row">Blister</th><td>44 × 120 mm</td><td>39 × 98 mm</td></tr>
+                  </tbody>
+                </table>
+                <div class="smed-detail-roles">
+                  <p class="smed-detail-label">Intervenants</p>
+                  <dl>
+                    <div><dt>BOB</dt><dd>Principalement sur Noack</dd></div>
+                    <div><dt>BOBINETTE</dt><dd>Principalement en aval de Noack</dd></div>
+                  </dl>
+                  <p class="smed-detail-support">Avec le chef d’équipe,<br>la maintenance et la qualité.</p>
+                </div>
+              </div>
+              <footer class="smed-detail-source">Source : soutenance VIATRIS, slides 15–17. Produits et formats du CDF observé.</footer>
+            </section>
+          </div>
+
+          <footer class="smed-challenge-footer">
+            <p>Source : soutenance VIATRIS, slides 6, 13 et 15.</p>
+            <button type="button" class="smed-detail-trigger" data-smed-detail-open aria-expanded="false" aria-controls="smed-challenge-detail">Changement étudié et intervenants <span aria-hidden="true">↗</span></button>
+          </footer>
         </div>
       </section>
 

@@ -16,6 +16,7 @@ import './styles/pipeline-navigation.css'
 import './styles/motion.css'
 import './styles/presentation-mode.css'
 import './styles/industrial-context.css'
+import './styles/smed-challenge.css'
 
 import { setupDeck } from './deck/setupDeck'
 import { mountPipelineMaps } from './deck/pipelineNavigation'
@@ -29,6 +30,7 @@ import { mountRuntimeNarrative } from './visuals/runtimeNarrative'
 import { mountResultsNarrative } from './visuals/resultsNarrative'
 import { mountPresentationMode } from './deck/presentationMode'
 import { mountIndustrialContext } from './visuals/industrialContext'
+import { mountSmedChallenge } from './visuals/smedChallenge'
 import type { RobotScene } from './webgl/RobotScene'
 
 document.documentElement.classList.add('has-js')
@@ -41,6 +43,7 @@ const disposeTrajectoryNarrative = mountTrajectoryNarrative()
 const disposeRuntimeNarrative = mountRuntimeNarrative()
 const disposeResultsNarrative = mountResultsNarrative()
 const disposeIndustrialContext = mountIndustrialContext()
+const disposeSmedChallenge = mountSmedChallenge()
 
 const disposeDeck = setupDeck()
 const disposePresentationMode = mountPresentationMode()
@@ -83,5 +86,6 @@ window.addEventListener('pagehide', () => {
   disposeRuntimeNarrative()
   disposeResultsNarrative()
   disposeIndustrialContext()
+  disposeSmedChallenge()
   robotScenes.forEach((scene) => scene.dispose())
 }, { once: true })
