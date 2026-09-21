@@ -162,11 +162,17 @@ export function mountSmedSolutions(): () => void {
   let previousStep = -1
   let entrance: Animation | undefined
   let sweep: Animation | undefined
+  let illumination: Animation[] = []
   let printing = false
   let activationFrame = 0
   let activationPending = false
 
-  const stopMotion = () => { entrance?.cancel(); sweep?.cancel() }
+  const stopMotion = () => {
+    entrance?.cancel()
+    sweep?.cancel()
+    illumination.forEach(animation => animation.cancel())
+    illumination = []
+  }
   const sync = (activate = false) => {
     const raw = Number(section.dataset.smedStep)
     const step = Number.isInteger(raw) ? Math.max(0, Math.min(14, raw)) : 0
@@ -204,9 +210,29 @@ export function mountSmedSolutions(): () => void {
       const sheen = active.querySelector<HTMLElement>('.ss-block-sweep')
       if (sheen) sweep = sheen.animate([
         { transform: 'translateX(-160%)', opacity: 0 },
-        { opacity: .85, offset: .25 },
+        { opacity: 1, offset: .2 },
+        { opacity: 1, offset: .75 },
         { transform: 'translateX(240%)', opacity: 0 },
-      ], { duration: 1050, easing: 'cubic-bezier(.2,.65,.25,1)' })
+      ], { duration: 1150, easing: 'linear' })
+      // Let the gold light reach the lettering, not just its background.
+      // Restore the exact resting style at the end and on every cancellation.
+      active.querySelectorAll<HTMLElement>('.ss-block-title, .ss-block-number').forEach(text => {
+        const restingColor = getComputedStyle(text).color
+        illumination.push(text.animate([
+          { color: restingColor, textShadow: 'none', offset: 0 },
+          { color: restingColor, textShadow: 'none', offset: .2 },
+          { color: '#a85c00', textShadow: '0 0 1px #fff8c4, 0 0 5px #ffd400, 0 0 13px #ffb800, 0 0 22px #ffb8009c', offset: .43 },
+          { color: '#b86d00', textShadow: '0 0 1px #fff8c4, 0 0 5px #ffdb30, 0 0 12px #ffb800, 0 0 20px #ffa80080', offset: .6 },
+          { color: restingColor, textShadow: 'none', offset: 1 },
+        ], { duration: 1150, easing: 'linear' }))
+      })
+      const resting = getComputedStyle(active)
+      illumination.push(active.animate([
+        { borderColor: resting.borderColor, boxShadow: resting.boxShadow, offset: 0 },
+        { borderColor: '#ffbd00', boxShadow: 'inset 3px 0 0 #ffc400, inset 0 0 14px #ffcc0040, 0 0 20px #ffb80066', offset: .43 },
+        { borderColor: '#ed9e00', boxShadow: 'inset 3px 0 0 #ffb800, inset 0 0 10px #ffcc0030, 0 0 16px #ffb80040', offset: .65 },
+        { borderColor: resting.borderColor, boxShadow: resting.boxShadow, offset: 1 },
+      ], { duration: 1150, easing: 'linear' }))
     }
     previousStep = step
     previousGroup = group.id

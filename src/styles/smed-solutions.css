@@ -37,7 +37,7 @@
 .ss-block.is-current-solution { color: #4d361d; background: #f2e6cedb; border-color: #c49b59; box-shadow: inset 3px 0 0 #c89a53, 0 0 calc(1.8 * var(--su)) #d0a15421; }
 .ss-block.is-current-solution .ss-block-number { color: #986621; }
 .ss-block.is-current-solution .ss-block-title { font-weight: 650; }
-.ss-block-sweep { position: absolute; inset: 0; width: 70%; pointer-events: none; transform: translateX(-160%); opacity: 0; background: linear-gradient(90deg, transparent, #fff5cae6 43%, #dba94fc9 58%, transparent); z-index: -1; }
+.ss-block-sweep { position: absolute; inset: 0; width: 70%; pointer-events: none; transform: translateX(-160%); opacity: 0; background: linear-gradient(90deg, transparent 0%, #ffb80045 18%, #ffc400cf 38%, #fff3a6 49%, #ffce00ed 59%, #ee97005c 80%, transparent 100%); z-index: -1; }
 .ss-window { position: relative; min-width: 0; min-height: 0; color: var(--ss-ink); background: #fbfcf9f7; border: 1px solid #c7b99d9c; border-radius: calc(.35 * var(--su)); box-shadow: 0 calc(.65 * var(--su)) calc(2.2 * var(--su)) #243f4816; overflow: hidden; }
 .ss-window::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 2px; background: linear-gradient(180deg, #d4b172, #c9a15b70); }
 .ss-scene { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: calc(.9 * var(--su)); height: 100%; padding: calc(1.35 * var(--su)) calc(1.45 * var(--su)) calc(1 * var(--su)); min-height: 0; }
