@@ -1,4 +1,4 @@
-import { j1Kinematics, j2Kinematics, j3Kinematics } from './modelsCadMath'
+import { j1Kinematics, j2Kinematics, j3Kinematics, j4Kinematics } from './modelsCadMath'
 
 /** Read-only project artefacts. The original slide remains underneath this layer. */
 type Plate = { title: string; content: string; source: string }
@@ -30,7 +30,7 @@ export const modelsArtefacts: Partial<Record<number, Plate[]>> = {
     ], 'Deux branches relient les manivelles d’épaule aux culbuteurs du coude.') },
     { title: 'J4 · poignet et interface outil', source: 'Atlas CAO du projet · planche J4', content: cad('./media/models/j4.png', 'Poignet J4 en vue extérieure et coupe numérotée de 1 à 5', [
       'Carter de poignet F', 'Réducteur et guidage J4', 'Moyeu de sortie P', 'Bride d’interface Q', 'Plaque du préhenseur G',
-    ], 'Le réducteur entraîne P, puis Q et G. Les ventouses ne sont pas détaillées sur cette planche.') },
+    ], 'Le réducteur entraîne P, puis Q et G. Les ventouses ne sont pas détaillées sur cette planche.', false, j4Kinematics()) },
   ],
   2: [{
     title: 'Repères des quatre articulations',
