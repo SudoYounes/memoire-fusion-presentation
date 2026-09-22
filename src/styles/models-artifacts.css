@@ -35,7 +35,7 @@
 .ma-cad--kinematics > figure { grid-template-rows:auto auto; align-content:center; }
 .ma-cad--kinematics > figure > :is(img, svg) { height:auto; }
 .ma-cad--kinematics > aside .ma-label { letter-spacing:.045em; }
-.ma-cad--shoulder { grid-template-columns:minmax(0,1fr) calc(13.5 * var(--su)) calc(16.5 * var(--su)); }
+.ma-cad--shoulder { grid-template-columns:minmax(0,1fr) calc(13.5 * var(--su)) calc(20 * var(--su)); }
 .ma-cad-kinematics { display:flex; flex-direction:column; justify-content:center; min-width:0; min-height:0; padding-left:calc(1 * var(--su)); border-left:1px solid #17486325; gap:calc(.65 * var(--su)); }
 .ma-cad-equation { color:#172e3b; font-size:calc(1.14 * var(--su)); line-height:1; min-width:0; }
 .ma-cad-equation > svg { display:block; width:var(--ma-math-width); height:var(--ma-math-height); max-width:100%; object-fit:initial; fill:currentColor; background:none; border-radius:0; overflow:visible; }
@@ -43,6 +43,8 @@
 .ma-j1-point-velocity { display:flex; flex-direction:column; gap:calc(.7 * var(--su)); border-top:1px solid #17486320; padding-top:calc(.8 * var(--su)); }
 .ma-j1-components { display:grid; grid-template-columns:1fr 1fr; gap:calc(.7 * var(--su)); align-items:center; }
 .ma-j1-components .ma-cad-equation { font-size:calc(1.05 * var(--su)); }
+.ma-j2-transform { display:flex; flex-direction:column; gap:calc(.7 * var(--su)); border-top:1px solid #17486320; margin-top:calc(.35 * var(--su)); padding-top:calc(.8 * var(--su)); }
+.ma-j2-transform .ma-cad-equation { font-size:calc(1.04 * var(--su)); }
 .ma-legend { display:grid; gap:calc(.4 * var(--su)); margin-top:calc(.55 * var(--su)); }
 .ma-legend li { display:flex; gap:calc(.5 * var(--su)); align-items:baseline; font-size:calc(.76 * var(--su)); line-height:1.25; }
 .ma-legend b { color:#de4434; font-size:calc(.74 * var(--su)); min-width:1.5em; font-variant-numeric:tabular-nums; }
@@ -94,9 +96,10 @@
   .ma-cad figcaption { margin-top:.6rem; }
   .ma-cad aside { align-self:stretch; }
   .ma-cad-kinematics { flex-shrink:0; padding:1rem 0 0; border-left:0; border-top:1px solid #17486325; gap:.8rem; }
-  .ma-cad-equation, .ma-j1-torsor .ma-cad-equation, .ma-j1-components .ma-cad-equation { font-size:1rem; }
+  .ma-cad-equation, .ma-j1-torsor .ma-cad-equation, .ma-j1-components .ma-cad-equation, .ma-j2-transform .ma-cad-equation { font-size:1rem; }
   .ma-j1-point-velocity { gap:.8rem; padding-top:.9rem; }
   .ma-j1-components { grid-template-columns:1fr; gap:.9rem; }
+  .ma-j2-transform { gap:.8rem; margin-top:.35rem; padding-top:.9rem; }
   .ma-cad-equation > svg { height:var(--ma-math-height); max-width:100%; }
   .ma-legend { gap:.4rem; }
   .ma-legend b { font-size:.8rem; }
