@@ -20,6 +20,7 @@ const sources = {
   j1_pivot_velocity: [String.raw`\vec{V}_P=\dot q_1\,\vec{z}\times\overrightarrow{O_1P}`, 'Vitesse en P égale q1 point multiplié par z vectoriel croisé avec le vecteur O1 P'],
   j1_point: [String.raw`\overrightarrow{O_1P}=\left[\begin{array}{c}x_P\\y_P\\z_P\end{array}\right]`, 'Vecteur O1 P de composantes x P, y P et z P'],
   j1_velocity_components: [String.raw`\vec{V}_P=\left[\begin{array}{c}-\dot q_1 y_P\\\dot q_1 x_P\\0\end{array}\right]`, 'Vitesse en P de composantes moins q1 point fois y P, q1 point fois x P, et zéro'],
+  j2_torsor: [String.raw`\left\{\mathcal{V}_{\mathrm{bras/colonne}}\right\}_{O_2}=\left\{\begin{array}{c}0\\\dot q_2\\0\\0\\0\\0\end{array}\right\}`, 'Torseur cinématique du bras par rapport à la colonne, au point O2 : vitesse angulaire zéro, q2 point, zéro, et vitesse en O2 nulle'],
   command: [String.raw`q,\;\dot q,\;\ddot q,\;t`, 'Position, vitesse, accélération et temps'],
   states: [String.raw`q,\;\dot q`, 'Position et vitesse'],
   simulated: [String.raw`q_{\mathrm{sim}},\;\dot q_{\mathrm{sim}}`, 'Position et vitesse simulées'],

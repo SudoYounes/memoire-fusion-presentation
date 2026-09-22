@@ -1,10 +1,10 @@
-import { j1Kinematics } from './modelsJ1Math'
+import { j1Kinematics, j2Kinematics } from './modelsCadMath'
 
 /** Read-only project artefacts. The original slide remains underneath this layer. */
 type Plate = { title: string; content: string; source: string }
 const legend = (items: string[]) => `<ol class="ma-legend">${items.map((label, i) => `<li><b>${i + 1}</b><span>${label}</span></li>`).join('')}</ol>`
 const cad = (src: string, alt: string, items: string[], note: string, principalCut = false, kinematics = '') => `
-  <div class="ma-cad${kinematics ? ' ma-cad--j1' : ''}"><figure>${principalCut
+  <div class="ma-cad${kinematics ? ` ma-cad--kinematics${principalCut ? ' ma-cad--shoulder' : ''}` : ''}"><figure>${principalCut
     ? `<svg viewBox="0 0 1380 384" role="img" aria-label="${alt}"><svg width="1380" height="384" overflow="hidden"><image href="${src}" width="1380" height="662"/></svg></svg>`
     : `<img src="${src}" alt="${alt}"/>`}<figcaption>${note}</figcaption></figure>
   <aside><p class="ma-label">Repères de cette planche</p>${legend(items)}</aside>${kinematics}</div>`
@@ -21,7 +21,7 @@ export const modelsArtefacts: Partial<Record<number, Plate[]>> = {
     ], 'La cloche T porte la colonne. L’embase A, la cartouche S et le mât U restent fixes.', false, j1Kinematics()) },
     { title: 'J2 / J3 · entraînements à l’épaule', source: 'Atlas CAO du projet · planche des transmissions J2 / J3', content: cad('./media/j2-j3-transmission.png', 'Entraînements J2 et J3 en coupes annotées, repères 1 à 14', [
       'Pignon d’entrée J2', 'Couvercle du pod J2', 'Cartouche du pignon J2', 'Berceau moteur J2', 'Réducteur RV-200C', 'Porteur J3 côté J2', 'Guidage gauche J3', 'Demi-arbre gauche H', 'Distributeur de couple O', 'Porteur côté J3', 'Réducteur RV-100C', 'Pignon d’entrée J3', 'Demi-arbre droit H', 'Guidage droit J3',
-    ], 'Coupes principales : la sortie J2 entraîne le bras ; la sortie J3 rejoint les deux bielles.', true) },
+    ], 'Coupes principales : la sortie J2 entraîne le bras ; la sortie J3 rejoint les deux bielles.', true, j2Kinematics()) },
     { title: 'J3 · guidage du coude', source: 'Atlas CAO du projet · planche du coude C–D', content: cad('./media/models/elbow.png', 'Coude C–D en coupe avec repères 1 à 8', [
       'Support droit L', 'Support gauche L', 'Culbuteur droit I', 'Culbuteur gauche I', 'Axe fixe K', 'Roulement croisé', 'Avant-bras D', 'Cartouche de roulement J',
     ], 'Les culbuteurs reçoivent les bielles ; le roulement central assure le guidage C–D.') },
