@@ -1,4 +1,4 @@
-import { j1Kinematics, j2Kinematics } from './modelsCadMath'
+import { j1Kinematics, j2Kinematics, j3Kinematics } from './modelsCadMath'
 
 /** Read-only project artefacts. The original slide remains underneath this layer. */
 type Plate = { title: string; content: string; source: string }
@@ -24,7 +24,7 @@ export const modelsArtefacts: Partial<Record<number, Plate[]>> = {
     ], 'Coupes principales : la sortie J2 entraîne le bras ; la sortie J3 rejoint les deux bielles.', true, j2Kinematics()) },
     { title: 'J3 · guidage du coude', source: 'Atlas CAO du projet · planche du coude C–D', content: cad('./media/models/elbow.png', 'Coude C–D en coupe avec repères 1 à 8', [
       'Support droit L', 'Support gauche L', 'Culbuteur droit I', 'Culbuteur gauche I', 'Axe fixe K', 'Roulement croisé', 'Avant-bras D', 'Cartouche de roulement J',
-    ], 'Les culbuteurs reçoivent les bielles ; le roulement central assure le guidage C–D.') },
+    ], 'Les culbuteurs reçoivent les bielles ; le roulement central assure le guidage C–D.', false, j3Kinematics()) },
     { title: 'J3 · bielle droite réglable', source: 'Atlas CAO du projet · planche de la bielle droite', content: cad('./media/models/pushrod.png', 'Bielle droite, vue extérieure et coupe annotée de 1 à 6', [
       'Rotule avant droite', 'Tige côté coude', 'Écrou de blocage', 'Corps de réglage', 'Tige côté épaule', 'Rotule arrière droite',
     ], 'Deux branches relient les manivelles d’épaule aux culbuteurs du coude.') },

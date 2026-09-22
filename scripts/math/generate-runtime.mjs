@@ -22,6 +22,8 @@ const sources = {
   j1_velocity_components: [String.raw`\vec{V}_P=\left[\begin{array}{c}-\dot q_1 y_P\\\dot q_1 x_P\\0\end{array}\right]`, 'Vitesse en P de composantes moins q1 point fois y P, q1 point fois x P, et zéro'],
   j2_torsor: [String.raw`\left\{\mathcal{V}_{\mathrm{bras/colonne}}\right\}_{O_2}=\left\{\begin{array}{c}0\\\dot q_2\\0\\0\\0\\0\end{array}\right\}`, 'Torseur cinématique du bras par rapport à la colonne, au point O2 : vitesse angulaire zéro, q2 point, zéro, et vitesse en O2 nulle'],
   j2_transform: [String.raw`\begin{array}{@{}l@{}}{}^{\mathit{column}}T_{\mathit{upper}}(q_2)\\[4pt]\quad=T(0{,}150,\,0,\,0{,}700)\,R_y\!\left(-\frac{\pi}{2}+q_2\right)\end{array}`, 'Transformation du bras upper dans le repère column : translation de 0,150 mètre en X, zéro en Y et 0,700 mètre en Z, suivie de la rotation autour de Y d’angle moins pi sur deux plus q2'],
+  j3_torsor: [String.raw`\left\{\mathcal{V}_{\text{avant-bras/bras}}\right\}_{O_3}=\left\{\begin{array}{c}0\\\dot q_3\\0\\0\\0\\0\end{array}\right\}`, 'Torseur cinématique de l’avant-bras par rapport au bras, au point O3 : vitesse angulaire zéro, q3 point, zéro, et vitesse en O3 nulle'],
+  j3_transform: [String.raw`{}^{\mathit{upper}}T_{\mathit{forearm}}(q_3)=T_x(0{,}900)\,R_y(q_3)`, 'Transformation de l’avant-bras forearm dans le repère upper : translation de 0,900 mètre suivant X, suivie de la rotation autour de Y d’angle q3'],
   command: [String.raw`q,\;\dot q,\;\ddot q,\;t`, 'Position, vitesse, accélération et temps'],
   states: [String.raw`q,\;\dot q`, 'Position et vitesse'],
   simulated: [String.raw`q_{\mathrm{sim}},\;\dot q_{\mathrm{sim}}`, 'Position et vitesse simulées'],
