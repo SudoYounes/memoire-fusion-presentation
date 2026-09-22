@@ -13,6 +13,13 @@ import { resultsEvidence as results } from '../../src/content/resultsEvidence.ts
 const number = (value, digits=2) => value.toFixed(digits).replace('.', '{,}')
 const ref = String.raw`\mathrm{réf}`
 const sources = {
+  // J1 CAO window: user-supplied kinematic model. The first equality wraps
+  // without changing its six-component torsor or the reference frame.
+  j1_torsor: [String.raw`\begin{array}{@{}l@{}}\left\{\mathcal{V}_{\mathrm{colonne/embase}}\right\}_{O_1}\\[4pt]\quad=\left\{\begin{array}{c}\vec{\Omega}_{\mathrm{colonne/embase}}\\\vec{V}_{O_1,\mathrm{colonne/embase}}\end{array}\right\}=\left\{\begin{array}{c}0\\0\\\dot q_1\\0\\0\\0\end{array}\right\}_{(X,Y,Z)}\end{array}`, 'Torseur cinématique de la colonne par rapport à l’embase, au point O1 : vitesse angulaire zéro, zéro, q1 point, et vitesse en O1 nulle, dans le repère X, Y, Z'],
+  j1_transport: [String.raw`\vec{V}_P=\vec{V}_{O_1}+\vec{\Omega}\times\overrightarrow{O_1P}`, 'Vitesse en P égale vitesse en O1 plus oméga vectoriel croisé avec le vecteur O1 P'],
+  j1_pivot_velocity: [String.raw`\vec{V}_P=\dot q_1\,\vec{z}\times\overrightarrow{O_1P}`, 'Vitesse en P égale q1 point multiplié par z vectoriel croisé avec le vecteur O1 P'],
+  j1_point: [String.raw`\overrightarrow{O_1P}=\left[\begin{array}{c}x_P\\y_P\\z_P\end{array}\right]`, 'Vecteur O1 P de composantes x P, y P et z P'],
+  j1_velocity_components: [String.raw`\vec{V}_P=\left[\begin{array}{c}-\dot q_1 y_P\\\dot q_1 x_P\\0\end{array}\right]`, 'Vitesse en P de composantes moins q1 point fois y P, q1 point fois x P, et zéro'],
   command: [String.raw`q,\;\dot q,\;\ddot q,\;t`, 'Position, vitesse, accélération et temps'],
   states: [String.raw`q,\;\dot q`, 'Position et vitesse'],
   simulated: [String.raw`q_{\mathrm{sim}},\;\dot q_{\mathrm{sim}}`, 'Position et vitesse simulées'],
@@ -70,7 +77,8 @@ const document = mathjax.document('', {
 const output = {}
 for (const [key,[tex,label]] of Object.entries(sources)) {
   const html = adaptor.outerHTML(await document.convertPromise(tex,{display:false}))
-  const svg = html.match(/<svg\b[^>]*viewBox="([^"]+)"[^>]*>([\s\S]*?)<\/svg>/)
+  // Matrices contain nested SVG viewports. Keep through the outer closing tag.
+  const svg = html.match(/<svg\b[^>]*viewBox="([^"]+)"[^>]*>([\s\S]*)<\/svg>/)
   if (!svg || /data-mml-node="merror"|<use\b|<text\b|<image\b/.test(html)) throw new Error(`Invalid standalone math: ${key}`)
   output[key] = {tex,label,viewBox:svg[1].split(' ').map(Number),body:svg[2]
     .replaceAll('currentColor','inherit').replace(/ data-(?:mml-node|latex|c)="[^"]*"/g,'')}

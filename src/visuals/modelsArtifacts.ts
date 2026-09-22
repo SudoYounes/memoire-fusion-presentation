@@ -1,11 +1,13 @@
+import { j1Kinematics } from './modelsJ1Math'
+
 /** Read-only project artefacts. The original slide remains underneath this layer. */
 type Plate = { title: string; content: string; source: string }
 const legend = (items: string[]) => `<ol class="ma-legend">${items.map((label, i) => `<li><b>${i + 1}</b><span>${label}</span></li>`).join('')}</ol>`
-const cad = (src: string, alt: string, items: string[], note: string, principalCut = false) => `
-  <div class="ma-cad"><figure>${principalCut
+const cad = (src: string, alt: string, items: string[], note: string, principalCut = false, kinematics = '') => `
+  <div class="ma-cad${kinematics ? ' ma-cad--j1' : ''}"><figure>${principalCut
     ? `<svg viewBox="0 0 1380 384" role="img" aria-label="${alt}"><svg width="1380" height="384" overflow="hidden"><image href="${src}" width="1380" height="662"/></svg></svg>`
     : `<img src="${src}" alt="${alt}"/>`}<figcaption>${note}</figcaption></figure>
-  <aside><p class="ma-label">Repères de cette planche</p>${legend(items)}</aside></div>`
+  <aside><p class="ma-label">Repères de cette planche</p>${legend(items)}</aside>${kinematics}</div>`
 const capture = (src: string, alt: string, caption: string) => `
   <figure class="ma-capture">
     <div class="ma-capture__frame"><img src="${src}" alt="${alt}"/></div>
@@ -16,7 +18,7 @@ export const modelsArtefacts: Partial<Record<number, Plate[]>> = {
   0: [
     { title: 'J1 · embase et sortie tournante', source: 'Atlas CAO du projet · planche J1', content: cad('./media/models/j1.png', 'Noyau J1, vue extérieure et coupe numérotée de 1 à 9', [
       'Embase fixe A', 'Cartouche fixe S', 'Roulement principal', 'Stator du moteur couple', 'Rotor du moteur couple', 'Bague de codeur', 'Tête de lecture', 'Mât fixe U', 'Cloche tournante T',
-    ], 'La cloche T porte la colonne. L’embase A, la cartouche S et le mât U restent fixes.') },
+    ], 'La cloche T porte la colonne. L’embase A, la cartouche S et le mât U restent fixes.', false, j1Kinematics()) },
     { title: 'J2 / J3 · entraînements à l’épaule', source: 'Atlas CAO du projet · planche des transmissions J2 / J3', content: cad('./media/j2-j3-transmission.png', 'Entraînements J2 et J3 en coupes annotées, repères 1 à 14', [
       'Pignon d’entrée J2', 'Couvercle du pod J2', 'Cartouche du pignon J2', 'Berceau moteur J2', 'Réducteur RV-200C', 'Porteur J3 côté J2', 'Guidage gauche J3', 'Demi-arbre gauche H', 'Distributeur de couple O', 'Porteur côté J3', 'Réducteur RV-100C', 'Pignon d’entrée J3', 'Demi-arbre droit H', 'Guidage droit J3',
     ], 'Coupes principales : la sortie J2 entraîne le bras ; la sortie J3 rejoint les deux bielles.', true) },
