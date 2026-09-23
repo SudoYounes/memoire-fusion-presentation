@@ -7,10 +7,9 @@ export const trajectoryCues = [
   { label: 'Vue d’ensemble', text: 'Un même transfert pour comprendre le passage, sa temporisation et la vérification avant envoi.' },
   { label: '01 · Géométrie — la cible', text: 'L’IK relie la cible de la sortie J4 aux quatre angles, avec un outil horizontal et le lacet demandé.' },
   { label: '02 · Géométrie — le passage', text: 'A–B : élever. B–C : pivoter à hauteur. C–D : approcher. Les poses sont comparables avec une caméra fixe.' },
-  { label: '03 · Temporisation — les raccords', text: 'Les quintiques raccordent les configurations. Aux arrêts B et C de cet exemple, vitesse et accélération sont nulles.' },
-  { label: '04 · Temporisation — les limites', text: 'La vitesse conserve de la marge. Accélération et jerk atteignent ici environ 99 % des limites déclarées.' },
-  { label: '05 · Vérifier dans la scène', text: 'MoveIt contrôle les états échantillonnés avec la charge attachée et les cartons déjà placés.' },
-  { label: '06 · Transmettre la consigne', text: 'Le message horodaté rejoint /execute_trajectory, puis JTC. Le suivi physique est l’étape suivante.' },
+  { label: '03 · Composer la trajectoire', text: 'Les quintiques raccordent les configurations. Aux arrêts B et C de cet exemple, vitesse et accélération sont nulles.' },
+  { label: '04 · Vérifier dans la scène', text: 'MoveIt contrôle les états échantillonnés avec la charge attachée et les cartons déjà placés.' },
+  { label: '05 · Transmettre la consigne', text: 'Le message horodaté rejoint /execute_trajectory, puis JTC. Le suivi physique est l’étape suivante.' },
 ] as const
 
 const node = (x: number, cues: string, goto: number, label: string, title: string, detail: string, software: string) => `
@@ -41,12 +40,12 @@ export function mountTrajectoryFlow(stage: HTMLElement) {
       <marker id="tf-arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#ff493d" stroke-width="1.8"/></marker>
     </defs>
     <text class="tf-entry" x="24" y="17" data-tf-cues="1">ENTRÉE · cible de prise ou de dépose</text>
-    ${edge('waypoints','M450 100 H575','3 4','points de passage',512.5,84)}
-    ${edge('trajectory','M1025 100 H1150','5')}
-    <g class="tf-edge" data-tf-cues="5">${math(1087.5,84,'command',18,'tf-edge-label',false,'middle')}</g>
+    ${edge('waypoints','M450 100 H575','3','points de passage',512.5,84)}
+    ${edge('trajectory','M1025 100 H1150','4')}
+    <g class="tf-edge" data-tf-cues="4">${math(1087.5,84,'command',18,'tf-edge-label',false,'middle')}</g>
     ${node(0,'1 2',1,'01 · GÉOMÉTRIE','Construire le passage','IK analytique + points de passage','analytic_ik.py · multi_carton_cycle.py')}
-    ${node(575,'3 4',3,'02 · TEMPORISATION','Composer la trajectoire','Quintiques · raccords · limites dynamiques','multi_carton_core.py')}
-    ${node(1150,'5 6',5,'03 · VALIDATION','Vérifier dans la scène','Charge attachée + cartons déjà placés','MoveIt 2 · /check_state_validity')}
+    ${node(575,'3',3,'02 · TEMPORISATION','Composer la trajectoire','Quintiques · raccords · limites dynamiques','multi_carton_core.py')}
+    ${node(1150,'4 5',4,'03 · VALIDATION','Vérifier dans la scène','Charge attachée + cartons déjà placés','MoveIt 2 · /check_state_validity')}
     ${trajectoryPlatesMarkup()}
   </svg>`
 
@@ -82,7 +81,7 @@ export function mountTrajectoryFlow(stage: HTMLElement) {
     const position = view.querySelector<HTMLElement>('[data-traj-position]')
     if (caption) caption.textContent = ''
     if (label) label.textContent = `${trajectoryCues[cue].label} · ${trajectoryComments[cue][step].topic}`
-    if (position) position.textContent = `${String(cue+1).padStart(2,'0')} / 07`
+    if (position) position.textContent = `${String(cue+1).padStart(2,'0')} / ${String(trajectoryCues.length).padStart(2,'0')}`
     const prev = view.querySelector<HTMLButtonElement>('[data-traj-prev]')
     const next = view.querySelector<HTMLButtonElement>('[data-traj-next]')
     if (prev) prev.disabled = cue === 0
@@ -94,7 +93,7 @@ export function mountTrajectoryFlow(stage: HTMLElement) {
     const cue = Number(stage.dataset.trajectoryCue)
     const panel = stage.querySelector('.tp-panel.is-visible')
     if (panel && cue > 0 && newCard) {
-      const origin = String(cue < 3 ? 225 : cue < 5 ? 800 : 1375) + ' 190'
+      const origin = String(cue < 3 ? 225 : cue === 3 ? 800 : 1375) + ' 190'
       const surface = panel.querySelector('.tp-surface')
       const content = panel.querySelector('.tp-panel-content')
       if (surface) animation.fromTo(surface,

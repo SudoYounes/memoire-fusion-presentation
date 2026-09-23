@@ -26,14 +26,7 @@ export const trajectoryComments: readonly (readonly Comment[])[] = [
     {topic:'C–D · Approche',title:['Rejoindre la destination'],body:['La dernière portion descend d’environ','40 mm jusqu’à la pose d’arrivée.'],consequence:['Le passage est construit. MoveIt devra','encore vérifier ses états dans la scène.'],focus:['route-cd'],pose:3},
   ],
   [
-    {topic:'Position',title:['J1 pivote surtout','entre B et C'],body:['La courbe décrit l’azimut commandé.','Les quintiques relient les configurations','avec un calendrier commun aux axes.'],consequence:['Une position J1 constante ne signifie pas','que les autres axes sont immobiles.'],focus:['profile-q','time-bc']},
-    {topic:'Vitesse',title:['Accélérer, puis ralentir','la rotation'],body:['La vitesse de J1 augmente pendant','le transfert, puis revient à zéro','à l’arrivée en C.'],consequence:['Cette loi fixe le rythme du mouvement','entre les configurations.'],focus:['profile-qd','time-bc']},
-    {topic:'Raccords',title:['B et C imposent','des arrêts dans cet exemple'],body:['Vitesse = 0 et accélération = 0','aux deux jonctions.','Position, vitesse et accélération sont continues.'],consequence:['La commande présentée utilise','des raccords avec arrêts imposés.'],focus:['profile-qd','profile-qdd','time-bc','stops']},
-  ],
-  [
-    {topic:'Vitesse',title:['La vitesse conserve','de la marge'],body:['Le maximum atteint environ 73,5 %','de la limite déclarée.','J1 et J4 sont les axes dimensionnants.'],consequence:['Le rythme ne dépend donc pas','de la seule limite de vitesse.'],focus:['limit-velocity']},
-    {topic:'Accélération et jerk',title:['Deux limites','plus contraignantes ici'],body:['L’accélération atteint environ 99,1 %.','Le jerk atteint lui aussi environ 99,1 %.','Le jerk mesure la variation de l’accélération.'],consequence:['Ces deux grandeurs contraignent','davantage la durée de ce transfert.'],focus:['limit-acceleration','limit-jerk']},
-    {topic:'Ajustement',title:['Allonger la durée','si une limite est dépassée'],body:['Le constructeur étire le calendrier,','puis contrôle de nouveau les limites.','Le passage géométrique reste inchangé.'],consequence:['Les barres montrent la commande finale,','sans comparaison avant et après étirement.'],focus:['limit-velocity','limit-acceleration','limit-jerk']},
+    {topic:'Position, vitesse et accélération de J1',title:[],body:[],consequence:[],focus:['profile-q','profile-qd','profile-qdd','time-bc','stops']},
   ],
   [
     {topic:'Scène',title:['Contrôler le passage','dans son environnement'],body:['MoveIt tient compte du carton attaché','au robot et des cartons déjà placés.','Service : /check_state_validity'],consequence:['Le contrôle évalue les configurations','dans la scène actualisée.'],focus:['validation-scene']},
@@ -52,13 +45,12 @@ function commentBody(c:Comment,cue:number,step:number) {
     return lines(1040,382,[c.body[0]],'tp-comment-body')+keys.map((row,r)=>row.map((key,col)=>math(1040+col*270,418+r*32,key,27,'tp-numeric')).join('')).join('')
   }
   if(cue===1&&step===2)return math(1040,392,'tp_level',27,'tp-comment-body')+lines(1230,392,[': outil horizontal.'],'tp-comment-body')+math(1040,430,'tp_yaw',27,'tp-comment-body')+lines(1230,430,[': lacet conservé ici.'],'tp-comment-body')
-  if(cue===3&&step===2)return math(1040,392,'tp_stops',27,'tp-comment-body')+lines(1040,421,c.body.slice(1),'tp-comment-body')
-  if(cue===2&&step===1)return lines(1040,392,[c.body[0]],'tp-comment-body')+lines(1040,421,['La sortie J4 reste proche de'],'tp-comment-body')+math(1355,421,'tp_height',25,'tp-comment-body')+lines(1040,450,[c.body[2]],'tp-comment-body')
-  if(cue===2&&step===2)return lines(1040,392,[c.body[0]],'tp-comment-body')+math(1040,421,'tp_descent',25,'tp-comment-body')+lines(1125,421,['jusqu’à la pose d’arrivée.'],'tp-comment-body')
   return lines(1040,392,c.body,'tp-comment-body',29)
 }
 export function trajectoryCommentary(cue:number) {
   const comments=trajectoryComments[cue]
+  // The passage keeps its three presenter-controlled poses, with titles only.
+  if(cue===2)return comments.map((c,i)=>`<g class="tp-comment" data-traj-comment="${i}" aria-hidden="true">${lines(32,227,[c.title.join(' ')],'tp-title')}</g>`).join('')
   return `<g class="tp-commentary">${comments.map((c,i)=>`<g class="tp-comment" data-traj-comment="${i}" aria-hidden="true">
     ${lines(1040,277,[`${String(i+1).padStart(2,'0')} / ${String(comments.length).padStart(2,'0')}   ${c.topic}`],'tp-comment-topic')}
     ${lines(1040,315,c.title,'tp-comment-title',33)}

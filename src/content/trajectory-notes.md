@@ -1,10 +1,10 @@
-# Slide 13 — Préparation de la trajectoire
+# Slide 11 — Préparation de la trajectoire
 
 ## Parcours oral
 
-La slide conserve ses sept cartes, vue d’ensemble comprise. Chaque carte détaillée comporte deux ou trois commentaires, affichés un à la fois à droite. La molette, Espace ou les flèches avancent d’abord dans ces commentaires, puis ouvrent la carte suivante. Le retour arrière suit le même parcours en sens inverse. Les petits repères 01–02–03 permettent aussi de choisir directement un commentaire.
+La slide comporte six cartes, vue d’ensemble comprise. La cible, la validation et la transmission conservent leurs commentaires successifs à droite. La seconde vue de géométrie montre uniquement le robot, son passage et un titre à chacun des trois temps. La temporisation affiche un seul graphique réunissant position, vitesse et accélération de J1, sans panneau de commentaire ni fenêtre de limites dynamiques. La molette, Espace ou les flèches avancent dans les temps de lecture, puis ouvrent la carte suivante. Le retour arrière suit le même parcours en sens inverse.
 
-Les trois blocs supérieurs restent fixes. Un clic sur un bloc reprend sa première carte, au premier commentaire. La figure reste en place pendant la lecture d’une carte et met en évidence l’élément commenté. Dans la seconde vue de géométrie, le récit sélectionne successivement les poses B, C et D. Les boutons A–B–C–D restent disponibles pour comparer les poses et affichent le commentaire correspondant. Aucun commentaire ne défile automatiquement. Après la transmission, la navigation ouvre la slide consacrée à l’exécution.
+Les trois blocs supérieurs restent fixes. Un clic sur un bloc reprend sa première carte, au premier temps. La figure reste en place pendant la lecture d’une carte et met en évidence l’élément commenté. Dans la seconde vue de géométrie, le récit sélectionne successivement les poses B, C et D, avec une caméra fixe et les titres « Dégager la charge côté prise », « Pivoter à hauteur », puis « Rejoindre la destination ». Aucun commentaire ne défile automatiquement. Le graphique de temporisation s’affiche en un seul temps, puis la navigation passe directement à la validation. Après la transmission, elle ouvre la slide consacrée à l’exécution.
 
 ### Vue d’ensemble
 
@@ -20,27 +20,21 @@ Trois commentaires : cible et coordonnées, puis calcul des angles, puis orienta
 
 « Voici maintenant le passage prévu pour cette même sortie J4. De A à B, on élève la charge côté prise pour atteindre une posture de dégagement. De B à C, le robot effectue sa rotation principale en gardant la sortie J4 à une hauteur proche de 1,49 mètre. Enfin, de C à D, il approche la destination avec environ 40 millimètres de descente finale. Ces points intermédiaires traduisent notre stratégie de passage. Ils ne suffisent pas à prouver que la trajectoire est sans collision : cette vérification intervient ensuite. »
 
-Trois commentaires : élévation A–B, rotation B–C, puis approche C–D. À chaque avance, le segment concerné devient rouge vif et la pose correspondante apparaît avec la même caméra. Le tracé représente le passage de la sortie J4, pas celui du centre du carton. Les images sont des reconstructions du modèle de simulation et de la cellule nominale, pas des captures Gazebo ni une mesure du mouvement réel.
+Trois titres successifs accompagnent l’élévation A–B, la rotation B–C, puis l’approche C–D. À chaque avance, le segment concerné devient rouge vif et la pose correspondante apparaît avec la même caméra. Aucun panneau explicatif ni sélecteur de pose ne s’affiche dans cette carte. Le tracé représente le passage de la sortie J4, pas celui du centre du carton. Les images sont des reconstructions du modèle de simulation et de la cellule nominale, pas des captures Gazebo ni une mesure du mouvement réel.
 
 ### 3 — Raccorder les mouvements dans le temps
 
 « Nous retrouvons les mêmes repères, maintenant sur une échelle de temps. Pour rester lisible, cette vue montre un seul axe : J1, celui qui fait pivoter le robot. Sa position change surtout entre B et C, au moment du transfert latéral. Notre constructeur, dans multi_carton_core.py, utilise des polynômes quintiques pour relier les configurations. La courbe de vitesse montre l’accélération puis le ralentissement de la rotation. Dans cet exemple, les jonctions B et C imposent un arrêt : vitesse et accélération y sont nulles. La position, la vitesse et l’accélération restent continues aux raccords. »
 
-Trois commentaires : la position de J1, sa vitesse, puis les raccords. Les courbes en cours de lecture s’éclairent. Au troisième commentaire, les anneaux repèrent les vitesses et accélérations nulles en B et C. Les autres articulations évoluent pendant les portions où J1 bouge peu : une courbe J1 plate ne signifie pas que tout le robot est immobile.
+Un seul affichage présente les trois courbes de J1 et les repères A–B–C–D. Toutes les courbes restent lisibles ensemble, avec les anneaux qui repèrent les vitesses et accélérations nulles en B et C. Le graphique utilise toujours les 256 échantillons planifiés. Les autres articulations évoluent pendant les portions où J1 bouge peu : une courbe J1 plate ne signifie pas que tout le robot est immobile.
 
-### 4 — Respecter les limites dynamiques
-
-Trois commentaires : marge en vitesse, limites plus contraignantes d’accélération et de jerk, puis principe d’allongement de la durée. Les barres concernées sont mises en évidence successivement.
-
-« La durée ne dépend pas uniquement de la vitesse maximale. Nous contrôlons également l’accélération et le jerk, c’est-à-dire la rapidité de variation de l’accélération. Les barres indiquent, pour chaque grandeur, le maximum atteint sur tous les axes rapporté à sa limite déclarée. La vitesse atteint environ 73,5 %, mais l’accélération et le jerk arrivent déjà à environ 99 %. Ils sont donc plus contraignants dans cet exemple. Si une limite est dépassée, le constructeur peut allonger les durées puis recontrôler, sans changer le passage géométrique. Ici, nous montrons la commande finale obtenue, pas une comparaison avant-après. »
-
-### 5 — Vérifier dans la scène
+### 4 — Vérifier dans la scène
 
 Deux commentaires : le contenu de la scène, puis le verdict et sa portée. Les échantillons du passage deviennent le point d’attention au second commentaire.
 
 « Avant d’envoyer la trajectoire, MoveIt vérifie les états échantillonnés dans la scène actualisée, avec le carton attaché au robot et les cartons déjà déposés. Ici, les 256 états de la commande passent le contrôle. Ce résultat porte sur les échantillons vérifiés. Il ne constitue pas une preuve continue d’absence de collision entre deux échantillons, ni une qualification globale de la cellule. Si le contrôle échoue, la trajectoire n’est pas envoyée. »
 
-### 6 — Transmettre la consigne
+### 5 — Transmettre la consigne
 
 Deux commentaires : le contenu du message horodaté, puis sa transmission vers JTC.
 
