@@ -93,7 +93,7 @@ export function setupDeck(): () => void {
       if (buttonIndex === nextIndex) button.setAttribute('aria-current', 'true')
       else button.removeAttribute('aria-current')
     })
-    let activeSection = 0
+    let activeSection = -1
     sectionStops.forEach((section, sectionIndex) => {
       if (section.start <= nextIndex) activeSection = sectionIndex
     })
@@ -107,6 +107,7 @@ export function setupDeck(): () => void {
       } else button.removeAttribute('aria-current')
     })
     root.dataset.chromeTheme = slide.dataset.theme ?? 'light'
+    root.dataset.coverActive = String(slide.classList.contains('cover-slide'))
     if (chapter) chapter.textContent = slide.dataset.chapter ?? ''
     if (current) current.textContent = formatIndex(nextIndex)
     if (announce && live) live.textContent = `Diapositive ${nextIndex + 1} sur ${slides.length} : ${slide.dataset.title ?? ''}`

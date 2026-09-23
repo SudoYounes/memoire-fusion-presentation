@@ -1,0 +1,60 @@
+/* Formal opening page. Original institutional marks remain unmodified. */
+.cover-stage {
+  --surface-base:#fff;
+  --surface-glow:#fff;
+  --atmosphere-opacity:0;
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto;
+  padding:calc(3.5 * var(--su)) calc(6 * var(--su)) calc(4.4 * var(--su));
+  color:#173b50;
+}
+.cover-header {
+  display:grid;
+  grid-template-columns:calc(17 * var(--su)) minmax(0,1fr) calc(17 * var(--su));
+  align-items:center;
+  gap:calc(2 * var(--su));
+  padding-bottom:calc(1.6 * var(--su));
+  border-bottom:1px solid #cbb48e;
+}
+.cover-logo { width:100%; height:auto; object-fit:contain; }
+.cover-degree { text-align:center; color:#48616b; font-size:calc(.93 * var(--su)); line-height:1.6; }
+.cover-degree__heading { color:#173b50; font-weight:650; font-size:calc(1.13 * var(--su)); margin-bottom:calc(.45 * var(--su)); }
+.cover-degree strong { font-weight:600; }
+.cover-main { align-self:center; text-align:center; padding:calc(1.8 * var(--su)) 0; }
+.cover-main h1 { font-weight:580; letter-spacing:-.035em; }
+.cover-title__main { display:block; font-size:calc(2.65 * var(--su)); line-height:1.22; }
+.cover-title__detail { display:block; margin-top:calc(1.0 * var(--su)); font-size:calc(1.65 * var(--su)); line-height:1.38; font-weight:450; letter-spacing:-.02em; color:#42616d; }
+.cover-author { margin-top:calc(1.65 * var(--su)); color:#5b6c75; font-size:calc(1.02 * var(--su)); line-height:1.5; }
+.cover-author time { color:#344f5c; font-weight:550; }
+.cover-author__name { margin-top:calc(.48 * var(--su)); color:#173b50; font-size:calc(1.8 * var(--su)); font-weight:680; letter-spacing:.07em; }
+.cover-jury { width:calc(80 * var(--su)); max-width:100%; margin-inline:auto; border-collapse:collapse; table-layout:fixed; font-size:calc(1.02 * var(--su)); line-height:1.4; }
+.cover-jury caption { text-align:left; color:#66757b; font-size:calc(.98 * var(--su)); padding-bottom:calc(.8 * var(--su)); }
+.cover-jury__person { width:24%; }
+.cover-jury__affiliation { width:55%; }
+.cover-jury__role { width:21%; }
+.cover-jury tbody { border-top:1px solid #cbb48e; border-bottom:1px solid #dce2e3; }
+.cover-jury th, .cover-jury td { text-align:left; padding:calc(.53 * var(--su)) 0; vertical-align:middle; }
+.cover-jury th { font-weight:630; color:#173b50; }
+.cover-jury td { color:#53656f; }
+.cover-jury td:last-child { color:#173b50; padding-left:calc(1 * var(--su)); }
+.cover-jury tr + tr { border-top:1px solid #eef0f1; }
+html[data-cover-active='true'] :is(.deck-sections,.deck-rail,.deck-footer,.deck-progress) { visibility:hidden; pointer-events:none; }
+@media (max-aspect-ratio:4 / 5) {
+  .cover-stage { display:flex; flex-direction:column; height:auto; min-height:100dvh; padding:2rem 1.4rem 5rem; }
+  .cover-header { grid-template-columns:1fr 1fr; gap:1.4rem; padding-bottom:1.5rem; }
+  .cover-logo { width:9rem; justify-self:start; }
+  .cover-logo--viatris { grid-column:2; grid-row:1; justify-self:end; }
+  .cover-degree { grid-column:1 / -1; grid-row:2; font-size:.86rem; }
+  .cover-degree__heading { font-size:1.05rem; }
+  .cover-main { padding:2rem 0; }
+  .cover-title__main { font-size:1.8rem; }
+  .cover-title__detail { font-size:1.12rem; margin-top:1rem; }
+  .cover-author { margin-top:1.6rem; font-size:.9rem; }
+  .cover-author__name { margin-top:.5rem; font-size:1.5rem; }
+  .cover-jury { width:100%; font-size:.72rem; }
+  .cover-jury caption { font-size:.86rem; padding-bottom:.7rem; }
+  .cover-jury th,.cover-jury td { padding:.65rem .25rem; }
+  .cover-jury__person { width:27%; }
+  .cover-jury__affiliation { width:48%; }
+  .cover-jury__role { width:25%; }
+}
