@@ -3,10 +3,10 @@ import { runtimeEvidence as evidence } from '../content/runtimeEvidence'
 import { math, mathWidth } from './runtimeMath'
 
 export const runtimeCues = [
-  { label: 'Vue d’ensemble', text: 'Une référence de mouvement, des efforts appliqués et des états simulés qui ferment la boucle.' },
-  { label: '01 · Corriger le suivi', text: 'JTC compare sa référence aux états simulés. Le PID corrige les écarts de position et de vitesse.' },
-  { label: '02 · Construire l’effort', text: 'Correction, gravité et anticipation inertielle contribuent à une même demande, avec leurs signes.' },
-  { label: '03 · Faire évoluer la physique', text: 'Gazebo / DART calcule le mouvement sous les efforts, la gravité et les contacts du modèle simulé.' },
+  { label: 'Vue d’ensemble', text: 'Une référence de mouvement, des efforts appliqués et des états simulés qui ferment la boucle.', script: 'La trajectoire validée fournit les <strong>positions, vitesses et accélérations de référence</strong>. La boucle transforme ensuite cette consigne en efforts et simule la réponse du robot.' },
+  { label: '01 · Corriger le suivi', text: 'JTC compare sa référence aux états simulés. Le PID corrige les écarts de position et de vitesse.', script: 'Le JTC compare la référence interpolée aux positions et vitesses renvoyées par Gazebo. Le PID utilise cet écart pour calculer <strong>l’effort de correction</strong>.' },
+  { label: '02 · Construire l’effort', text: 'Correction, gravité et anticipation inertielle contribuent à une même demande, avec leurs signes.', script: 'Le module additionne la <strong>correction PID, la compensation de gravité et l’anticipation inertielle</strong> liée à la répartition des masses. La relation complète inclut aussi les effets de Coriolis, qui ne sont pas isolés sur cette courbe.' },
+  { label: '03 · Faire évoluer la physique', text: 'Gazebo / DART calcule le mouvement sous les efforts, la gravité et les contacts du modèle simulé.', script: 'L’effort total est transmis à Gazebo, où DART calcule le mouvement des corps sous l’effet des masses, de la charge et des contacts. Les <strong>nouvelles positions et vitesses</strong> alimentent ensuite la boucle suivante.' },
 ] as const
 
 const text = (x: number, y: number, lines: string[], cls = 'rf-body', step = 27) => `<text class="${cls}" x="${x}" y="${y}">${lines.map((line, i) => `<tspan x="${x}" dy="${i ? step : 0}">${line}</tspan>`).join('')}</text>`
@@ -91,6 +91,8 @@ const edge = (d: string, cues: string, label = '', x = 0, y = 0, labelMarkup='')
 const node = (x:number,w:number,goto:number,cues:string,eyebrow:string,title:string,detail:string,code:string,typeset:{detail?:string;code?:string}={}) => `<g class="rf-node" transform="translate(${x} 102)" data-runtime-goto="${goto}" data-rf-cues="${cues}" tabindex="0" role="button" aria-label="${title} : ouvrir l’explication"><rect class="rf-node-surface" width="${w}" height="110" rx="5"/><path class="rf-node-accent" d="M18 0 H${w-18}"/>${text(20,25,[eyebrow],'rf-eyebrow')}${text(20,54,[title],'rf-node-title')}${typeset.detail??text(20,79,[detail],'rf-node-detail')}${typeset.code??text(20,99,[code],'rf-code')}</g>`
 
 export function mountRuntimeFlow(stage: HTMLElement) {
+  const narration = stage.querySelector<HTMLElement>('[data-runtime-narration]')!
+  narration.innerHTML = runtimeCues.map((cue, index) => `<p data-runtime-script="${index}" aria-hidden="true">${cue.script}</p>`).join('')
   const holder = stage.querySelector<HTMLElement>('[data-runtime-graph]')!
   holder.innerHTML = `<svg class="runtime-flow-svg" viewBox="0 0 1600 604" role="group" aria-labelledby="rf-title rf-desc">
     <title id="rf-title">Commande en effort et réponse simulée du robot 2</title>
@@ -127,6 +129,11 @@ export function mountRuntimeFlow(stage: HTMLElement) {
   const update = (view: HTMLElement, cue: number, noMotion: boolean) => {
     view.dataset.runtimeCue = String(cue)
     view.dataset.runtimeStatic = String(noMotion)
+    view.querySelectorAll<HTMLElement>('[data-runtime-script]').forEach(script => {
+      const active = Number(script.dataset.runtimeScript) === cue
+      script.classList.toggle('is-current', active)
+      script.setAttribute('aria-hidden', String(!active))
+    })
     view.querySelectorAll<SVGElement>('[data-rf-cues]').forEach(el => {
       const active = el.dataset.rfCues?.split(' ').includes(String(cue)) ?? false
       el.classList.toggle('is-current', active)
