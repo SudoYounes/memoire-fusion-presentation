@@ -28,6 +28,11 @@ Le bloc JSON et sa fenêtre ont été retirés de cette slide. Le modèle fermé
 reste inchangé dans le projet ; cette suppression ne concerne que la présentation.
 Après la fenêtre SDF, ↓ mène directement à « Observer ».
 
+Lorsqu’une fenêtre URDF, SRDF ou SDF s’ouvre, le texte explicatif du bloc
+apparaît intégralement en haut à droite. Les deux planches SRDF partagent
+le commentaire du bloc. À la fermeture, cette zone retrouve l’introduction.
+La planche J1 conserve son torseur, sans le développement de la vitesse en P.
+
 ## Sources locales consultées (lecture seule)
 
 Racine : /Users/macair/Documents/robot2-cad

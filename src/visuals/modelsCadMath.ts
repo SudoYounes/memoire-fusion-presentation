@@ -1,6 +1,6 @@
 import { runtimeMath } from '../content/runtimeMath'
 
-type CadMathKey = 'j1_torsor' | 'j1_transport' | 'j1_pivot_velocity' | 'j1_point' | 'j1_velocity_components' | 'j2_torsor' | 'j2_transform' | 'j3_torsor' | 'j3_transform' | 'j4_torsor' | 'j4_transform'
+type CadMathKey = 'j1_torsor' | 'j2_torsor' | 'j2_transform' | 'j3_torsor' | 'j3_transform' | 'j4_torsor' | 'j4_transform'
 
 /** Same precompiled LaTeX glyphs as the robot's other mathematical views. */
 function equation(key: CadMathKey): string {
@@ -13,12 +13,6 @@ export function j1Kinematics(): string {
   return `<section class="ma-cad-kinematics" aria-label="Modélisation cinématique de J1">
     <p class="ma-label">Modélisation cinématique</p>
     <div class="ma-j1-torsor">${equation('j1_torsor')}</div>
-    <div class="ma-j1-point-velocity">
-      <p class="ma-label">Vitesse d’un point P</p>
-      ${equation('j1_transport')}
-      ${equation('j1_pivot_velocity')}
-      <div class="ma-j1-components">${equation('j1_point')}${equation('j1_velocity_components')}</div>
-    </div>
   </section>`
 }
 

@@ -75,6 +75,17 @@ export const modelsArtefacts: Partial<Record<number, Plate[]>> = {
 /** A non-modal foreground panel: the active block and deck controls stay available. */
 export function createModelsArtefacts(stage: HTMLElement, select: (step: number) => void) {
   const map = stage.querySelector<HTMLElement>('.models-map')!
+  const narration = stage.querySelector<HTMLElement>('.models-intro')!
+  // Reuse the block's exact explanation instead of maintaining a second copy.
+  stage.querySelectorAll<HTMLElement>('.models-lane').forEach(block => {
+    const explanation = block.querySelector('.models-explanation')!
+    const script = document.createElement('div')
+    script.className = 'models-script'
+    script.dataset.modelsScript = block.dataset.modelsBlock
+    script.setAttribute('aria-hidden', 'true')
+    script.innerHTML = `<p class="models-script-title">${explanation.querySelector('h3')!.innerHTML}</p>${Array.from(explanation.querySelectorAll('li'), item => `<p>${item.innerHTML}</p>`).join('')}`
+    narration.append(script)
+  })
   const panel = document.createElement('section')
   panel.className = 'models-artifact'
   panel.setAttribute('role', 'region')
@@ -95,10 +106,19 @@ export function createModelsArtefacts(stage: HTMLElement, select: (step: number)
     button.setAttribute('aria-label', `Ouvrir les artefacts : ${button.querySelector('h3')?.textContent}`)
   })
   const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('is-motion-off')
+  const syncScript = (view: HTMLElement) => {
+    const current = opened && activeStep >= 2 ? String(activeStep) : 'overview'
+    view.querySelectorAll<HTMLElement>('[data-models-script]').forEach(script => {
+      const active = script.dataset.modelsScript === current
+      script.classList.toggle('is-current', active)
+      script.setAttribute('aria-hidden', String(!active))
+    })
+  }
   const syncClones = () => document.querySelectorAll<HTMLElement>('.pipeline-camera .models-stage').forEach(view => {
     view.classList.toggle('has-models-artifact', opened)
     view.querySelector('.models-artifact')?.replaceWith(panel.cloneNode(true))
     view.querySelectorAll<HTMLElement>('[data-models-block]').forEach(block => block.classList.toggle('is-artifact-source', opened && Number(block.dataset.modelsBlock) === activeStep))
+    syncScript(view)
   })
   const position = () => {
     if (!opened) return
@@ -117,6 +137,7 @@ export function createModelsArtefacts(stage: HTMLElement, select: (step: number)
     const entry = modelsArtefacts[activeStep]?.[plate]
     panel.hidden = !opened || !entry
     stage.classList.toggle('has-models-artifact', opened && !!entry)
+    syncScript(stage)
     stage.querySelectorAll('[data-models-block]').forEach(block => block.classList.toggle('is-artifact-source', opened && Number((block as HTMLElement).dataset.modelsBlock) === activeStep))
     triggers.forEach(block => buttonFor(block).setAttribute('aria-expanded', String(opened && Number(block.dataset.modelsBlock) === activeStep)))
     transition?.cancel()
@@ -188,6 +209,9 @@ export function createModelsArtefacts(stage: HTMLElement, select: (step: number)
   return { show, advance, close, position, destroy: () => {
     transition?.cancel(); observer.disconnect(); map.removeEventListener('click',click); window.removeEventListener('keydown',key,true)
     panel.remove(); stage.classList.remove('has-models-artifact')
+    narration.querySelectorAll('[data-models-script]:not([data-models-script="overview"])').forEach(script => script.remove())
+    const overview = narration.querySelector('[data-models-script="overview"]')
+    overview?.classList.add('is-current'); overview?.setAttribute('aria-hidden', 'false')
     triggers.forEach(block => { const button = buttonFor(block); for (const attr of ['role','tabindex','aria-label','aria-expanded']) button.removeAttribute(attr) })
   } }
 }

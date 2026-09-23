@@ -8,8 +8,8 @@
 }
 .models-heading {
   display: grid;
-  grid-template-columns: 1.35fr .65fr;
-  gap: calc(4 * var(--su));
+  grid-template-columns: 1.1fr .9fr;
+  gap: calc(3 * var(--su));
   align-items: end;
 }
 .models-heading .display {
@@ -20,13 +20,19 @@
   letter-spacing: -.05em;
 }
 .models-intro {
+  display: grid;
   color: var(--slate);
-  font-size: calc(.92 * var(--su));
-  line-height: 1.5;
+  font-size: calc(.85 * var(--su));
+  line-height: 1.4;
   padding-left: calc(1 * var(--su));
   border-left: 2px solid var(--gold);
 }
 .models-intro strong { font-weight: 620; color: var(--ink-soft); }
+.models-script { grid-area: 1 / 1; align-self: center; visibility: hidden; opacity: 0; pointer-events: none; }
+/* Inherit visibility so a hidden zoom clone cannot leak onto another slide. */
+.models-script.is-current { visibility: inherit; opacity: 1; }
+.models-script p + p { margin-top: .35em; }
+.models-script-title { font-weight: 650; color: var(--blue); }
 .models-map {
   display: grid;
   grid-template-columns: calc(21 * var(--su)) minmax(0, 1fr);

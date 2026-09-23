@@ -8,7 +8,7 @@
   padding: calc(1.15 * var(--su)); gap: calc(.8 * var(--su)); color: #172e3b;
 }
 .has-models-artifact .models-map::after { content:''; position:absolute; inset:-6px; z-index:5; background:rgb(247 249 246 / 44%); pointer-events:none; }
-.has-models-artifact .models-heading { opacity:.4; transition:opacity 250ms ease; }
+.has-models-artifact .models-heading > div:first-child { opacity:.4; transition:opacity 250ms ease; }
 .has-models-artifact [data-models-block].is-artifact-source { z-index:8; opacity:1 !important; filter:none !important; }
 .has-models-artifact .is-artifact-source .models-explanation { opacity:.15; }
 .models-source[role='button'], .models-format[role='button'] { cursor:pointer; }
@@ -40,9 +40,6 @@
 .ma-cad-equation { color:#172e3b; font-size:calc(1.14 * var(--su)); line-height:1; min-width:0; }
 .ma-cad-equation > svg { display:block; width:var(--ma-math-width); height:var(--ma-math-height); max-width:100%; object-fit:initial; fill:currentColor; background:none; border-radius:0; overflow:visible; }
 .ma-j1-torsor .ma-cad-equation { font-size:calc(1.04 * var(--su)); }
-.ma-j1-point-velocity { display:flex; flex-direction:column; gap:calc(.7 * var(--su)); border-top:1px solid #17486320; padding-top:calc(.8 * var(--su)); }
-.ma-j1-components { display:grid; grid-template-columns:1fr 1fr; gap:calc(.7 * var(--su)); align-items:center; }
-.ma-j1-components .ma-cad-equation { font-size:calc(1.05 * var(--su)); }
 .ma-cad-transform { display:flex; flex-direction:column; gap:calc(.7 * var(--su)); border-top:1px solid #17486320; margin-top:calc(.35 * var(--su)); padding-top:calc(.8 * var(--su)); }
 .ma-cad-transform .ma-cad-equation { font-size:calc(1.04 * var(--su)); }
 .ma-legend { display:grid; gap:calc(.4 * var(--su)); margin-top:calc(.55 * var(--su)); }
@@ -96,9 +93,7 @@
   .ma-cad figcaption { margin-top:.6rem; }
   .ma-cad aside { align-self:stretch; }
   .ma-cad-kinematics { flex-shrink:0; padding:1rem 0 0; border-left:0; border-top:1px solid #17486325; gap:.8rem; }
-  .ma-cad-equation, .ma-j1-torsor .ma-cad-equation, .ma-j1-components .ma-cad-equation, .ma-cad-transform .ma-cad-equation { font-size:1rem; }
-  .ma-j1-point-velocity { gap:.8rem; padding-top:.9rem; }
-  .ma-j1-components { grid-template-columns:1fr; gap:.9rem; }
+  .ma-cad-equation, .ma-j1-torsor .ma-cad-equation, .ma-cad-transform .ma-cad-equation { font-size:1rem; }
   .ma-cad-transform { gap:.8rem; margin-top:.35rem; padding-top:.9rem; }
   .ma-cad-equation > svg { height:var(--ma-math-height); max-width:100%; }
   .ma-legend { gap:.4rem; }
@@ -123,4 +118,4 @@
   .ma-world__image { width:100%; }
   .ma-loop { max-height:10rem; }
 }
-@media print { .models-artifact, .has-models-artifact .models-map::after { display:none !important; } .has-models-artifact :is(.models-heading, .models-explanation, [data-models-block]) { opacity:1 !important; filter:none !important; } }
+@media print { .models-artifact, .has-models-artifact .models-map::after { display:none !important; } .has-models-artifact :is(.models-heading, .models-heading > div:first-child, .models-explanation, [data-models-block]) { opacity:1 !important; filter:none !important; } }
