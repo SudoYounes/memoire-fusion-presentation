@@ -216,6 +216,7 @@ export function setupDeck(): () => void {
     disposers.push(() => gsap.ticker.remove(tick))
   } else {
     const onNativeScroll = () => {
+      if (captureMode) { setActive(captureIndex, false); return }
       const marker = window.scrollY + window.innerHeight * 0.42
       let nearest = 0
       slides.forEach((slide, index) => {
