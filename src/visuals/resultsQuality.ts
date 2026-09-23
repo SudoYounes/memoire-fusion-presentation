@@ -11,7 +11,7 @@ const cross = (x: number, y: number, cls: string) => `<path class="${cls}" d="M$
 const centre = (x: number, y: number, observed = false) => observed
   ? `<circle class="qc-centre-observed" cx="${x}" cy="${y}" r="5"/>`
   : cross(x,y,'qc-centre-target')
-const figure = (cue: number, body: string) => `<g class="qc-figure" data-quality-view="${cue}" aria-hidden="true">${body}</g>`
+const figure = (cue: number | string, body: string) => `<g class="qc-figure" data-quality-view="${cue}" aria-hidden="true">${body}</g>`
 
 function heading(key: PlacementKey, title: string, sub: string) {
   const c=evidence.placementCases[key]
@@ -124,14 +124,14 @@ function behavior() {
     const y=(v:number)=>bottom-v/limit*(bottom-top)
     const separators=Array.from({length:8},(_,i)=>`<path class="rs-separator" d="M${x((i+1)*12+.5)} ${top} V${bottom}"/>`).join('')
     const marks=evidence.cycles.map(c=>`<circle class="qc-behavior-dot${c[key]===max?' qc-behavior-peak':''}" cx="${x(c.index)}" cy="${y(c[key])}" r="${c[key]===max?3.9:2.8}"><title>S${c.sequence}, carton ${c.carton} : ${fr(c[key],key==='saturationMs'?0:3)} ${unit}</title></circle>`).join('')
-    return (key==='levelDeg'?text(0,top-31,'Horizontalité · écart de','rs-subtitle')+math(260,top-31,'rs_level',27,'rs-subtitle'):text(0,top-31,title,'rs-subtitle'))+separators+
+    return `<g class="qc-behavior-plot" data-quality-focus="${key==='levelDeg'?5:6}">`+(key==='levelDeg'?text(0,top-31,'Horizontalité · écart de','rs-subtitle')+math(260,top-31,'rs_level',27,'rs-subtitle'):text(0,top-31,title,'rs-subtitle'))+separators+
       `<path class="rs-grid" d="M64 ${bottom} H915"/><path class="rs-threshold" d="M64 ${top} H915"/>`+
       text(51,top+6,`${limit}`,'rs-tick','end')+text(51,bottom+6,'0','rs-tick','end')+
       labelledValue(917,top-12,'Seuil',`rs_limit_${key}`,24,'rs-threshold-label')+marks+
-      labelledValue(917,key==='saturationMs'?top+43:bottom-16,'Maximum',`rs_max_${key}`,23,'rs-annotation')
+      labelledValue(917,key==='saturationMs'?top+43:bottom-16,'Maximum',`rs_max_${key}`,23,'rs-annotation')+'</g>'
   }).join('')
   const labels=Array.from({length:9},(_,i)=>text(64+(i*12+5.5)/107*851,486,`S${i+1}`,'rs-axis','middle')).join('')
-  return figure(5,text(0,33,'Et pendant le mouvement ?','rs-panel-title')+
+  return figure('5 6',text(0,33,'Et pendant le mouvement ?','rs-panel-title')+
     text(0,76,'Deux critères de comportement, suivis sur les 108 cartons.','rs-note')+charts+labels+
     text(0,530,'1 point = le maximum d’un cycle. Ce ne sont pas des signaux temporels.','rs-note'))
 }
@@ -139,7 +139,7 @@ function behavior() {
 function summary() {
   const rows: Array<[QualityKey,string,string,number,number]> = [
     ['xyMm','Position XY','mm',129,2],['yawDeg','Orientation','°',219,3],['zMm','Hauteur Z','mm',309,4],
-    ['levelDeg','Horizontalité','°',425,5],['saturationMs','Saturation contiguë','ms',502,5],
+    ['levelDeg','Horizontalité','°',425,5],['saturationMs','Saturation contiguë','ms',502,6],
   ]
   return `<path class="rs-rule" d="M986 5 V539"/>`+
     text(1024,33,'Maxima de la campagne','rs-panel-title')+
@@ -157,14 +157,15 @@ function summary() {
 }
 
 export function qualityMarkup() {
-  return `<g class="rs-panel rs-quality-panel" data-results-panel="2 3 4 5" aria-hidden="true">${xy()}${yaw()}${height()}${behavior()}${summary()}</g>`
+  return `<g class="rs-panel rs-quality-panel" data-results-panel="2 3 4 5 6" aria-hidden="true">${xy()}${yaw()}${height()}${behavior()}${summary()}</g>`
 }
 
 export function updateQuality(view: HTMLElement,cue: number) {
   view.querySelectorAll<SVGGElement>('[data-quality-view]').forEach(el=>{
-    const active=Number(el.dataset.qualityView)===cue
+    const active=el.dataset.qualityView!.split(' ').map(Number).includes(cue)
     el.classList.toggle('is-visible',active)
     el.setAttribute('aria-hidden',String(!active))
   })
+  view.querySelectorAll<SVGGElement>('[data-quality-focus]').forEach(el=>el.classList.toggle('is-current',Number(el.dataset.qualityFocus)===cue))
   view.querySelectorAll<SVGGElement>('.qc-row').forEach(el=>el.setAttribute('tabindex',cue>=2?'0':'-1'))
 }

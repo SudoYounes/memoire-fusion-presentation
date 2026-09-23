@@ -9,7 +9,18 @@ export const resultsCues = [
   { label: '03a · Position XY', text: 'Le plus grand décalage du centre vaut 14,492 mm, sous le seuil de 25 mm. Le détail agrandi conserve les proportions de la mesure.' },
   { label: '03b · Orientation', text: 'Le cas le plus tourné présente un écart de 0,985°, sous le seuil de 2°. Le zoom superpose les centres pour isoler la rotation.' },
   { label: '03c · Hauteur Z', text: 'Le centre du carton est à 5,121 mm sous sa cible, pour un seuil de 15 mm. Ce n’est pas une mesure d’enfoncement dans le support.' },
-  { label: '03d · Comportement du robot', text: 'Horizontalité : 0,805° au maximum ; saturation contiguë : 10 ms. Chaque critère retient son propre cas maximal, pas nécessairement le même cycle.' },
+  { label: '03d · Horizontalité', text: 'Horizontalité : 0,805° au maximum, sous le seuil de 1°. Chaque critère retient son propre cas maximal, pas nécessairement le même cycle.' },
+  { label: '03e · Saturation', text: 'Saturation contiguë : 10 ms au maximum, sous le seuil de 50 ms. Chaque point représente la plus longue plage continue d’un cycle.' },
+] as const
+
+const resultsScripts = [
+  'La campagne V6 comprend neuf séquences de douze cartons, soit <strong>108 cycles</strong>. Les 108 cycles ont satisfait les critères de validation.',
+  'Nous avons mesuré la durée de chaque cycle, avec un seuil maximal de 12 secondes. Le cycle le plus lent dure <strong>11,526 secondes</strong>, avec une moyenne de <strong>10,556 secondes</strong>.',
+  'Après chaque dépose, nous comparons le centre observé du carton à sa position cible. L’écart maximal est de <strong>14,492 millimètres</strong>, sous le seuil de 25 millimètres.',
+  'Nous comparons ensuite l’orientation réelle du carton à l’orientation demandée. L’écart maximal est de <strong>0,985 degré</strong>, pour un seuil fixé à 2 degrés.',
+  'La hauteur du centre du carton est également comparée à sa cible. L’écart maximal est de <strong>5,121 millimètres</strong>, sous le seuil de 15 millimètres.',
+  'Pendant le transport, nous vérifions que <span class="results-narration__math"><var>q</var><sub>2</sub>+<var>q</var><sub>3</sub></span> reste proche de 90 degrés pour maintenir le préhenseur horizontal. L’écart maximal obtenu est de <strong>0,805 degré</strong>, sous le seuil de 1 degré.',
+  'Nous mesurons la plus longue durée continue pendant laquelle un actionneur atteint sa limite de couple. Le maximum observé est de <strong>10 millisecondes</strong>, pour un seuil de 50 millisecondes.',
 ] as const
 
 type Metric = 'seconds' | 'xyMm' | 'zMm' | 'yawDeg' | 'levelDeg' | 'saturationMs'
@@ -67,8 +78,10 @@ function cadence() {
 
 
 export function mountResultsFlow(stage: HTMLElement) {
+  const narration=stage.querySelector<HTMLElement>('[data-results-narration]')!
+  narration.innerHTML=resultsScripts.map((script,index)=>`<p data-results-script="${index}" aria-hidden="true">${script}</p>`).join('')
   const holder=stage.querySelector<HTMLElement>('[data-results-flow]')!
-  holder.innerHTML=`<svg class="results-flow-svg" viewBox="0 0 1600 550" role="group" aria-labelledby="rs-title rs-desc"><title id="rs-title">Résultats de simulation, campagne v6</title><desc id="rs-desc">Six temps de lecture : bilan, cadence, position XY, orientation, hauteur Z et comportement du robot. Les vues de cartons reprennent les dimensions et poses enregistrées de trois cas distincts. Les agrandissements sont cotés. Les maxima de chaque critère ne sont pas nécessairement simultanés. La capture Gazebo est documentaire.</desc>${overview()}${cadence()}${qualityMarkup()}</svg>`
+  holder.innerHTML=`<svg class="results-flow-svg" viewBox="0 0 1600 550" role="group" aria-labelledby="rs-title rs-desc"><title id="rs-title">Résultats de simulation, campagne v6</title><desc id="rs-desc">Sept temps de lecture : bilan, cadence, position XY, orientation, hauteur Z, horizontalité et saturation. Les vues de cartons reprennent les dimensions et poses enregistrées de trois cas distincts. Les agrandissements sont cotés. Les maxima de chaque critère ne sont pas nécessairement simultanés. La capture Gazebo est documentaire.</desc>${overview()}${cadence()}${qualityMarkup()}</svg>`
   let animation: gsap.core.Timeline | undefined
   const finish=()=>{
     animation?.kill()
@@ -78,6 +91,11 @@ export function mountResultsFlow(stage: HTMLElement) {
   const update=(view:HTMLElement,cue:number,noMotion:boolean)=>{
     view.dataset.resultsCue=String(cue)
     view.dataset.resultsStatic=String(noMotion)
+    view.querySelectorAll<HTMLElement>('[data-results-script]').forEach(el=>{
+      const current=Number(el.dataset.resultsScript)===cue
+      el.classList.toggle('is-current',current)
+      el.setAttribute('aria-hidden',String(!current))
+    })
     view.querySelectorAll<SVGGElement>('[data-results-panel]').forEach(el=>{
       const visible=el.dataset.resultsPanel!.split(' ').map(Number).includes(cue)
       el.classList.toggle('is-visible',visible)
