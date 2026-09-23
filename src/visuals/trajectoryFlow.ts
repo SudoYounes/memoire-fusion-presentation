@@ -40,7 +40,9 @@ const edge = (id: string, d: string, cues: string, label = '', x = 0, y = 0) => 
 export function mountTrajectoryFlow(stage: HTMLElement) {
   stage.querySelector<HTMLElement>('[data-traj-narration]')!.innerHTML = `
     <p data-traj-script="default" aria-hidden="true"><strong>Constructeur Python</strong><br>MoveIt 2 · ROS 2</p>
-    <p data-traj-script="camera" aria-hidden="true">Sans oublier qu’on exécute la même démarche pour la <strong>cible cartésienne obtenue par la caméra RGB-D</strong>.</p>
+    <p data-traj-script="example" aria-hidden="true">Prenons l’exemple du <strong>carton 9 de la séquence 4</strong>.</p>
+    <p data-traj-script="angles" aria-hidden="true">La cinématique inverse calcule les <strong>quatre angles <var>q</var><sub>1</sub>, <var>q</var><sub>2</sub>, <var>q</var><sub>3</sub>, <var>q</var><sub>4</sub></strong>.</p>
+    <p data-traj-script="orientation" aria-hidden="true">En tenant compte de <strong>l’horizontalité de l’outil</strong> et de <strong>la conservation du lacet</strong>.</p>
     <p data-traj-script="quintic" aria-hidden="true">L’orchestrateur reçoit les configurations articulaires de <strong>prise et de dépose</strong> pour produire une courbe quintique qui définit, à chaque instant ${scriptMath('tp_sample_time')}, la position ${scriptMath('tp_sample_q')}, la vitesse ${scriptMath('tp_sample_qd')} et l’accélération ${scriptMath('tp_sample_qdd')} correspondantes.</p>`
   const holder = stage.querySelector<HTMLElement>('[data-traj-graph]')!
   holder.innerHTML = `<svg class="trajectory-flow-svg" viewBox="0 0 1600 604" role="group" aria-labelledby="tf-title tf-desc">
@@ -75,7 +77,10 @@ export function mountTrajectoryFlow(stage: HTMLElement) {
   }
   const update = (view: HTMLElement, cue: number, noMotion: boolean, step = 0, poseOverride?: number) => {
     view.dataset.trajectoryCue = String(cue)
-    const script = cue === 1 && step === 1 ? 'camera' : cue === 3 ? 'quintic' : 'default'
+    const script = cue === 0 ? 'example'
+      : cue === 1 && step === 1 ? 'angles'
+      : cue === 1 && step === 2 ? 'orientation'
+      : cue === 3 ? 'quintic' : 'default'
     view.querySelectorAll<HTMLElement>('[data-traj-script]').forEach(el => {
       const current = el.dataset.trajScript === script
       el.classList.toggle('is-current', current)
