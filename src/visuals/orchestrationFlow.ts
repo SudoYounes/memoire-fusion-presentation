@@ -45,18 +45,52 @@ const edgeMarkup = (edge: Edge) => `<g class="of-edge" data-of-edge="${edge.id}"
 </g>`
 
 export const flowCues = [
-  { label: 'Vue d’ensemble', text: 'Observer, agir, confirmer : l’état du procédé fait avancer le cycle.' },
-  { label: '01 · Préparer', text: 'Une pose admise, une destination libre et supportée, une rangée confirmée.' },
-  { label: '02 · Prendre', text: 'Confirmer la prise physique, puis répercuter la charge dans MoveIt.' },
-  { label: '03 · Transférer', text: 'Contrôler le passage dans la scène actualisée ; suivre le résultat du mouvement.' },
-  { label: '04 · Déposer', text: 'La pose et le support vérifiés transforment la destination en emplacement occupé.' },
-  { label: '05 · Recouvrement', text: 'Après dégagement J4 : poursuivre le retour et, si nécessaire, indexer en parallèle.' },
-  { label: '06 · Synchroniser', text: 'Attendre les confirmations ; un défaut ou un délai dépassé bloque la progression.' },
-  { label: 'Boucler & tracer', text: 'La palette actualisée prépare la décision suivante ; les phases sont tracées sur ROS 2.' },
+  {
+    label: 'Vue d’ensemble',
+    text: 'Observer, agir, confirmer : l’état du procédé fait avancer le cycle.',
+    script: 'La pose du carton est maintenant exploitable. Notre programme <strong>MultiCartonCycle</strong>, écrit en Python avec rclpy, coordonne le cycle dans ROS&nbsp;2. En haut, nous suivons le carton jusqu’à sa dépose. En bas, nous préparons la suite. Chaque phase attend une confirmation avant de progresser.',
+  },
+  {
+    label: '01 · Préparer',
+    text: 'Une pose admise, une destination libre et supportée, une rangée confirmée.',
+    script: 'À partir de la pose admise, nous choisissons un <strong>emplacement libre avec le support requis</strong>. La mémoire des déposes validées guide ce choix. Pour passer à la couche suivante, la précédente doit être complète. Nous attendons aussi la confirmation de la bonne rangée avant la prise.',
+  },
+  {
+    label: '02 · Prendre',
+    text: 'Confirmer la prise physique, puis répercuter la charge dans MoveIt.',
+    script: 'À la pose de prise, nous attendons le vide puis la <strong>confirmation de l’attachement dans Gazebo</strong>. Nous libérons ensuite le maintien au poste d’alimentation. Avant le transfert, nous représentons aussi le carton comme une charge attachée dans MoveIt, pour garder les deux scènes cohérentes.',
+  },
+  {
+    label: '03 · Transférer',
+    text: 'Contrôler le passage dans la scène actualisée ; suivre le résultat du mouvement.',
+    script: 'L’orchestrateur fournit la destination et le cas de charge. Notre programme construit les corridors, puis <strong>MoveIt vérifie les états dans la scène actualisée</strong>, avec les cartons déjà déposés. Pendant le transfert, nous suivons le résultat du mouvement et les états articulaires. La dépose reste encore à vérifier.',
+  },
+  {
+    label: '04 · Déposer',
+    text: 'La pose et le support vérifiés transforment la destination en emplacement occupé.',
+    script: 'Nous attendons une stabilisation mesurée avant de libérer le carton. Après confirmation du détachement et mise à jour de MoveIt, de nouvelles observations de pose et de contacts <strong>vérifient la dépose et son support</strong>. L’emplacement devient occupé dans la mémoire du cycle seulement après cette validation.',
+  },
+  {
+    label: '05 · Recouvrement',
+    text: 'Après dégagement J4 : poursuivre le retour et, si nécessaire, indexer en parallèle.',
+    script: 'Si la présentation de la palette doit changer, le retour à vide est d’abord vérifié contre le volume balayé de la palette chargée. Pendant le mouvement, les articulations mesurées permettent de vérifier le <strong>dégagement de J4</strong>. Une fois ce dégagement acquis, le robot poursuit son retour pendant que l’indexeur présente la rangée suivante.',
+  },
+  {
+    label: '06 · Synchroniser',
+    text: 'Attendre les confirmations ; un défaut ou un délai dépassé bloque la progression.',
+    script: 'Avant d’autoriser le carton suivant, nous attendons la <strong>fin du retour et la confirmation de la présentation</strong> de la palette. Les mesures doivent être récentes, l’axe stabilisé et la scène MoveIt cohérente. Sans confirmation, le programme attend. Un défaut ou un délai dépassé bloque la progression.',
+  },
+  {
+    label: 'Boucler & tracer',
+    text: 'La palette actualisée prépare la décision suivante ; les phases sont tracées sur ROS 2.',
+    script: 'Nous revenons au choix du carton suivant avec la mémoire de palette mise à jour. Le cycle se répète jusqu’aux <strong>douze déposes validées</strong>. L’enregistrement des phases ROS&nbsp;2 permet de retracer les actions et les attentes. Voyons maintenant comment les points de passage deviennent une trajectoire vérifiée.',
+  },
 ]
 
 /** Fixed coordinates keep topology and port connections invariant during narration. */
 export function mountOrchestrationFlow(stage: HTMLElement) {
+  const narration = stage.querySelector<HTMLElement>('[data-orch-narration]')
+  if (narration) narration.innerHTML = flowCues.map((cue, index) => `<p data-orch-script="${index}" aria-hidden="true">${cue.script}</p>`).join('')
   const holder = stage.querySelector<HTMLElement>('[data-orch-graph]')!
   holder.innerHTML = `<svg class="orch-flow-svg" viewBox="0 0 1600 590" role="group" aria-labelledby="of-title of-desc">
     <title id="of-title">Flux du cycle multicartons et recouvrement robot–indexeur</title>
@@ -83,6 +117,11 @@ export function mountOrchestrationFlow(stage: HTMLElement) {
   const update = (view: HTMLElement, cue: number, noMotion: boolean) => {
     view.dataset.orchestrationCue = String(cue)
     view.dataset.orchestrationStatic = String(noMotion)
+    view.querySelectorAll<HTMLElement>('[data-orch-script]').forEach(script => {
+      const current = Number(script.dataset.orchScript) === cue
+      script.classList.toggle('is-current', current)
+      script.setAttribute('aria-hidden', String(!current))
+    })
     view.querySelectorAll<SVGElement>('[data-of-cues]').forEach(el => {
       const active = el.dataset.ofCues?.split(' ').includes(String(cue)) ?? false
       el.classList.toggle('is-current', active)

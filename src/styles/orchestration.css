@@ -1,9 +1,13 @@
 /* One invariant activity graph; focus travels, the topology never moves. */
 .orchestration-stage { --of-red: #f13c30; --of-muted: #587176; --of-ink: #142d37; }
-.orchestration-stage .pipeline-stage__heading { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: calc(2 * var(--su)); }
+.orchestration-stage .pipeline-stage__heading { grid-template-columns: minmax(0, 1fr) calc(34.5 * var(--su)); align-items: end; gap: calc(3 * var(--su)); }
 .orchestration-stage .pipeline-stage__heading .display { max-width: none; font-size: calc(2.12 * var(--su)); letter-spacing: -.045em; line-height: 1.15; margin: 0; }
-.orchestration-stage .pipeline-stage__heading .lede { margin: 0; font-family: var(--font-sans); font-size: calc(.69 * var(--su)); line-height: 1.55; }
-.orchestration-stage .pipeline-stage__heading .lede strong { color: var(--teal-deep); font-weight: 680; }
+.orch-narration { display: grid; min-width: 0; border-left: 2px solid var(--teal); padding-left: calc(1 * var(--su)); color: var(--slate); font-size: calc(.93 * var(--su)); line-height: 1.48; }
+/* Reserve the longest script's height so the graph stays fixed across all eight cues. */
+.orch-narration > p { grid-area: 1 / 1; align-self: center; min-width: 0; visibility: hidden; opacity: 0; transition: opacity 220ms ease; }
+/* Hidden camera-transition copies must keep their narration hidden too. */
+.orch-narration > p.is-current { visibility: inherit; opacity: 1; }
+.orch-narration strong { color: var(--ink-soft); font-weight: 650; }
 .orch-flow-board { min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: calc(.25 * var(--su)); }
 .orch-flow-viewport { min-height: 0; display: grid; place-items: center; }
 .orch-flow-svg { display: block; width: 100%; height: 100%; min-height: 0; overflow: visible; font-family: var(--font-sans); }
@@ -68,7 +72,7 @@
   .orchestration-stage { --su: 20px; }
   .orchestration-stage .pipeline-stage__heading { display: block; }
   .orchestration-stage .pipeline-stage__heading .display { font-size: 2rem; }
-  .orchestration-stage .pipeline-stage__heading .lede { margin-top: .8rem; font-size: .8rem; }
+  .orch-narration { margin-top: 1.3rem; padding-left: .8rem; font-size: 1rem; }
   .orch-flow-board { display: block; min-width: 0; }
   .orch-flow-viewport { display: block; place-items: start; width: 100%; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; padding: .75rem 0; }
   .orch-flow-svg { width: 1150px; height: auto; max-width: none; }
