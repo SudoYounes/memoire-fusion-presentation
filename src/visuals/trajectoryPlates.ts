@@ -8,7 +8,7 @@ const fixed = (n: number) => n.toFixed(2)
 const deg = (n: number) => n * 180 / Math.PI
 const text = (x: number, y: number, lines: string[], cls = 'tp-body', lineHeight = 29) => `<text class="${cls}" x="${x}" y="${y}">${lines.map((line, i) => `<tspan x="${x}" dy="${i ? lineHeight : 0}">${line}</tspan>`).join('')}</text>`
 const title = (heading: string, scope: string) => `<text class="tp-title" x="32" y="227">${heading}</text><text class="tp-scope" x="1568" y="226" text-anchor="end">${scope}</text>`
-const frame = (cue: number, content: string) => `<g class="tp-panel" data-traj-panel="${cue}" aria-hidden="true"><rect class="tp-surface" x="0" y="190" width="1600" height="410" rx="8"/><g class="tp-panel-content">${content}</g></g>`
+const frame = (cue: number, content: string, step?: number) => `<g class="tp-panel" data-traj-panel="${cue}"${step===undefined?'':` data-traj-panel-step="${step}"`} aria-hidden="true"><rect class="tp-surface" x="0" y="190" width="1600" height="410" rx="8"/><g class="tp-panel-content">${content}</g></g>`
 const image = (pose: string, extra = '') => `<image class="tp-scene-image" ${extra} href="./media/trajectory/pose-${pose}.png" x="0" y="225" width="1000" height="390" preserveAspectRatio="xMidYMid meet"/>`
 const project = (p: readonly number[]) => [p[0] * .5, 225 + p[1] * .5]
 const pxy = (p: readonly number[]) => { const [x,y] = project(p); return `${fixed(x)} ${fixed(y)}` }
@@ -68,30 +68,30 @@ function profiles() {
     `<text class="tp-note" x="215" y="583">J1 · azimut du robot · mêmes repères A–B–C–D</text>`)
 }
 
-function validation() {
+function validation(cue: number, step: number) {
   const dots=projection.points.filter((_,i)=>i%5===0).map(p=>{const [x,y]=project(p);return `<circle class="tp-check-dot" cx="${x}" cy="${y}" r="2.9"/>`}).join('')
-  return frame(4,title('Vérifier le passage dans la scène actualisée','MoveIt 2 · /check_state_validity')+`<g class="tp-figure-focus tp-scene-focus" data-tp-focus="validation-scene">${image('C')}</g>`+route()+`<g class="tp-figure-focus" data-tp-focus="validation-samples">${dots}</g>`+divider+trajectoryCommentary(4)+
-    text(32,583,['Points affichés espacés pour la lecture · le contrôle porte sur les 256 états'],'tp-note'))
+  return frame(cue,title('Vérifier le passage dans la scène actualisée','MoveIt 2 · /check_state_validity')+`<g class="tp-figure-focus tp-scene-focus" data-tp-focus="validation-scene">${image('C')}</g>`+route()+`<g class="tp-figure-focus" data-tp-focus="validation-samples">${dots}</g>`+divider+trajectoryCommentary(cue)+
+    text(32,583,['Points affichés espacés pour la lecture · le contrôle porte sur les 256 états'],'tp-note'),step)
 }
 
-function output() {
-  return frame(5,title('Une consigne articulée et horodatée pour le contrôleur','Sortie · RobotTrajectory')+
+function output(cue: number, step: number) {
+  return frame(cue,title('Une consigne articulée et horodatée pour le contrôleur','Sortie · RobotTrajectory')+
     `<g class="tp-figure-focus" data-tp-focus="output-message">`+text(40,285,['Chaque point contient'],'tp-heading')+
     `<text class="tp-table-head" x="40" y="335">Temps</text><text class="tp-table-head" x="250" y="335">Positions</text>${math(351,335,'tp_q',23,'tp-table-head')}<text class="tp-table-head" x="485" y="335">Vitesses</text>${math(575,335,'tp_qd',23,'tp-table-head')}<text class="tp-table-head" x="708" y="335">Accélérations</text>${math(848,335,'tp_qdd',23,'tp-table-head')}<path class="tp-rule" d="M40 350 H947"/>`+
     data.boundaries.map((b,i)=>{const y=388+i*47;return `<text class="tp-table-body" x="40" y="${y}">${b.id} ·</text>${math(80,y,`tp_time${b.id}` as RuntimeMathKey,23,'tp-table-body')}${math(250,y,'tp_joints',25,'tp-table-body')}<text class="tp-table-body" x="485" y="${y}">0 aux arrêts</text><text class="tp-table-body" x="708" y="${y}">0 aux arrêts</text>`}).join('')+
     text(40,583,['Le message contient aussi tous les points intermédiaires, pas seulement A–B–C–D.'],'tp-note')+'</g>'+divider+
-    trajectoryCommentary(5))
+    trajectoryCommentary(cue),step)
 }
 
 export const trajectoryPlatesMarkup = () => `<defs><clipPath id="tp-area"><rect x="-8" y="176" width="1616" height="432"/></clipPath></defs>
   <g class="tp-origin" data-tp-origin="0"><path d="M225 164 V190"/><circle cx="225" cy="190" r="3"/></g>
   <g class="tp-origin" data-tp-origin="1"><path d="M800 164 V190"/><circle cx="800" cy="190" r="3"/></g>
   <g class="tp-origin" data-tp-origin="2"><path d="M1375 164 V190"/><circle cx="1375" cy="190" r="3"/></g>
-  <g clip-path="url(#tp-area)" class="tp-panels">${overview()}${geometryTarget()}${geometryRoute()}${profiles()}${validation()}${output()}</g>`
+  <g clip-path="url(#tp-area)" class="tp-panels">${overview()}${geometryTarget()}${geometryRoute()}${profiles()}${validation(4,0)}${output(4,1)}${validation(5,0)}${output(5,1)}</g>`
 
-export function updateTrajectoryPlates(view: HTMLElement, cue: number) {
+export function updateTrajectoryPlates(view: HTMLElement, cue: number, step: number) {
   view.querySelectorAll<SVGElement>('[data-traj-panel]').forEach(panel=>{
-    const active=Number(panel.dataset.trajPanel)===cue
+    const active=Number(panel.dataset.trajPanel)===cue && (panel.dataset.trajPanelStep===undefined || Number(panel.dataset.trajPanelStep)===step)
     panel.classList.toggle('is-visible',active)
     panel.setAttribute('aria-hidden',String(!active))
     panel.querySelectorAll('[tabindex]').forEach(el=>el.setAttribute('tabindex',active?'0':'-1'))

@@ -30,10 +30,10 @@ export const trajectoryComments: readonly (readonly Comment[])[] = [
   ],
   [
     {topic:'Scène',title:['Contrôler le passage','dans son environnement'],body:['MoveIt tient compte du carton attaché','au robot et des cartons déjà placés.','Service : /check_state_validity'],consequence:['Le contrôle évalue les configurations','dans la scène actualisée.'],focus:['validation-scene']},
-    {topic:'Verdict',title:['256 états vérifiés','256 états valides'],body:['Les états échantillonnés passent le contrôle.','Un refus bloque l’envoi de la trajectoire.'],consequence:['Ce contrôle discret ne prouve pas l’absence','de collision entre deux échantillons.'],focus:['validation-samples']},
+    {topic:'Message',title:['Une consigne articulée','et horodatée'],body:['RobotTrajectory contient les positions,','les vitesses et les accélérations','avec leurs instants d’application.'],consequence:['Le message comprend aussi les points','intermédiaires entre A, B, C et D.'],focus:['output-message']},
   ],
   [
-    {topic:'Message',title:['Une consigne articulée','et horodatée'],body:['RobotTrajectory contient les positions,','les vitesses et les accélérations','avec leurs instants d’application.'],consequence:['Le message comprend aussi les points','intermédiaires entre A, B, C et D.'],focus:['output-message']},
+    {topic:'Verdict',title:['256 états vérifiés','256 états valides'],body:['Les états échantillonnés passent le contrôle.','Un refus bloque l’envoi de la trajectoire.'],consequence:['Ce contrôle discret ne prouve pas l’absence','de collision entre deux échantillons.'],focus:['validation-samples']},
     {topic:'Transmission',title:['La référence rejoint','le contrôleur JTC'],body:['L’action /execute_trajectory transmet','la consigne au JointTrajectoryController.'],consequence:['L’étape suivante étudie le suivi','de cette consigne dans la physique.'],focus:['output-message']},
   ],
 ]
@@ -66,7 +66,7 @@ export function updateTrajectoryCommentary(view:HTMLElement,cue:number,step:numb
   const focus=trajectoryComments[cue][step].focus
   view.dataset.trajectoryStep=String(step)
   view.querySelectorAll<SVGGElement>('[data-traj-panel]').forEach(panel=>{
-    const active=Number(panel.dataset.trajPanel)===cue
+    const active=Number(panel.dataset.trajPanel)===cue && (panel.dataset.trajPanelStep===undefined || Number(panel.dataset.trajPanelStep)===step)
     panel.querySelectorAll<SVGGElement>('[data-traj-comment]').forEach(el=>{
       const visible=active&&Number(el.dataset.trajComment)===step
       el.classList.toggle('is-visible',visible)

@@ -15,8 +15,8 @@ export const trajectoryCues = [
   { label: '01 · Géométrie — la cible', text: 'L’IK relie la cible de la sortie J4 aux quatre angles, avec un outil horizontal et le lacet demandé.' },
   { label: '02 · Géométrie — le passage', text: 'A–B : élever. B–C : pivoter à hauteur. C–D : approcher. Les poses sont comparables avec une caméra fixe.' },
   { label: '03 · Composer la trajectoire', text: 'Les quintiques raccordent les configurations. Aux arrêts B et C de cet exemple, vitesse et accélération sont nulles.' },
-  { label: '04 · Vérifier dans la scène', text: 'MoveIt contrôle les états échantillonnés avec la charge attachée et les cartons déjà placés.' },
-  { label: '05 · Transmettre la consigne', text: 'Le message horodaté rejoint /execute_trajectory, puis JTC. Le suivi physique est l’étape suivante.' },
+  { label: '04 · Scène et consigne', text: 'La scène actualisée et la consigne horodatée fournissent les éléments du contrôle.' },
+  { label: '05 · Valider et transmettre', text: 'Après validation des états échantillonnés, la consigne rejoint /execute_trajectory, puis JTC.' },
 ] as const
 
 const node = (x: number, cues: string, goto: number, label: string, title: string, detail: string, software: string) => `
@@ -41,8 +41,12 @@ export function mountTrajectoryFlow(stage: HTMLElement) {
   stage.querySelector<HTMLElement>('[data-traj-narration]')!.innerHTML = `
     <p data-traj-script="default" aria-hidden="true"><strong>Constructeur Python</strong><br>MoveIt 2 · ROS 2</p>
     <p data-traj-script="example" aria-hidden="true">Prenons l’exemple du <strong>carton 9 de la séquence 4</strong>.</p>
+    <p data-traj-script="target" aria-hidden="true">Après avoir choisi la cible de dépose, ici la position <strong>outer-left de la 3ᵉ couche</strong>, on extrait les coordonnées cartésiennes du centre prédéfini qui lui correspond.</p>
     <p data-traj-script="angles" aria-hidden="true">La cinématique inverse calcule les <strong>quatre angles <var>q</var><sub>1</sub>, <var>q</var><sub>2</sub>, <var>q</var><sub>3</sub>, <var>q</var><sub>4</sub></strong>.</p>
     <p data-traj-script="orientation" aria-hidden="true">En tenant compte de <strong>l’horizontalité de l’outil</strong> et de <strong>la conservation du lacet</strong>.</p>
+    <p data-traj-script="route" aria-hidden="true">Les stations clés de notre trajectoire sont :</p>
+    <p data-traj-script="scene" aria-hidden="true">Le contrôle <strong>/check_state_validity</strong>, exécuté par MoveIt, évalue les configurations fournies par la cinématique inverse dans une <strong>scène virtuelle</strong>.</p>
+    <p data-traj-script="verdict" aria-hidden="true">Après échantillonnage, les points de la trajectoire passent le contrôle des <strong>collisions et des limites articulaires</strong>. Ici, les <strong>256 états sont valides</strong>.</p>
     <p data-traj-script="message" aria-hidden="true">Le message <strong>RobotTrajectory</strong> regroupe les positions, vitesses et accélérations articulaires, avec le temps prévu pour chaque point.</p>
     <p data-traj-script="transmission" aria-hidden="true">L’action <strong>/execute_trajectory</strong> transmet cette consigne au <strong>JTC</strong>. Le contrôleur assure ensuite son suivi dans la simulation.</p>
     <p data-traj-script="quintic" aria-hidden="true">L’orchestrateur reçoit les configurations articulaires de <strong>prise et de dépose</strong> pour produire une courbe quintique qui définit, à chaque instant ${scriptMath('tp_sample_time')}, la position ${scriptMath('tp_sample_q')}, la vitesse ${scriptMath('tp_sample_qd')} et l’accélération ${scriptMath('tp_sample_qdd')} correspondantes.</p>`
@@ -80,16 +84,19 @@ export function mountTrajectoryFlow(stage: HTMLElement) {
   const update = (view: HTMLElement, cue: number, noMotion: boolean, step = 0, poseOverride?: number) => {
     view.dataset.trajectoryCue = String(cue)
     const script = cue === 0 ? 'example'
+      : cue === 1 && step === 0 ? 'target'
       : cue === 1 && step === 1 ? 'angles'
       : cue === 1 && step === 2 ? 'orientation'
-      : cue === 5 ? step === 0 ? 'message' : 'transmission'
+      : cue === 2 ? 'route'
+      : cue === 4 ? step === 0 ? 'scene' : 'message'
+      : cue === 5 ? step === 0 ? 'verdict' : 'transmission'
       : cue === 3 ? 'quintic' : 'default'
     view.querySelectorAll<HTMLElement>('[data-traj-script]').forEach(el => {
       const current = el.dataset.trajScript === script
       el.classList.toggle('is-current', current)
       el.setAttribute('aria-hidden', String(!current))
     })
-    updateTrajectoryPlates(view, cue)
+    updateTrajectoryPlates(view, cue, step)
     updateTrajectoryPose(view, poseOverride ?? trajectoryComments[cue][step].pose ?? 1)
     updateTrajectoryCommentary(view, cue, step)
     view.dataset.trajectoryStatic = String(noMotion)
