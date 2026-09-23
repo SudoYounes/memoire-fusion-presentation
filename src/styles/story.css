@@ -87,6 +87,7 @@ html.is-debug .deck-grid {
   display: flex;
   align-items: center;
   gap: calc(0.55 * var(--su));
+  font-size: max(14px, calc(1 * var(--su)));
   font-variant-numeric: tabular-nums;
 }
 
