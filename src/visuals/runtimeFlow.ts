@@ -1,13 +1,12 @@
 import { gsap } from 'gsap'
 import { runtimeEvidence as evidence } from '../content/runtimeEvidence'
-import { math, mathWidth, type RuntimeMathKey } from './runtimeMath'
+import { math, mathWidth } from './runtimeMath'
 
 export const runtimeCues = [
   { label: 'Vue d’ensemble', text: 'Une référence de mouvement, des efforts appliqués et des états simulés qui ferment la boucle.' },
   { label: '01 · Corriger le suivi', text: 'JTC compare sa référence aux états simulés. Le PID corrige les écarts de position et de vitesse.' },
   { label: '02 · Construire l’effort', text: 'Correction, gravité et anticipation inertielle contribuent à une même demande, avec leurs signes.' },
-  { label: '03a · Appliquer les limites', text: 'Les limites motrices portent sur les coordonnées d’actionneur. La réaction des transmissions reste distincte.' },
-  { label: '03b · Faire évoluer la physique', text: 'Gazebo / DART calcule le mouvement sous les efforts, la gravité et les contacts du modèle simulé.' },
+  { label: '03 · Faire évoluer la physique', text: 'Gazebo / DART calcule le mouvement sous les efforts, la gravité et les contacts du modèle simulé.' },
 ] as const
 
 const text = (x: number, y: number, lines: string[], cls = 'rf-body', step = 27) => `<text class="${cls}" x="${x}" y="${y}">${lines.map((line, i) => `<tspan x="${x}" dy="${i ? step : 0}">${line}</tspan>`).join('')}</text>`
@@ -68,22 +67,6 @@ function effort() {
     </g>`)
 }
 
-function limitations() {
-  const box = (x: number, heading: string, key: RuntimeMathKey, caption: string) => `<g><rect class="rf-detail-box" x="${x}" y="376" width="264" height="128" rx="5"/>${text(x+20,405,[heading],'rf-heading')}${math(x+20,452,key,35,'rf-snapshot-value')}${text(x+20,482,[caption],'rf-note')}</g>`
-  return panel(3,'De la demande motrice à l’effort appliqué','',
-    text(1270,304,['J2 couplé · instant'],'rf-note')+math(1420,304,'instant',16,'rf-note')+
-    text(32,345,['Instant de demande maximale en valeur absolue sur cet extrait'],'rf-note')+
-    box(32,'Demande','demand','Somme des contributions')+`<g data-rf-highlight>${box(368,'Commande limitée','limited','Après limites motrices')}</g>`+box(704,'Équivalent appliqué','applied','Après réaction d’inertie')+
-    `<path class="rf-detail-arrow" d="M296 440 H368" marker-end="url(#rf-red)"/><path class="rf-detail-arrow" d="M632 440 H704" marker-end="url(#rf-red)"/>`+
-    text(32,549,['Aucun écrêtage moteur sur ce transfert.'],'rf-emphasis')+
-    text(32,580,['À cet instant : réaction d’inertie ='],'rf-note')+math(257,580,'reaction',16,'rf-note')+text(350,580,['; frein passif = 0.'],'rf-note')+divider+
-    commentary(['Limiter la demande','dans le repère moteur'],
-      [],
-      ['La réaction d’inertie de la transmission','reste distincte de la commande limitée.'],
-      'Puis reconversion des efforts vers les articulations',
-      {body:text(1040,429,['J2 couplé :'],'rf-comment-body')+math(1160,429,'coupling',28)+text(1040,459,['Les plafonds portent sur cette sortie motrice.'],'rf-comment-body')}))
-}
-
 function physics() {
   // Documentary Gazebo capture, displayed through an SVG viewport only.
   // The source bitmap is unchanged; this is not a timed frame from the trace above.
@@ -92,7 +75,7 @@ function physics() {
   const height = image.w/crop.w*crop.h
   const point = (x:number,y:number) => [image.x+(x-crop.x)*image.w/crop.w,image.y+(y-crop.y)*image.w/crop.w]
   const [jx,jy] = point(1310,1140), [cx,cy] = point(1080,1195)
-  return panel(4,'La scène évolue sous les efforts et les contacts','Gazebo / DART',
+  return panel(3,'La scène évolue sous les efforts et les contacts','Gazebo / DART',
     `<svg class="rf-scene" x="${image.x}" y="${image.y}" width="${image.w}" height="242" viewBox="${crop.x} ${crop.y} ${crop.w} ${crop.h}" preserveAspectRatio="xMidYMid slice"><image href="./media/multilayer-03.png" width="2880" height="1800"/></svg>`+
     // Labels sit outside the crop. Vertical positions are adjusted for the crop's slice offset.
     `<g class="rf-scene-callout" data-rf-highlight><path d="M${jx} ${jy-(height-242)/2} H670 V361"/><circle cx="${jx}" cy="${jy-(height-242)/2}" r="4"/>${text(686,357,['Corps articulés'],'rf-scene-label')}</g>`+
@@ -111,7 +94,7 @@ export function mountRuntimeFlow(stage: HTMLElement) {
   const holder = stage.querySelector<HTMLElement>('[data-runtime-graph]')!
   holder.innerHTML = `<svg class="runtime-flow-svg" viewBox="0 0 1600 604" role="group" aria-labelledby="rf-title rf-desc">
     <title id="rf-title">Commande en effort et réponse simulée du robot 2</title>
-    <desc id="rf-desc">La trajectoire alimente JTC. Sa correction rejoint l’anticipation inertielle et la gravité dans le module d’effort. Ce module applique les limites motrices et les contributions de transmission avant Gazebo et DART. Les états simulés reviennent au contrôle. Cinq vues expliquent cette boucle avec des traces du transfert chargé du carton 9, et une capture documentaire non synchronisée.</desc>
+    <desc id="rf-desc">La trajectoire alimente JTC. Sa correction rejoint l’anticipation inertielle et la gravité dans le module d’effort. Ce module applique les limites motrices et les contributions de transmission avant Gazebo et DART. Les états simulés reviennent au contrôle. Quatre vues expliquent cette boucle avec des traces du transfert chargé du carton 9, et une capture documentaire non synchronisée.</desc>
     <defs><marker id="rf-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#8ba4b0" stroke-width="1.6"/></marker><marker id="rf-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#ff493d" stroke-width="1.8"/></marker>
       ${(['title','key'] as const).map(kind=>`<linearGradient id="rf-gold-${kind}" class="rf-gold-gradient" gradientUnits="userSpaceOnUse" x1="730" y1="0" x2="1030" y2="0">
         <stop offset="0" stop-color="${kind==='title'?'#e5eeee':'#efd4a6'}"/><stop offset=".24" stop-color="#e7b85d"/><stop offset=".5" stop-color="#fff6d5"/><stop offset=".76" stop-color="#efc46b"/><stop offset="1" stop-color="${kind==='title'?'#e5eeee':'#efd4a6'}"/>
@@ -119,18 +102,18 @@ export function mountRuntimeFlow(stage: HTMLElement) {
     </defs>
     ${edge('M250 157 H350','1','consigne',300,142)}
     ${edge('M690 157 H850','1 2','correction',770,142)}
-    ${edge('M1190 157 H1280','3 4','efforts',1235,142)}
+    ${edge('M1190 157 H1280','3','efforts',1235,142)}
     ${edge('M520 102 V44 H730','2','',0,0,math(568,29,'reference',18,'rf-edge-label'))}
     ${edge('M1020 44 H1080 V102','2')}
-    ${edge('M1440 212 V242 H520 V212','1 4')}
-    ${edge('M1020 242 V212','2 3 4')}
+    ${edge('M1440 212 V242 H520 V212','1 3')}
+    ${edge('M1020 242 V212','2 3')}
     ${node(0,250,0,'0','ENTRÉE','Trajectoire validée','','FollowJointTrajectory',{detail:math(20,79,'command',20,'rf-node-detail')})}
     ${node(350,340,1,'1','01 · CORRIGER','JointTrajectoryController','Référence interpolée + PID','ros2_control · controllers.yaml')}
-    ${node(850,340,2,'2 3','02 · PRODUIRE L’EFFORT','Module d’effort','Somme · limites · transmissions','effort_plant_system.cpp')}
-    ${node(1280,320,4,'4','03 · FAIRE ÉVOLUER','Gazebo / DART','Corps, charge et contacts','',{code:text(20,99,['JointForceCmd'],'rf-code')+math(128,99,'appliedStates',17,'rf-code')})}
+    ${node(850,340,2,'2','02 · PRODUIRE L’EFFORT','Module d’effort','Somme · limites · transmissions','effort_plant_system.cpp')}
+    ${node(1280,320,3,'3','03 · FAIRE ÉVOLUER','Gazebo / DART','Corps, charge et contacts','',{code:text(20,99,['JointForceCmd'],'rf-code')+math(128,99,'appliedStates',17,'rf-code')})}
     <g class="rf-branch" data-rf-cues="2" data-runtime-goto="2" tabindex="0" role="button" aria-label="Anticipation inertielle : ouvrir l’explication"><rect class="rf-node-surface" x="730" y="12" width="290" height="64" rx="5"/>${text(750,38,['Anticipation inertielle'],'rf-branch-title')}${text(750,61,['modèle fermé · NumPy'],'rf-code')}</g>
-    <g class="rf-return-label" data-rf-cues="1 4" data-runtime-goto="1" tabindex="0" role="button" aria-label="États simulés : ouvrir le suivi"><rect x="692" y="229" width="302" height="25" rx="3"/>${text(710,247,['ÉTATS SIMULÉS ·'],'rf-return-text')}${math(850,247,'states',18,'rf-return-text')}</g>
-    ${tracking(false)}${tracking(true)}${effort()}${limitations()}${physics()}
+    <g class="rf-return-label" data-rf-cues="1 3" data-runtime-goto="1" tabindex="0" role="button" aria-label="États simulés : ouvrir le suivi"><rect x="692" y="229" width="302" height="25" rx="3"/>${text(710,247,['ÉTATS SIMULÉS ·'],'rf-return-text')}${math(850,247,'states',18,'rf-return-text')}</g>
+    ${tracking(false)}${tracking(true)}${effort()}${physics()}
   </svg>`
   let animation: gsap.core.Timeline | undefined
   const finish = () => {
@@ -162,7 +145,7 @@ export function mountRuntimeFlow(stage: HTMLElement) {
     // The plate carries the explanation; avoid a second paragraph competing below it.
     if (caption) caption.textContent = ''
     const source = view.querySelector('[data-runtime-source]')
-    if (source) source.textContent = cue === 4
+    if (source) source.textContent = cue === 3
       ? 'Capture documentaire Gazebo · contexte physique · image non synchronisée avec l’extrait v6'
       : 'Traces de simulation · campagne v6 · séquence 4 · carton 9 · transfert chargé'
     if (position) position.textContent = `${String(cue+1).padStart(2,'0')} / ${String(runtimeCues.length).padStart(2,'0')}`

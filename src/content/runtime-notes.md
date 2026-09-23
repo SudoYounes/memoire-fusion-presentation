@@ -2,10 +2,10 @@
 
 ## Parcours oral
 
-La slide comporte une vue d’ensemble, puis quatre vues de détail. La troisième
-partie du récit est séparée en deux vues : limites motrices, puis physique.
+La slide comporte une vue d’ensemble, puis trois vues de détail : suivi,
+construction de l’effort, puis physique.
 Molette, Espace et flèches permettent d’avancer. Un clic sur une fonction du
-schéma reprend son explication. Le graphe conserve sa disposition dans les cinq vues.
+schéma reprend son explication. Le graphe conserve sa disposition dans les quatre vues.
 Il n’y a pas de sous-étapes de lecture à l’intérieur des cartes : tous les commentaires
 restent visibles. À l’apparition d’une carte, un balayage or champagne souligne une
 seule fois son idée principale et sa conclusion ; le repère associé dans la figure
@@ -59,24 +59,7 @@ La compensation gravitaire du substitut série ne représente pas automatiquemen
 tout l’outillage et le carton. Le calcul NumPy fermé et le moteur DART ont des
 fonctions et des modèles distincts.
 
-### 3a — Appliquer les limites
-
-« Les limites s’appliquent aux sorties motrices. Avec le couplage mécanique,
-la demande de J2 moteur se calcule en retranchant le couple généralisé J3 de
-celui de J2. Ici, à l’instant de demande maximale en valeur absolue, on obtient
-environ −864 newton-mètres. La commande limitée reste identique : il n’y a pas
-d’écrêtage moteur sur cet extrait. L’effort équivalent appliqué diffère ensuite,
-car le module représente aussi la réaction d’inertie de la transmission.
-La commande moteur et cette contribution physique restent distinctes. »
-
-Le tableau montre un seul instant, t = 0,572 s, et toutes les valeurs sont dans
-le même repère d’actionneur u₂. L’effort équivalent appliqué vaut ici −871,497 N·m,
-avec une réaction d’inertie de +7,706 N·m soustraite à la commande limitée et un
-frein passif nul. Le module reconvertit ensuite les efforts dans les coordonnées
-articulaires pour Gazebo. Ne pas conclure à l’absence de saturation sur les autres
-actions ou sur toute la campagne.
-
-### 3b — Faire évoluer la physique
+### 3 — Faire évoluer la physique
 
 « Cette capture situe les corps articulés et les objets de la cellule. Le module
 transmet les efforts aux articulations à travers JointForceCmd. Le moteur DART
