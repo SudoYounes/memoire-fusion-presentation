@@ -228,7 +228,7 @@
           <div class="ce-pipeline" data-pipeline-visual role="img" aria-labelledby="ce-pipeline-title ce-pipeline-desc">
             <svg class="ce-pipeline__canvas" viewBox="0 0 1780 520" xmlns="http://www.w3.org/2000/svg">
               <title id="ce-pipeline-title">Chaîne numérique du simulateur Robot 2</title>
-              <desc id="ce-pipeline-desc">Six blocs alignés de gauche à droite : modèles, perception, orchestration, trajectoire, commande et physique, puis résultats. Une boucle turquoise retourne les états de la physique vers la perception et l'orchestration. Les quatre blocs centraux sont contenus dans le runtime Docker.</desc>
+              <desc id="ce-pipeline-desc">Six blocs présentés de gauche à droite : modèles, perception, trajectoire, commande et physique, orchestration, puis résultats. Une boucle turquoise retourne les états de la physique vers la perception et l'orchestration. Les quatre blocs centraux sont contenus dans le runtime Docker.</desc>
               <defs>
                 <filter id="ce-node-shadow" x="-20%" y="-30%" width="140%" height="170%">
                   <feDropShadow dx="0" dy="9" stdDeviation="11" flood-color="#0d1821" flood-opacity="0.08" />
@@ -258,12 +258,12 @@
               <g class="ce-pipeline__connector ce-pipeline__connector--command" data-ce-wire data-ce-seq="06">
                 <path class="ce-pipeline__wire" d="M862 253H914" marker-end="url(#ce-arrow-navy)" />
                 <rect class="ce-pipeline__label-bg" x="860" y="216" width="52" height="22" rx="4" />
-                <text class="ce-pipeline__label" x="886" y="231">cible</text>
+                <text class="ce-pipeline__label" x="886" y="231">traj.</text>
               </g>
               <g class="ce-pipeline__connector ce-pipeline__connector--command" data-ce-wire data-ce-seq="08">
                 <path class="ce-pipeline__wire" d="M1158 253H1210" marker-end="url(#ce-arrow-navy)" />
                 <rect class="ce-pipeline__label-bg" x="1156" y="216" width="52" height="22" rx="4" />
-                <text class="ce-pipeline__label" x="1182" y="231">traj.</text>
+                <text class="ce-pipeline__label" x="1182" y="231">états</text>
               </g>
               <g class="ce-pipeline__connector ce-pipeline__connector--proof" data-ce-wire data-ce-seq="10">
                 <path class="ce-pipeline__wire" d="M1454 253H1506" marker-end="url(#ce-arrow-proof)" />
@@ -298,34 +298,34 @@
                 <rect class="ce-pipeline__node-accent" width="6" height="170" rx="3" />
                 <circle class="ce-pipeline__port ce-pipeline__port--in" cx="0" cy="85" r="6" />
                 <circle class="ce-pipeline__port ce-pipeline__port--out" cx="230" cy="85" r="6" />
-                <circle class="ce-pipeline__port ce-pipeline__port--return" cx="115" cy="170" r="6" />
-                <text class="ce-pipeline__eyebrow" x="24" y="32">03 · DÉCIDER</text>
-                <text class="ce-pipeline__title" x="24" y="77">Orchestration</text>
-                <line class="ce-pipeline__divider" x1="24" y1="113" x2="206" y2="113" />
-                <text class="ce-pipeline__detail" x="24" y="140">phases · interlocks</text>
-              </g>
-
-              <g class="ce-pipeline__node ce-pipeline__node--decision" data-ce-node data-ce-seq="07" transform="translate(922 168)">
-                <rect class="ce-pipeline__node-frame" width="230" height="170" rx="10" />
-                <rect class="ce-pipeline__node-accent" width="6" height="170" rx="3" />
-                <circle class="ce-pipeline__port ce-pipeline__port--in" cx="0" cy="85" r="6" />
-                <circle class="ce-pipeline__port ce-pipeline__port--out" cx="230" cy="85" r="6" />
-                <text class="ce-pipeline__eyebrow" x="24" y="32">04 · PRÉPARER</text>
+                <text class="ce-pipeline__eyebrow" x="24" y="32">03 · PRÉPARER</text>
                 <text class="ce-pipeline__title" x="24" y="67"><tspan x="24">Trajectoire</tspan><tspan x="24" dy="28">vérifiée</tspan></text>
                 <line class="ce-pipeline__divider" x1="24" y1="113" x2="206" y2="113" />
                 <text class="ce-pipeline__detail" x="24" y="140">IK · quintiques · MoveIt</text>
               </g>
 
-              <g class="ce-pipeline__node ce-pipeline__node--execution" data-ce-node data-ce-seq="09" transform="translate(1218 168)">
+              <g class="ce-pipeline__node ce-pipeline__node--execution" data-ce-node data-ce-seq="07" transform="translate(922 168)">
                 <rect class="ce-pipeline__node-frame" width="230" height="170" rx="10" />
                 <rect class="ce-pipeline__node-accent" width="6" height="170" rx="3" />
                 <circle class="ce-pipeline__port ce-pipeline__port--in" cx="0" cy="85" r="6" />
                 <circle class="ce-pipeline__port ce-pipeline__port--out" cx="230" cy="85" r="6" />
                 <circle class="ce-pipeline__port ce-pipeline__port--return" cx="115" cy="170" r="6" />
-                <text class="ce-pipeline__eyebrow" x="24" y="32">05 · EXÉCUTER</text>
+                <text class="ce-pipeline__eyebrow" x="24" y="32">04 · EXÉCUTER</text>
                 <text class="ce-pipeline__title" x="24" y="67"><tspan x="24">Commande &amp;</tspan><tspan x="24" dy="28">physique</tspan></text>
                 <line class="ce-pipeline__divider" x1="24" y1="113" x2="206" y2="113" />
                 <text class="ce-pipeline__detail" x="24" y="140">JTC · Gazebo / DART</text>
+              </g>
+
+              <g class="ce-pipeline__node ce-pipeline__node--decision" data-ce-node data-ce-seq="09" transform="translate(1218 168)">
+                <rect class="ce-pipeline__node-frame" width="230" height="170" rx="10" />
+                <rect class="ce-pipeline__node-accent" width="6" height="170" rx="3" />
+                <circle class="ce-pipeline__port ce-pipeline__port--in" cx="0" cy="85" r="6" />
+                <circle class="ce-pipeline__port ce-pipeline__port--out" cx="230" cy="85" r="6" />
+                <circle class="ce-pipeline__port ce-pipeline__port--return" cx="115" cy="170" r="6" />
+                <text class="ce-pipeline__eyebrow" x="24" y="32">05 · DÉCIDER</text>
+                <text class="ce-pipeline__title" x="24" y="77">Orchestration</text>
+                <line class="ce-pipeline__divider" x1="24" y1="113" x2="206" y2="113" />
+                <text class="ce-pipeline__detail" x="24" y="140">phases · interlocks</text>
               </g>
 
               <g class="ce-pipeline__node ce-pipeline__node--proof" data-ce-node data-ce-seq="11" transform="translate(1514 168)">
@@ -339,11 +339,11 @@
               </g>
 
               <g class="ce-pipeline__feedback" data-ce-wire data-ce-seq="12">
-                <path class="ce-pipeline__wire ce-pipeline__wire--feedback" d="M1333 344V402H445V346" marker-end="url(#ce-arrow-teal)" />
-                <path class="ce-pipeline__wire ce-pipeline__wire--feedback-branch" d="M741 402V346" marker-end="url(#ce-arrow-teal)" />
-                <circle class="ce-pipeline__junction" cx="741" cy="402" r="5" />
-                <rect class="ce-pipeline__feedback-label-bg" x="790" y="384" width="500" height="31" rx="5" />
-                <text class="ce-pipeline__feedback-label" x="1040" y="405">ÉTATS MESURÉS · images · positions · contacts · confirmations</text>
+                <path class="ce-pipeline__wire ce-pipeline__wire--feedback" d="M1037 344V402H445V346" marker-end="url(#ce-arrow-teal)" />
+                <path class="ce-pipeline__wire ce-pipeline__wire--feedback-branch" d="M1037 402H1333V346" marker-end="url(#ce-arrow-teal)" />
+                <circle class="ce-pipeline__junction" cx="1037" cy="402" r="5" />
+                <rect class="ce-pipeline__feedback-label-bg" x="495" y="384" width="500" height="31" rx="5" />
+                <text class="ce-pipeline__feedback-label" x="745" y="405">ÉTATS MESURÉS · images · positions · contacts · confirmations</text>
               </g>
 
               <g class="ce-pipeline__legend" data-ce-foundation aria-hidden="true">
@@ -506,30 +506,6 @@
         </div>
       </section>
 
-      <section class="deck-slide theme-paper" id="indexeur" data-slide data-pipeline-slide="coordination" data-chapter="Commande" data-title="Orchestrer un cycle confirmé" data-theme="light" aria-labelledby="slide-12-title">
-        <div class="slide-stage pipeline-stage pipeline-stage--detail orchestration-stage" data-orchestration-cue="0">
-          <header class="pipeline-stage__heading" data-reveal>
-            <h2 id="slide-12-title" class="display">Un cycle piloté par les confirmations.</h2>
-            <div class="orch-narration" data-orch-narration aria-label="Script de la transition"></div>
-          </header>
-          <div class="pipeline-zoom orch-flow-board" data-pipeline-visual>
-            <div class="orch-flow-viewport" data-orch-graph aria-label="Graphe du cycle ; cliquer une opération pour l’éclairer"></div>
-            <div>
-              <p class="orch-flow-legend"><i aria-hidden="true"></i><span>Commandes &amp; confirmations</span><span>·</span><b>Deux branches, une synchronisation</b></p>
-              <div class="orch-flow-controls">
-                <div class="orch-flow-focus"><span data-orch-label>Vue d’ensemble</span><p data-orch-caption>Observer, agir, confirmer : l’état du procédé fait avancer le cycle.</p></div>
-                <nav class="orch-flow-reader" aria-label="Parcours oral de l’orchestration">
-                  <button type="button" data-orch-goto="0">Vue globale</button>
-                  <button type="button" data-orch-prev aria-label="Phase précédente">←</button>
-                  <span data-orch-position>01 / 08</span>
-                  <button type="button" data-orch-next aria-label="Phase suivante">→</button>
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section class="deck-slide theme-ink" id="dynamique" data-slide data-pipeline-slide="motion" data-chapter="Commande" data-title="Préparer une trajectoire vérifiable" data-theme="dark" aria-labelledby="slide-13-title">
         <div class="slide-stage pipeline-stage pipeline-stage--detail trajectory-stage" data-trajectory-cue="0">
           <header class="pipeline-stage__heading" data-reveal>
@@ -571,6 +547,30 @@
                 <button type="button" data-runtime-prev aria-label="Vue précédente">←</button>
                   <span data-runtime-position>01 / 04</span>
                 <button type="button" data-runtime-next aria-label="Vue suivante">→</button>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="deck-slide theme-paper" id="indexeur" data-slide data-pipeline-slide="coordination" data-chapter="Commande" data-title="Orchestrer un cycle confirmé" data-theme="light" aria-labelledby="slide-12-title">
+        <div class="slide-stage pipeline-stage pipeline-stage--detail orchestration-stage" data-orchestration-cue="0">
+          <header class="pipeline-stage__heading" data-reveal>
+            <h2 id="slide-12-title" class="display">Un cycle piloté par les confirmations.</h2>
+            <div class="orch-narration" data-orch-narration aria-label="Script de la transition"></div>
+          </header>
+          <div class="pipeline-zoom orch-flow-board" data-pipeline-visual>
+            <div class="orch-flow-viewport" data-orch-graph aria-label="Graphe du cycle ; cliquer une opération pour l’éclairer"></div>
+            <div>
+              <p class="orch-flow-legend"><i aria-hidden="true"></i><span>Commandes &amp; confirmations</span><span>·</span><b>Deux branches, une synchronisation</b></p>
+              <div class="orch-flow-controls">
+                <div class="orch-flow-focus"><span data-orch-label>Vue d’ensemble</span><p data-orch-caption>Observer, agir, confirmer : l’état du procédé fait avancer le cycle.</p></div>
+                <nav class="orch-flow-reader" aria-label="Parcours oral de l’orchestration">
+                  <button type="button" data-orch-goto="0">Vue globale</button>
+                  <button type="button" data-orch-prev aria-label="Phase précédente">←</button>
+                  <span data-orch-position>01 / 08</span>
+                  <button type="button" data-orch-next aria-label="Phase suivante">→</button>
                 </nav>
               </div>
             </div>

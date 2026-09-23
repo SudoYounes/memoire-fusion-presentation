@@ -1,4 +1,4 @@
-# Slide 11 — Préparation de la trajectoire
+# Slide 10 — Préparation de la trajectoire
 
 ## Parcours oral
 

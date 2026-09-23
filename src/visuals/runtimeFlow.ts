@@ -37,7 +37,7 @@ function tracking(detail: boolean) {
     commentary(['Une référence préparée,','une réponse simulée'],
       ['JTC reçoit la trajectoire vérifiée','à l’étape précédente.'],
       ['Le retour des états permet de corriger','le suivi pendant le mouvement.'],
-      'Même transfert que la slide 13 · temps simulé'))
+      'Même transfert que la trajectoire · temps simulé'))
   return panel(1,'Le suivi devient lisible en agrandissant l’erreur','J1 · référence et retour du même message',plot+
     text(30,507,['Erreur'],'rf-chart-label')+math(30,530,'errorUnit',17,'rf-chart-label')+grid([-10,0],errorY)+
     line(path(evidence.controller,3,errorY),'rf-curve--error')+

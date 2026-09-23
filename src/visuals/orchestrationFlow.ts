@@ -83,7 +83,7 @@ export const flowCues = [
   {
     label: 'Boucler & tracer',
     text: 'La palette actualisée prépare la décision suivante ; les phases sont tracées sur ROS 2.',
-    script: 'Nous revenons au choix du carton suivant avec la mémoire de palette mise à jour. Le cycle se répète jusqu’aux <strong>douze déposes validées</strong>. L’enregistrement des phases ROS&nbsp;2 permet de retracer les actions et les attentes. Voyons maintenant comment les points de passage deviennent une trajectoire vérifiée.',
+    script: 'Nous revenons au choix du carton suivant avec la mémoire de palette mise à jour. Le cycle se répète jusqu’aux <strong>douze déposes validées</strong>. L’enregistrement des phases ROS&nbsp;2 permet de retracer les actions et les attentes. Voyons maintenant les résultats de la campagne de simulation.',
   },
 ]
 

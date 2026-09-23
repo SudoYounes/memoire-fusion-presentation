@@ -132,8 +132,7 @@ que l’action a effectivement abouti. »
 
 Repère : boucle rouge vers la destination, sans déplacer le graphe.
 À citer si nécessaire : `publish_task_phase()` → ROS 2 → rosbag.
-Transition : « Voyons maintenant comment les points de passage retenus deviennent
-une trajectoire vérifiée. »
+Transition : « Voyons maintenant les résultats de la campagne de simulation. »
 
 ## Résultats à réserver à la partie qualification
 

@@ -4,9 +4,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 const steps = [
   { id: 'modeles-contrats', label: 'Décrire — Modèles & contrats' },
   { id: 'prehension', label: 'Observer — Perception' },
-  { id: 'indexeur', label: 'Décider — Orchestration' },
   { id: 'dynamique', label: 'Préparer — Trajectoire vérifiée' },
   { id: 'stack', label: 'Exécuter — Commande & physique' },
+  { id: 'indexeur', label: 'Décider — Orchestration' },
   { id: 'cycle', label: 'Évaluer — Résultats' },
 ] as const
 

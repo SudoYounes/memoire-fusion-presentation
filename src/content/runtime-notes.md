@@ -1,4 +1,4 @@
-# Slide 12 — Commande en effort et réponse simulée
+# Slide 11 — Commande en effort et réponse simulée
 
 ## Parcours oral
 
@@ -75,7 +75,7 @@ bielles comme dans le modèle dynamique analytique.
 
 La vue dédiée aux trois usages des retours a été retirée. Les flèches de retour
 restent visibles dans le schéma et s’éclairent pendant la vue physique.
-Après cette vue, ↓ mène directement aux résultats des neuf séquences de la campagne v6.
+Après cette vue, ↓ mène à l’orchestration, désormais cinquième bloc de la chaîne numérique.
 
 ## Sources
 
