@@ -5,7 +5,8 @@
 .observer-narration { display: grid; min-width: 0; border-left: 2px solid var(--teal); padding-left: calc(1 * var(--su)); color: var(--slate); font-size: calc(.93 * var(--su)); line-height: 1.48; }
 /* Shared grid cell reserves the longest script's height through every cue. */
 .observer-narration > p { grid-area: 1 / 1; align-self: center; min-width: 0; visibility: hidden; opacity: 0; transition: opacity 220ms ease; }
-.observer-narration > p.is-current { visibility: visible; opacity: 1; }
+/* Inherit visibility so hidden camera-transition copies cannot leak their script. */
+.observer-narration > p.is-current { visibility: inherit; opacity: 1; }
 .observer-narration var { font-family: var(--font-serif); }
 .observer-script-pose { white-space: nowrap; }
 .observer-narration code { white-space: nowrap; font-size: .88em; color: var(--ink-soft); }
