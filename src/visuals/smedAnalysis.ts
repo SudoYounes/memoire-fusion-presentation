@@ -1,11 +1,10 @@
-export const smedAnalysisIds = ['machines', 'functions', 'actors', 'phases'] as const
+export const smedAnalysisIds = ['machines', 'functions'] as const
 export type SmedAnalysisId = typeof smedAnalysisIds[number]
 
 type Breakdown = { name: string; outside?: boolean; values: readonly [number, number, number, number] }
 
 // VIATRIS slide 20, chart1.xml / chart2.xml. Values use c:pt@idx, not the
 // compact order of populated points. A missing point has no plotted contribution.
-const actors = ['Opérateur', 'Tech. maintenance', 'Chef d’équipe', 'Tech. qualité'] as const
 const machineBreakdown: Breakdown[] = [
   { name: 'Christ', values: [52, 0, 15, 15] },
   { name: 'Étiqueteuse', values: [77, 0, 0, 0] },
@@ -15,22 +14,9 @@ const machineBreakdown: Breakdown[] = [
   { name: 'ADC', outside: true, values: [7, 0, 0, 0] },
   { name: 'Rangement', outside: true, values: [12, 0, 0, 0] },
 ]
-const phaseBreakdown: Breakdown[] = [
-  { name: 'Attente', values: [43, 0, 0, 0] },
-  { name: 'Contrôle', values: [130, 3, 25, 30] },
-  { name: 'Démarrage', values: [0, 0, 10, 0] },
-  { name: 'Démontage', values: [82, 0, 0, 0] },
-  { name: 'Nettoyage', values: [74, 3, 0, 0] },
-  { name: 'Préparation', values: [84, 0, 12, 0] },
-  { name: 'Réglage', values: [351, 124, 0, 0] },
-  { name: 'Remontage', values: [120, 0, 0, 0] },
-  { name: 'Transport', values: [25, 0, 0, 0] },
-  { name: 'Vidange', values: [5, 0, 0, 0] },
-]
 
 const sum = (values: readonly number[]) => values.reduce((total, value) => total + value, 0)
-const actorTotals = actors.map((_, index) => sum(machineBreakdown.map(row => row.values[index])))
-const total = sum(actorTotals)
+const total = sum(machineBreakdown.map(row => sum(row.values)))
 const decimal = (value: number) => value.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
 const views: Record<SmedAnalysisId, { label: string; title: string; caption: string; note: string }> = {
@@ -43,16 +29,6 @@ const views: Record<SmedAnalysisId, { label: string; title: string; caption: str
     label: 'Fonctions', title: 'Temps par fonction',
     caption: 'La production représente 16,02 heures cumulées, la maintenance 2,17 heures et la qualité 0,50 heure. La production regroupe les opérateurs et le chef d’équipe.',
     note: 'La production regroupe les opérateurs et le chef d’équipe. Heures décimales arrondies.',
-  },
-  actors: {
-    label: 'Intervenants', title: 'Intervenants par machine',
-    caption: 'Le croisement par machine distingue opérateur, technicien maintenance, chef d’équipe et technicien qualité. Il cumule 1 121 minutes d’activité.',
-    note: 'Minutes d’activité. Les tirets correspondent aux contributions absentes du graphique source.',
-  },
-  phases: {
-    label: 'Phases', title: 'Intervenants par phase',
-    caption: 'Le croisement par phase totalise 475 minutes de réglage et 188 minutes de contrôle. Ce classement est distinct du Pareto présenté ensuite.',
-    note: 'Minutes d’activité. Le classement de cette figure diffère de celui du Pareto.',
   },
 }
 
@@ -81,29 +57,6 @@ function hoursChart(kind: 'machines' | 'functions'): string {
   </figure>`
 }
 
-function breakdownChart(kind: 'actors' | 'phases'): string {
-  const rows = kind === 'actors' ? machineBreakdown : phaseBreakdown
-  const maximum = kind === 'actors' ? 700 : 500
-  return `<figure class="smed-analysis-breakdown" aria-labelledby="smed-analysis-unit-${kind}">
-    <figcaption id="smed-analysis-unit-${kind}">Répartition des temps d’activité <span>Minutes</span></figcaption>
-    <div class="smed-analysis-mobile-aid"><ul aria-label="Couleurs des intervenants">${actors.map((actor, index) => `<li><i class="smed-analysis-actor-${index}" aria-hidden="true"></i>${actor}</li>`).join('')}</ul><p>Glisser horizontalement pour lire les intervenants et les valeurs.</p></div>
-    <div class="smed-analysis-table-scroll" tabindex="0" aria-label="Tableau des temps par ${kind === 'actors' ? 'machine' : 'phase'}, défilement horizontal disponible sur petit écran">
-      <table class="smed-analysis-table" data-analysis-table="${kind}">
-        <caption class="deck-live">Temps en minutes, par ${kind === 'actors' ? 'machine' : 'phase'} et intervenant. Graphique empilé et valeurs détaillées.</caption>
-        <colgroup><col class="smed-analysis-col-category"><col class="smed-analysis-col-bar">${actors.map(() => '<col class="smed-analysis-col-value">').join('')}<col class="smed-analysis-col-total"></colgroup>
-        <thead><tr><th scope="col">${kind === 'actors' ? 'Machine / activité' : 'Phase'}</th><th scope="col"><span class="smed-analysis-scale">0 <span>${maximum} min</span></span></th>${actors.map((actor, index) => `<th scope="col" class="smed-analysis-actor-${index}"><i aria-hidden="true"></i>${actor}</th>`).join('')}<th scope="col">Total</th></tr></thead>
-        <tbody>${rows.map(row => `<tr data-analysis-category="${row.name}">
-          <th scope="row">${row.name}${row.outside ? '<small>hors machine</small>' : ''}</th>
-          <td class="smed-analysis-stack-cell"><div class="smed-analysis-stack" aria-hidden="true">${row.values.map((value, index) => `<i class="smed-analysis-actor-${index}" style="width:${value / maximum * 100}%"></i>`).join('')}</div></td>
-          ${row.values.map(value => `<td data-analysis-minutes="${value}"${value === 0 ? ' class="smed-analysis-zero" aria-label="Aucune contribution représentée"' : ''}>${value || '—'}</td>`).join('')}
-          <td class="smed-analysis-row-total" data-analysis-total="${sum(row.values)}">${sum(row.values)}</td>
-        </tr>`).join('')}</tbody>
-        <tfoot><tr><th scope="row">Cumul</th><td></td>${actorTotals.map(value => `<td>${value}</td>`).join('')}<td>${total.toLocaleString('fr-FR')}</td></tr></tfoot>
-      </table>
-    </div>
-  </figure>`
-}
-
 /** Native HTML evidence views; keyboard/slide routing stays in smedChallenge. */
 export function mountSmedAnalysis(stage: HTMLElement) {
   const panel = document.createElement('section')
@@ -115,7 +68,7 @@ export function mountSmedAnalysis(stage: HTMLElement) {
   panel.setAttribute('aria-labelledby', 'smed-analysis-title')
   panel.innerHTML = `
     <header class="smed-analysis-heading"><div><p class="kicker">Analyse des temps</p><h2 id="smed-analysis-title"></h2></div><button type="button" data-smed-analysis-close aria-label="Revenir à la ligne de conditionnement">×</button></header>
-    <div class="smed-analysis-body">${smedAnalysisIds.map(id => `<div class="smed-analysis-view" data-smed-analysis-view="${id}" hidden>${id === 'machines' || id === 'functions' ? hoursChart(id) : breakdownChart(id)}<p class="smed-analysis-note">${views[id].note}</p></div>`).join('')}</div>
+    <div class="smed-analysis-body">${smedAnalysisIds.map(id => `<div class="smed-analysis-view" data-smed-analysis-view="${id}" hidden>${hoursChart(id)}<p class="smed-analysis-note">${views[id].note}</p></div>`).join('')}</div>
     <footer class="smed-analysis-footer"><p class="smed-analysis-scope"><strong>${total.toLocaleString('fr-FR')} min cumulées d’activité</strong><span>Ce cumul ne mesure pas à lui seul la durée d’arrêt.</span></p><div class="smed-analysis-navigation"><p>Soutenance VIATRIS, slide 20</p><nav aria-label="Graphiques de l’analyse des temps">${smedAnalysisIds.map(id => `<button type="button" data-smed-analysis="${id}">${views[id].label}</button>`).join('')}</nav><div class="smed-analysis-arrows"><button type="button" data-smed-analysis-prev aria-label="Étape précédente">←</button><span data-smed-analysis-count></span><button type="button" data-smed-analysis-next aria-label="Étape suivante">→</button></div></div></footer>`
   stage.append(panel)
 
@@ -142,7 +95,7 @@ export function mountSmedAnalysis(stage: HTMLElement) {
     if (id) {
       panel.dataset.smedAnalysis = id
       heading.textContent = views[id].title
-      counter.textContent = `${String(smedAnalysisIds.indexOf(id) + 1).padStart(2, '0')} / 04`
+      counter.textContent = `${String(smedAnalysisIds.indexOf(id) + 1).padStart(2, '0')} / ${String(smedAnalysisIds.length).padStart(2, '0')}`
     } else delete panel.dataset.smedAnalysis
     content.forEach(view => {
       view.hidden = view.dataset.smedAnalysisView !== id

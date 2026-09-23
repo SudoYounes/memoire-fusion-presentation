@@ -70,7 +70,11 @@ Downloads. Audit détaillé : `smed-selection.md`.
 - Le maintien de la qualité est une contrainte du cadrage, pas une qualification
   ou un résultat mesuré annoncé par cet écran.
 
-### Les quatre graphiques de la slide 20
+### Les graphiques de la slide 20
+
+La présentation conserve uniquement « Temps par machine » et « Temps par fonction ».
+Les deux vues par intervenant sont retirées du parcours. Les matrices source restent
+documentées ci-dessous pour conserver la provenance et le détail du cumul.
 
 Les valeurs proviennent des figures `image46` / `image47` et des caches OOXML
 `ppt/charts/chart1.xml` / `chart2.xml`. `smedAnalysis.ts` contient les données
@@ -131,13 +135,12 @@ gain, gain TRS ou résultat final n'est introduit dans ce premier écran.
 
 L'écran reste une seule diapositive, avec un parcours oral au clavier :
 vue d'ensemble → Noack → PC → Neri → Christ → Étiqueteuse → temps par machine
-→ temps par fonction → intervenants par machine → intervenants par phase
-→ slide suivante.
+→ temps par fonction → slide suivante.
 Chaque appui sur Bas active un nœud et ouvre simultanément sa fenêtre ; Haut
 revient à l'étape précédente. Depuis Noack, Haut revient à la vue d'ensemble,
 puis à la slide précédente. Le retour depuis la slide suivante affiche
-la dernière analyse (phases) pour reprendre le parcours à rebours. La slide
-compte donc dix états de narration, dont l'ensemble initial. Un appui maintenu ne
+la dernière analyse (fonctions) pour reprendre le parcours à rebours. La slide
+compte donc huit états de narration, dont l'ensemble initial. Un appui maintenu ne
 saute pas les étapes. Droite/Gauche, Page suivante/précédente et Espace
 (Maj pour revenir) suivent le même parcours, y compris les boutons du mode
 présentation. Les autres slides et leur navigation ne sont pas modifiées.
@@ -150,7 +153,7 @@ le bouton × ferme la fenêtre et restitue le focus au déclencheur. Le départ
 vers une autre slide referme la fenêtre. Dans une fenêtre machine, Début/Fin
 accèdent au premier/dernier équipement. Dans une analyse, ces touches
 accèdent au premier/dernier graphique. « Analyse des temps » ouvre directement
-le premier graphique et les quatre onglets changent de vue sans quitter la
+le premier graphique et les deux onglets changent de vue sans quitter la
 slide. Les flèches du panneau suivent le parcours global, y compris les bornes.
 Le détail « Changement étudié » reste
 optionnel : depuis cette fenêtre, Bas ouvre Noack et Haut revient à l'ensemble.

@@ -4,7 +4,7 @@ import { mountSmedAnalysis, smedAnalysisIds, type SmedAnalysisId } from './smedA
 type SlideActivation = CustomEvent<{ id: string; direction: number }>
 type Selection = SmedMachineId | SmedAnalysisId | 'context' | null
 
-/** Machine evidence, then the four source analysis charts, on one deck slide. */
+/** Machine evidence, then the two retained analysis charts, on one deck slide. */
 export function mountSmedChallenge(): () => void {
   const slide = document.querySelector<HTMLElement>('#smed-enjeu')
   const stage = slide?.querySelector<HTMLElement>('.smed-challenge-stage')
