@@ -43,6 +43,8 @@ export function mountTrajectoryFlow(stage: HTMLElement) {
     <p data-traj-script="example" aria-hidden="true">Prenons l’exemple du <strong>carton 9 de la séquence 4</strong>.</p>
     <p data-traj-script="angles" aria-hidden="true">La cinématique inverse calcule les <strong>quatre angles <var>q</var><sub>1</sub>, <var>q</var><sub>2</sub>, <var>q</var><sub>3</sub>, <var>q</var><sub>4</sub></strong>.</p>
     <p data-traj-script="orientation" aria-hidden="true">En tenant compte de <strong>l’horizontalité de l’outil</strong> et de <strong>la conservation du lacet</strong>.</p>
+    <p data-traj-script="message" aria-hidden="true">Le message <strong>RobotTrajectory</strong> regroupe les positions, vitesses et accélérations articulaires, avec le temps prévu pour chaque point.</p>
+    <p data-traj-script="transmission" aria-hidden="true">L’action <strong>/execute_trajectory</strong> transmet cette consigne au <strong>JTC</strong>. Le contrôleur assure ensuite son suivi dans la simulation.</p>
     <p data-traj-script="quintic" aria-hidden="true">L’orchestrateur reçoit les configurations articulaires de <strong>prise et de dépose</strong> pour produire une courbe quintique qui définit, à chaque instant ${scriptMath('tp_sample_time')}, la position ${scriptMath('tp_sample_q')}, la vitesse ${scriptMath('tp_sample_qd')} et l’accélération ${scriptMath('tp_sample_qdd')} correspondantes.</p>`
   const holder = stage.querySelector<HTMLElement>('[data-traj-graph]')!
   holder.innerHTML = `<svg class="trajectory-flow-svg" viewBox="0 0 1600 604" role="group" aria-labelledby="tf-title tf-desc">
@@ -80,6 +82,7 @@ export function mountTrajectoryFlow(stage: HTMLElement) {
     const script = cue === 0 ? 'example'
       : cue === 1 && step === 1 ? 'angles'
       : cue === 1 && step === 2 ? 'orientation'
+      : cue === 5 ? step === 0 ? 'message' : 'transmission'
       : cue === 3 ? 'quintic' : 'default'
     view.querySelectorAll<HTMLElement>('[data-traj-script]').forEach(el => {
       const current = el.dataset.trajScript === script
