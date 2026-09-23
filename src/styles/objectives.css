@@ -1,0 +1,48 @@
+.objectives-stage { display:grid; grid-template-rows:auto auto minmax(0,1fr) auto; gap:calc(1.5 * var(--su)); padding-top:calc(7.8 * var(--su)); padding-bottom:calc(4.8 * var(--su)); }
+.objectives-heading { display:grid; grid-template-columns:minmax(0,1fr) calc(33 * var(--su)); gap:calc(4 * var(--su)); align-items:center; }
+.objectives-heading .display { margin-top:calc(.75 * var(--su)); max-width:none; font-size:calc(3.1 * var(--su)); line-height:1.1; }
+.objectives-scripts { display:grid; border-left:2px solid #b88b4c; padding-left:calc(1 * var(--su)); font-size:calc(.98 * var(--su)); line-height:1.5; color:#506674; }
+.objectives-scripts strong { color:#174863; font-weight:650; }
+.objectives-tabs { display:flex; gap:calc(3 * var(--su)); border-bottom:1px solid #17486326; }
+.objectives-tabs button { padding:calc(.35 * var(--su)) 0 calc(.7 * var(--su)); border:0; border-bottom:2px solid transparent; background:none; color:#62727a; font-size:calc(.97 * var(--su)); cursor:pointer; }
+.objectives-tabs button span { margin-right:calc(.6 * var(--su)); font-size:.72em; font-weight:700; }
+.objectives-tabs button[aria-current='step'] { color:#87591f; border-color:#b88b4c; }
+.objectives-content { min-height:0; display:grid; align-items:center; }
+.objectives-scene { min-width:0; width:100%; }
+.objectives-table { width:100%; border-collapse:collapse; table-layout:fixed; color:#233f4c; font-size:calc(1.15 * var(--su)); line-height:1.35; }
+.objectives-table thead { background:#dae7e9; }
+.objectives-table thead th { padding:calc(.75 * var(--su)) calc(1 * var(--su)); color:#1b5363; font-size:calc(.94 * var(--su)); font-weight:700; text-align:left; }
+.objectives-table tbody th,.objectives-table td { padding:calc(.68 * var(--su)) calc(1 * var(--su)); border-bottom:1px solid #17486325; text-align:left; }
+.objectives-table tbody th { color:#174863; font-weight:610; }
+.objectives-table td { color:#506674; }
+.objectives-table--criteria td:last-child,.objectives-table--criteria thead th:last-child { text-align:right; }
+.objectives-table td strong { color:#075862; font-weight:630; font-size:calc(1.48 * var(--su)); font-variant-numeric:tabular-nums; }
+.objectives-table td strong span { font-size:.75em; font-weight:500; }
+.objectives-table .objectives-success { background:#b88b4c14; }
+.objectives-table .objectives-success th,.objectives-table .objectives-success strong { color:#87591f; }
+.objectives-note { margin-top:calc(.75 * var(--su)); font-size:calc(.77 * var(--su)); line-height:1.4; color:#62727a; }
+[data-objective-math] { white-space:nowrap; }
+[data-objective-math] svg { display:inline-block; overflow:visible; max-width:none; fill:currentColor; }
+.objectives-table--joints { width:calc(72 * var(--su)); margin-inline:auto; }
+.objectives-table--joints tbody th,.objectives-table--joints td { padding:calc(1.5 * var(--su)) calc(1 * var(--su)); font-size:calc(1.8 * var(--su)); }
+.objectives-table--joints td:last-child { color:#075862; }
+.objectives-footer { display:flex; align-items:center; justify-content:space-between; padding-top:calc(.5 * var(--su)); border-top:1px solid #17486325; font-size:calc(.72 * var(--su)); color:#62727a; }
+.objectives-footer nav { display:flex; align-items:center; gap:calc(.7 * var(--su)); }
+.objectives-footer button { display:grid; place-items:center; width:calc(2.2 * var(--su)); height:calc(1.9 * var(--su)); border:1px solid #17486344; border-radius:3px; background:#fafbf888; color:#174863; cursor:pointer; }
+@media (max-aspect-ratio:4 / 5) {
+  .objectives-stage { display:flex; flex-direction:column; gap:1.25rem; padding:7rem 1.25rem 5rem; height:auto; }
+  .objectives-heading { display:block; }
+  .objectives-heading .display { font-size:2.2rem; margin:.7rem 0 1rem; }
+  .objectives-scripts { font-size:1rem; padding-left:.75rem; }
+  .objectives-tabs { gap:1.4rem; }
+  .objectives-tabs button { font-size:.83rem; padding:.5rem 0; }
+  .objectives-table { font-size:.8rem; }
+  .objectives-table thead th { font-size:.7rem; padding:.6rem .3rem; }
+  .objectives-table tbody th,.objectives-table td { padding:.65rem .3rem; }
+  .objectives-table td strong { font-size:1.05rem; }
+  .objectives-note { font-size:.72rem; margin-top:.7rem; }
+  .objectives-table--joints { width:100%; }
+  .objectives-table--joints tbody th,.objectives-table--joints td { font-size:1rem; padding:1rem .3rem; }
+  .objectives-footer { font-size:.7rem; padding-top:1rem; }
+  .objectives-footer button { width:2rem; height:2rem; }
+}

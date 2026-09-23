@@ -16,7 +16,7 @@
     <nav class="deck-sections" aria-label="Chapitres de la présentation" data-deck-sections></nav>
     <nav class="deck-rail" aria-label="Navigation dans la présentation" data-deck-rail></nav>
     <footer class="deck-footer" data-deck-chrome>
-      <p class="deck-footer__count"><span data-slide-current>01</span><i></i><span data-slide-total>14</span></p>
+      <p class="deck-footer__count"><span data-slide-current>01</span><i></i><span data-slide-total>15</span></p>
     </footer>
 
     <main id="presentation" class="deck" data-deck>
@@ -234,6 +234,53 @@
 
 
 
+
+      <section class="deck-slide theme-mist smed-story-slide objectives-slide" id="objectifs-projet" data-slide data-chapter="Architecture" data-title="Objectifs du projet et limites articulaires" data-theme="light" data-smed-story data-smed-steps="2" data-smed-step="0" aria-labelledby="objectives-title">
+        <div class="slide-stage objectives-stage">
+          <header class="objectives-heading">
+            <div><p class="kicker">Architecture &amp; conception</p><h2 class="display" id="objectives-title">Objectifs du projet</h2></div>
+            <div class="objectives-scripts" aria-label="Script de la transition">
+              <p data-smed-scene="0">Nous fixons les critères de réussite avant la conception : <strong>tenir la cadence, maîtriser la dépose et respecter le comportement attendu du robot</strong>.</p>
+              <p data-smed-scene="1" hidden>La conception doit aussi respecter les <strong>plages angulaires et les vitesses maximales</strong> des quatre articulations.</p>
+            </div>
+          </header>
+          <nav class="objectives-tabs" aria-label="Objectifs et contraintes du robot">
+            <button type="button" data-smed-goto="0"><span>01</span>Critères de réussite</button>
+            <button type="button" data-smed-goto="1"><span>02</span>Limites articulaires</button>
+          </nav>
+          <div class="objectives-content">
+            <article class="objectives-scene" data-smed-scene="0" data-smed-caption="Sept critères définissent la réussite du projet.">
+              <table class="objectives-table objectives-table--criteria" aria-label="Critères, objectifs et seuils du projet">
+                <colgroup><col style="width:25%"><col style="width:56%"><col style="width:19%"></colgroup>
+                <thead><tr><th scope="col">Critère</th><th scope="col">Objectif</th><th scope="col">Seuil / cible</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Cadence</th><td>Limiter le temps par carton</td><td><strong>12 <span>s</span></strong></td></tr>
+                  <tr><th scope="row">Position XY</th><td>Déposer près du centre cible</td><td><strong>25 <span>mm</span></strong></td></tr>
+                  <tr><th scope="row">Orientation</th><td>Respecter l’angle de dépose</td><td><strong>2°</strong></td></tr>
+                  <tr><th scope="row">Hauteur Z</th><td>Respecter la hauteur cible</td><td><strong>15 <span>mm</span></strong></td></tr>
+                  <tr><th scope="row">Horizontalité</th><td>Maintenir <span data-objective-math="obj_horizontal"></span> proche de <span data-objective-math="obj_right_angle"></span></td><td><strong>1°</strong></td></tr>
+                  <tr><th scope="row">Saturation continue</th><td>Limiter le temps passé au couple maximal</td><td><strong>50 <span>ms</span></strong></td></tr>
+                  <tr class="objectives-success"><th scope="row">Réussite globale</th><td>Tous les cycles respectent les critères</td><td><strong>100 <span>%</span></strong></td></tr>
+                </tbody>
+              </table>
+              <p class="objectives-note">Seuils maximaux pour les six premiers critères. Réussite globale : cible de 100 %.</p>
+            </article>
+            <article class="objectives-scene" data-smed-scene="1" data-smed-caption="Limites angulaires et vitesses maximales de J1 à J4." hidden>
+              <table class="objectives-table objectives-table--joints" aria-label="Limites angulaires et vitesses maximales des articulations">
+                <colgroup><col style="width:18%"><col style="width:46%"><col style="width:36%"></colgroup>
+                <thead><tr><th scope="col">Joint</th><th scope="col">Limite angulaire</th><th scope="col">Vitesse maximale</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">J1</th><td><span data-objective-math="obj_range_j1"></span></td><td><span data-objective-math="obj_speed_90"></span></td></tr>
+                  <tr><th scope="row">J2</th><td><span data-objective-math="obj_range_j2"></span></td><td><span data-objective-math="obj_speed_60"></span></td></tr>
+                  <tr><th scope="row">J3</th><td><span data-objective-math="obj_range_j3"></span></td><td><span data-objective-math="obj_speed_90"></span></td></tr>
+                  <tr><th scope="row">J4</th><td><span data-objective-math="obj_range_j4"></span></td><td><span data-objective-math="obj_speed_90"></span></td></tr>
+                </tbody>
+              </table>
+            </article>
+          </div>
+          <footer class="objectives-footer"><p>Cellule de palettisation · Robot 2</p><nav aria-label="Temps de lecture des objectifs"><button type="button" data-smed-prev aria-label="Étape précédente">↑</button><span data-smed-count>01 / 02</span><button type="button" data-smed-next aria-label="Étape suivante">↓</button></nav></footer>
+        </div>
+      </section>
 
       <section class="deck-slide theme-paper" id="anatomie" data-slide data-chapter="Architecture" data-title="L’anatomie de Robot 2" data-theme="light" aria-labelledby="slide-05-title">
         <div class="slide-stage anatomy-stage">

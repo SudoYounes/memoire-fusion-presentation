@@ -13,6 +13,14 @@ import { resultsEvidence as results } from '../../src/content/resultsEvidence.ts
 const number = (value, digits=2) => value.toFixed(digits).replace('.', '{,}')
 const ref = String.raw`\mathrm{réf}`
 const sources = {
+  obj_horizontal: [String.raw`q_2+q_3`, 'Somme des angles q2 et q3'],
+  obj_right_angle: [String.raw`90^\circ`, '90 degrés'],
+  obj_range_j1: [String.raw`-160^\circ\;\text{à}\;+160^\circ`, 'De moins 160 à plus 160 degrés'],
+  obj_range_j2: [String.raw`0^\circ\;\text{à}\;90^\circ`, 'De 0 à 90 degrés'],
+  obj_range_j3: [String.raw`0^\circ\;\text{à}\;65^\circ`, 'De 0 à 65 degrés'],
+  obj_range_j4: [String.raw`-180^\circ\;\text{à}\;+180^\circ`, 'De moins 180 à plus 180 degrés'],
+  obj_speed_90: [String.raw`90^\circ/\mathrm{s}`, '90 degrés par seconde'],
+  obj_speed_60: [String.raw`60^\circ/\mathrm{s}`, '60 degrés par seconde'],
   // J1 CAO window: user-supplied kinematic model. The first equality wraps
   // without changing its six-component torsor or the reference frame.
   j1_torsor: [String.raw`\begin{array}{@{}l@{}}\left\{\mathcal{V}_{\mathrm{colonne/embase}}\right\}_{O_1}\\[4pt]\quad=\left\{\begin{array}{c}\vec{\Omega}_{\mathrm{colonne/embase}}\\\vec{V}_{O_1,\mathrm{colonne/embase}}\end{array}\right\}=\left\{\begin{array}{c}0\\0\\\dot q_1\\0\\0\\0\end{array}\right\}_{(X,Y,Z)}\end{array}`, 'Torseur cinématique de la colonne par rapport à l’embase, au point O1 : vitesse angulaire zéro, zéro, q1 point, et vitesse en O1 nulle, dans le repère X, Y, Z'],

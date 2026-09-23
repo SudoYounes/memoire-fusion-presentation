@@ -3,6 +3,7 @@ import './styles/tokens.css'
 import './styles/base.css'
 import './styles/story.css'
 import './styles/cover.css'
+import './styles/objectives.css'
 import './styles/pipeline.css'
 import './styles/pipeline-master.css'
 import './styles/models.css'
@@ -25,6 +26,7 @@ import './styles/smed-solutions.css'
 import './styles/smed-impact.css'
 
 import { setupDeck } from './deck/setupDeck'
+import { renderProjectObjectives } from './visuals/projectObjectives'
 import { mountPipelineMaps } from './deck/pipelineNavigation'
 import { prefersReducedMotion } from './motion/preferences'
 import { renderCycleEvidence } from './visuals/cyclePlot'
@@ -45,6 +47,7 @@ import type { RobotScene } from './webgl/RobotScene'
 
 document.documentElement.classList.add('has-js')
 mountPipelineMaps()
+renderProjectObjectives()
 renderSmedDiagnostic()
 renderSmedSolutions()
 renderSmedImpact()
