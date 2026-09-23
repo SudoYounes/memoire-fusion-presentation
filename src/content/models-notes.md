@@ -6,7 +6,7 @@
    importer et exploiter les STEP ; cette étape ne relance pas les générateurs.
 2. Regrouper les pièces solidaires, affecter chaque occurrence une seule fois,
    exprimer masses, centres de gravité et tenseurs dans le repère du corps.
-3. Parcourir les quatre descriptions de haut en bas. Le bus représente les
+3. Parcourir les trois descriptions de haut en bas. Le bus représente les
    informations partagées et les descriptions préparées avec les choix du projet :
    il ne prétend pas que le SDF et le SRDF sont automatiquement déduits des STEP.
 4. URDF : expliquer « link = corps rigide » et « joint = liaison entre deux corps ».
@@ -20,12 +20,13 @@
    rester une exclusion volontaire et vérifiée, et non une validation implicite.
 6. SDF : le monde de cellule contient le poste, les capteurs et la palette
    indexée selon Y ; le robot URDF est chargé par le lancement dans ce monde.
-7. Modèle dynamique JSON : le crank et les deux bielles restent explicites
-   dans le calcul fermé. L'arbre série d'exécution et le modèle fermé ont des
-   responsabilités distinctes.
-8. En complément oral si nécessaire, préciser le statut du profil à 800 kg :
+7. En complément oral si nécessaire, préciser le statut du profil à 800 kg :
    c'est une cible provisoire utilisée en simulation, pas la masse prouvée d'un
    robot fabriqué ni d'une CAO déjà allégée.
+
+Le bloc JSON et sa fenêtre ont été retirés de cette slide. Le modèle fermé
+reste inchangé dans le projet ; cette suppression ne concerne que la présentation.
+Après la fenêtre SDF, ↓ mène directement à « Observer ».
 
 ## Sources locales consultées (lecture seule)
 

@@ -72,8 +72,8 @@
 .models-down::after { content: ''; position: absolute; left: calc(1.3 * var(--su) - 4px); bottom: 0; border: 4px solid transparent; border-top: 6px solid rgb(237 63 47 / 34%); border-bottom: 0; }
 .models-down span { position: absolute; left: calc(2.2 * var(--su)); top: 50%; transform: translateY(-50%); color: #98601e; font-size: calc(.63 * var(--su)); font-weight: 610; }
 .models-preparation__note { color: var(--slate); font-size: calc(.77 * var(--su)); line-height: 1.45; margin: calc(.9 * var(--su)) 0 0; }
-.models-lanes { display: grid; grid-template-rows: repeat(4, 1fr); min-height: 0; position: relative; }
-.models-lanes::before { content: ''; position: absolute; top: 12.5%; bottom: 12.5%; left: calc(-2.1 * var(--su)); border-left: 2px solid rgb(237 63 47 / 22%); }
+.models-lanes { display: grid; grid-template-rows: repeat(3, 1fr); min-height: 0; position: relative; }
+.models-lanes::before { content: ''; position: absolute; top: calc(100% / 6); bottom: calc(100% / 6); left: calc(-2.1 * var(--su)); border-left: 2px solid rgb(237 63 47 / 22%); }
 .models-lanes::after { content: ''; position: absolute; top: var(--models-branch-y, 50%); left: calc(-4.6 * var(--su)); width: calc(2.5 * var(--su)); border-top: 2px solid rgb(237 63 47 / 22%); transform-origin: left; }
 .models-flow-bus { position: absolute; z-index: 2; top: var(--models-flow-top, 50%); left: calc(-2.1 * var(--su)); width: 2px; height: var(--models-flow-height, 0); background: var(--models-flow); box-shadow: 0 0 9px rgb(237 63 47 / 55%); pointer-events: none; transition: top 380ms var(--ease-out), height 380ms var(--ease-out); }
 .models-source--bodies::after { content: ''; position: absolute; right: -4px; top: calc(50% - 4px); width: 7px; height: 7px; border: 1.5px solid var(--gold); border-radius: 50%; background: #fbfcfa; }
@@ -102,7 +102,6 @@
 .models-format h3 { margin: .18em 0 .16em; font-size: calc(1.75 * var(--su)); line-height: 1.15; font-weight: 680; letter-spacing: -.025em; }
 .models-format__target { color: var(--slate); font-size: calc(.64 * var(--su)); line-height: 1.3; }
 .models-lane--world .models-format { border-color: var(--teal); }
-.models-lane--dynamics .models-format { border-color: var(--gold); }
 .models-explanation h3 { margin: 0 0 .5em; font-size: calc(.99 * var(--su)); line-height: 1.2; font-weight: 720; color: var(--blue); letter-spacing: -.02em; }
 .models-explanation ul { display: grid; gap: calc(.35 * var(--su)); }
 .models-explanation li { position: relative; padding-left: calc(.7 * var(--su)); color: var(--slate); font-size: calc(.85 * var(--su)); line-height: 1.38; }
@@ -146,23 +145,21 @@
   animation: models-line-reveal-y 680ms var(--ease-out) both;
 }
 .models-stage[data-models-step='1'] .models-down::after { border-top-color: var(--models-flow); filter: drop-shadow(0 0 3px rgb(237 63 47 / 62%)); }
-.models-stage:is([data-models-step='2'], [data-models-step='3'], [data-models-step='4'], [data-models-step='5']) .models-lanes::after {
+.models-stage:is([data-models-step='2'], [data-models-step='3'], [data-models-step='4']) .models-lanes::after {
   border-top-color: var(--models-flow);
   box-shadow: 0 0 7px rgb(237 63 47 / 45%);
   animation: models-line-reveal 560ms var(--ease-out) both;
 }
 .models-stage[data-models-step='2'] .models-lane[data-models-block='2']::before,
 .models-stage[data-models-step='3'] .models-lane[data-models-block='3']::before,
-.models-stage[data-models-step='4'] .models-lane[data-models-block='4']::before,
-.models-stage[data-models-step='5'] .models-lane[data-models-block='5']::before {
+.models-stage[data-models-step='4'] .models-lane[data-models-block='4']::before {
   border-top-color: var(--models-flow);
   box-shadow: 0 0 7px rgb(237 63 47 / 45%);
   animation: models-line-reveal 560ms 180ms var(--ease-out) both;
 }
 .models-stage[data-models-step='2'] .models-lane[data-models-block='2']::after,
 .models-stage[data-models-step='3'] .models-lane[data-models-block='3']::after,
-.models-stage[data-models-step='4'] .models-lane[data-models-block='4']::after,
-.models-stage[data-models-step='5'] .models-lane[data-models-block='5']::after {
+.models-stage[data-models-step='4'] .models-lane[data-models-block='4']::after {
   border-left-color: var(--models-flow);
   filter: drop-shadow(0 0 3px rgb(237 63 47 / 62%));
 }

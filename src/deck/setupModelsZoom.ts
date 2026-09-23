@@ -1,6 +1,6 @@
 import { createModelsArtefacts } from '../visuals/modelsArtifacts'
 
-/** Attach the preparation outlet to the distribution bus and pace the six-part explanation. */
+/** Attach the preparation outlet to the distribution bus and pace the five-part explanation. */
 export function setupModelsDiagram(): () => void {
   const slide = document.querySelector<HTMLElement>('#modeles-contrats')
   const stage = slide?.querySelector<HTMLElement>('.models-stage')
@@ -15,7 +15,6 @@ export function setupModelsDiagram(): () => void {
     'URDF — structure du robot',
     'SRDF — règles de planification',
     'SDF — monde et capteurs',
-    'JSON — dynamique fermée des bielles',
   ]
   const params = new URLSearchParams(window.location.search)
   const layoutQuery = window.matchMedia('(min-aspect-ratio: 4 / 5)')

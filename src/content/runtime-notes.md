@@ -1,11 +1,11 @@
-# Slide 14 — Commande en effort et réponse simulée
+# Slide 12 — Commande en effort et réponse simulée
 
 ## Parcours oral
 
-La slide comporte une vue d’ensemble, puis cinq vues de détail. La troisième
+La slide comporte une vue d’ensemble, puis quatre vues de détail. La troisième
 partie du récit est séparée en deux vues : limites motrices, puis physique.
 Molette, Espace et flèches permettent d’avancer. Un clic sur une fonction du
-schéma reprend son explication. Le graphe conserve sa disposition dans les six vues.
+schéma reprend son explication. Le graphe conserve sa disposition dans les cinq vues.
 Il n’y a pas de sous-étapes de lecture à l’intérieur des cartes : tous les commentaires
 restent visibles. À l’apparition d’une carte, un balayage or champagne souligne une
 seule fois son idée principale et sa conclusion ; le repère associé dans la figure
@@ -51,6 +51,10 @@ mouvement. »
 
 Montrer la branche supérieure du schéma, puis les courbes. L’anticipation en ligne
 correspond à M_c(q_ref) × q̈_ref. Le terme explicite de Coriolis n’y figure pas.
+La relation LaTeX à droite est la relation générale fournie par le présentateur :
+τ_commande = τ_PID + τ_gravité + τ_inertie + τ_Coriolis. Elle ne signifie pas que
+les traces de cette campagne incluent une contribution explicite de Coriolis ;
+la précision sous la formule maintient cette distinction.
 La compensation gravitaire du substitut série ne représente pas automatiquement
 tout l’outillage et le carton. Le calcul NumPy fermé et le moteur DART ont des
 fonctions et des modèles distincts.
@@ -86,17 +90,9 @@ du transfert tracé. Elle ne démontre ni une force de contact mesurée, ni une
 performance du robot réel. La géométrie visible ne ferme pas explicitement les
 bielles comme dans le modèle dynamique analytique.
 
-### 4 — Fermer la boucle
-
-« Les retours ont trois usages. Les positions et vitesses alimentent le suivi
-dans JTC. Les résultats d’action et les confirmations de la cellule alimentent
-l’orchestrateur, qui vérifie les conditions avant de poursuivre. Enfin, les flux
-horodatés conservent la référence, la réponse et les efforts. Nous pouvons alors
-analyser ce qui s’est réellement passé dans le simulateur. C’est la fonction du
-bloc suivant : lire les résultats de la campagne, en cadence comme en qualité. »
-
-Le résultat d’action ne remplace pas les conditions de libération ou les contrôles
-de cellule. La slide suivante présente les résultats des neuf séquences de la campagne v6.
+La vue dédiée aux trois usages des retours a été retirée. Les flèches de retour
+restent visibles dans le schéma et s’éclairent pendant la vue physique.
+Après cette vue, ↓ mène directement aux résultats des neuf séquences de la campagne v6.
 
 ## Sources
 

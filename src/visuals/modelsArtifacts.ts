@@ -70,20 +70,6 @@ export const modelsArtefacts: Partial<Record<number, Plate[]>> = {
       'Le monde SDF instancie le convoyeur, la cellule de prise, l’indexeur de palette et la caméra overhead_rgbd ; le robot est chargé séparément au lancement.',
     ),
   }],
-  5: [{ title: 'Les corps du mécanisme fermé', source: 'robot2_constrained_dynamics.json · extrait de topology', content: `
-    <div class="ma-semantics">
-      <p class="ma-label">Corps conservés explicitement</p>
-      <pre class="ma-code"><code>"explicit_closed_chain_bodies": [
-  "<em>crank</em>", "<em>rod_l</em>", "<em>rod_r</em>"
-]</code></pre>
-      <svg class="ma-loop" viewBox="0 0 760 180" role="img" aria-label="Le crank rejoint l’avant-bras par deux branches, bielle gauche rod_l et bielle droite rod_r">
-        <path d="M146 90H195V42H250 M195 90V138H250 M486 42H550V90H604 M486 138H550V90"/>
-        <rect x="8" y="59" width="138" height="62"/><rect x="250" y="11" width="236" height="62"/><rect x="250" y="107" width="236" height="62"/><rect x="604" y="59" width="148" height="62"/>
-        <text x="77" y="96">crank</text><text x="368" y="35">rod_l</text><text class="ma-loop__sub" x="368" y="58">bielle gauche</text><text x="368" y="131">rod_r</text><text class="ma-loop__sub" x="368" y="154">bielle droite</text><text x="678" y="86">forearm</text><text class="ma-loop__sub" x="678" y="108">avant-bras</text>
-      </svg>
-      <p class="ma-takeaway">Deux contraintes de fermeture relient le crank à l’avant-bras, une par bielle.</p>
-      <p class="ma-detail">Le solveur utilise ces corps et leurs propriétés de masse pour calculer la dynamique généralisée.</p>
-    </div>` }],
 }
 
 /** A non-modal foreground panel: the active block and deck controls stay available. */
@@ -99,6 +85,7 @@ export function createModelsArtefacts(stage: HTMLElement, select: (step: number)
   let opened = false
   let transition: Animation | undefined
   const triggers = Array.from(stage.querySelectorAll<HTMLElement>('[data-models-block]')).filter(el => modelsArtefacts[Number(el.dataset.modelsBlock)])
+  const lastStep = Math.max(...Array.from(stage.querySelectorAll<HTMLElement>('[data-models-block]'), el => Number(el.dataset.modelsBlock)))
   const buttonFor = (block: HTMLElement) => block.querySelector<HTMLElement>('.models-format') ?? block
   triggers.forEach(block => {
     const button = buttonFor(block)
@@ -138,7 +125,7 @@ export function createModelsArtefacts(stage: HTMLElement, select: (step: number)
     panel.dataset.artifactStep = String(activeStep)
     panel.dataset.artifactPage = String(plate)
     panel.setAttribute('aria-label', entry.title)
-    panel.innerHTML = `<header class="ma-heading"><div><p class="ma-label">${activeStep === 0 ? 'CAO · systèmes mécaniques' : ['','','URDF','SRDF','SDF','JSON'][activeStep]}</p><h3>${entry.title}</h3></div><button type="button" data-ma-close aria-label="Fermer la fenêtre d’artefacts">×</button></header>
+    panel.innerHTML = `<header class="ma-heading"><div><p class="ma-label">${activeStep === 0 ? 'CAO · systèmes mécaniques' : ['','','URDF','SRDF','SDF'][activeStep]}</p><h3>${entry.title}</h3></div><button type="button" data-ma-close aria-label="Fermer la fenêtre d’artefacts">×</button></header>
       <div class="ma-content">${entry.content}</div>
       <footer class="ma-footer"><small>${entry.source}</small><div>${pages.length > 1 ? `<button type="button" data-ma-page="-1" aria-label="Planche précédente" ${plate === 0 ? 'disabled' : ''}>←</button><span>${plate + 1} / ${pages.length}</span><button type="button" data-ma-page="1" aria-label="Planche suivante" ${plate === pages.length - 1 ? 'disabled' : ''}>→</button>` : ''}<button type="button" data-ma-next>Bloc suivant →</button></div></footer>`
     position()
@@ -174,7 +161,7 @@ export function createModelsArtefacts(stage: HTMLElement, select: (step: number)
     if (page) { advance(Number(page.dataset.maPage)); return }
     if (target.closest('[data-ma-next]')) {
       if (document.activeElement instanceof HTMLElement) document.activeElement.blur()
-      if (activeStep < 5) select(activeStep + 1)
+      if (activeStep < lastStep) select(activeStep + 1)
       else window.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true,cancelable:true}))
       return
     }

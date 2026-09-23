@@ -1,6 +1,6 @@
 import { gsap } from 'gsap'
 import { runtimeEvidence as evidence } from '../content/runtimeEvidence'
-import { math, type RuntimeMathKey } from './runtimeMath'
+import { math, mathWidth, type RuntimeMathKey } from './runtimeMath'
 
 export const runtimeCues = [
   { label: 'Vue d’ensemble', text: 'Une référence de mouvement, des efforts appliqués et des états simulés qui ferment la boucle.' },
@@ -8,7 +8,6 @@ export const runtimeCues = [
   { label: '02 · Construire l’effort', text: 'Correction, gravité et anticipation inertielle contribuent à une même demande, avec leurs signes.' },
   { label: '03a · Appliquer les limites', text: 'Les limites motrices portent sur les coordonnées d’actionneur. La réaction des transmissions reste distincte.' },
   { label: '03b · Faire évoluer la physique', text: 'Gazebo / DART calcule le mouvement sous les efforts, la gravité et les contacts du modèle simulé.' },
-  { label: '04 · Fermer la boucle', text: 'Les retours servent au suivi, à la supervision et à l’enregistrement. Les résultats de la campagne viennent ensuite.' },
 ] as const
 
 const text = (x: number, y: number, lines: string[], cls = 'rf-body', step = 27) => `<text class="${cls}" x="${x}" y="${y}">${lines.map((line, i) => `<tspan x="${x}" dy="${i ? step : 0}">${line}</tspan>`).join('')}</text>`
@@ -62,10 +61,11 @@ function effort() {
     text(30,420,['Couple'],'rf-chart-label')+math(30,443,'torqueUnit',17,'rf-chart-label')+grid([-900,-600,-300,0,300],y)+
     line(path(rows,1,y),'rf-curve--gravity')+line(path(rows,2,y),'rf-curve--inertia')+
     line(path(rows,3,y),'rf-curve--correction')+`<g data-rf-highlight>${line(path(rows,4,y),'rf-curve--total')}</g>`+timeAxis()+divider+
-    commentary(['Additionner les contributions','avec leurs signes'],
-      ['À la décélération, une contribution','peut réduire la demande totale.'],
-      [], 'constrained_dynamics.py · NumPy',
-      {takeaway:goldText(525,['Anticipation :'],'key')+math(1190,525,'inertia',28,'rf-comment-key',true)+goldText(556,['Partielle, sans terme explicite de Coriolis.'],'key')}))
+    `<g class="rf-commentary">
+      ${goldText(380,['Relation générale de commande'],'title')}
+      ${math(1040,445,'effortCommand',Math.min(30,520/mathWidth('effortCommand',1)),'rf-comment-key',true)}
+      ${text(1040,523,['Traces ci-contre : sans contribution','explicite de Coriolis.'],'rf-note',23)}
+    </g>`)
 }
 
 function limitations() {
@@ -104,22 +104,6 @@ function physics() {
       {takeaway:goldText(525,['JointForceCmd transmet les efforts.'],'key')+goldText(555,['Nouveaux états :'],'key')+math(1220,555,'states',27,'rf-comment-key',true)}))
 }
 
-function returns() {
-  const rows = [
-    {y:354, source:'q, q̇ simulés', sub:'Retour articulaire', sink:'JTC', detail:'Actualiser l’erreur et la correction'},
-    {y:442, source:'Résultat & confirmations', sub:'Action et état de la cellule', sink:'MultiCartonCycle', detail:'Vérifier les conditions avant la suite'},
-    {y:530, source:'Flux horodatés', sub:'Références, états, efforts', sink:'Enregistrement', detail:'Conserver les traces pour l’analyse'},
-  ]
-  return panel(5,'Les retours ont trois usages distincts','Suivi · supervision · analyse',
-    rows.map((row,i)=>(i===0?math(32,row.y,'simulated',25,'rf-heading'):text(32,row.y,[row.source],'rf-heading'))+text(32,row.y+27,[row.sub],'rf-note')+
-      `<path class="rf-detail-arrow" d="M328 ${row.y+5} H410" marker-end="url(#rf-red)"/><rect class="rf-detail-box" x="425" y="${row.y-26}" width="535" height="71" rx="4"/>`+
-      `<g data-rf-highlight>${text(448,row.y,[row.sink],'rf-heading')}</g>`+text(448,row.y+27,[row.detail],'rf-body')).join('')+divider+
-    commentary(['Suivre en continu,','progresser sous conditions'],
-      ['Le résultat d’action ne remplace pas','les confirmations de la cellule.'],
-      ['L’orchestrateur vérifie ces retours','avant d’engager la suite du cycle.'],
-      'Les traces alimentent la prochaine étape : les résultats.'))
-}
-
 const edge = (d: string, cues: string, label = '', x = 0, y = 0, labelMarkup='') => `<g class="rf-edge" data-rf-cues="${cues}"><path class="rf-edge-base" d="${d}" marker-end="url(#rf-muted)"/><path class="rf-edge-lit" d="${d}" pathLength="1" marker-end="url(#rf-red)"/><path class="rf-edge-pulse" d="${d}" pathLength="1"/>${labelMarkup || (label ? `<text class="rf-edge-label" x="${x}" y="${y}" text-anchor="middle">${label}</text>` : '')}</g>`
 const node = (x:number,w:number,goto:number,cues:string,eyebrow:string,title:string,detail:string,code:string,typeset:{detail?:string;code?:string}={}) => `<g class="rf-node" transform="translate(${x} 102)" data-runtime-goto="${goto}" data-rf-cues="${cues}" tabindex="0" role="button" aria-label="${title} : ouvrir l’explication"><rect class="rf-node-surface" width="${w}" height="110" rx="5"/><path class="rf-node-accent" d="M18 0 H${w-18}"/>${text(20,25,[eyebrow],'rf-eyebrow')}${text(20,54,[title],'rf-node-title')}${typeset.detail??text(20,79,[detail],'rf-node-detail')}${typeset.code??text(20,99,[code],'rf-code')}</g>`
 
@@ -127,7 +111,7 @@ export function mountRuntimeFlow(stage: HTMLElement) {
   const holder = stage.querySelector<HTMLElement>('[data-runtime-graph]')!
   holder.innerHTML = `<svg class="runtime-flow-svg" viewBox="0 0 1600 604" role="group" aria-labelledby="rf-title rf-desc">
     <title id="rf-title">Commande en effort et réponse simulée du robot 2</title>
-    <desc id="rf-desc">La trajectoire alimente JTC. Sa correction rejoint l’anticipation inertielle et la gravité dans le module d’effort. Ce module applique les limites motrices et les contributions de transmission avant Gazebo et DART. Les états simulés reviennent au contrôle. Six vues expliquent cette boucle avec des traces du transfert chargé du carton 9, et une capture documentaire non synchronisée.</desc>
+    <desc id="rf-desc">La trajectoire alimente JTC. Sa correction rejoint l’anticipation inertielle et la gravité dans le module d’effort. Ce module applique les limites motrices et les contributions de transmission avant Gazebo et DART. Les états simulés reviennent au contrôle. Cinq vues expliquent cette boucle avec des traces du transfert chargé du carton 9, et une capture documentaire non synchronisée.</desc>
     <defs><marker id="rf-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#8ba4b0" stroke-width="1.6"/></marker><marker id="rf-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#ff493d" stroke-width="1.8"/></marker>
       ${(['title','key'] as const).map(kind=>`<linearGradient id="rf-gold-${kind}" class="rf-gold-gradient" gradientUnits="userSpaceOnUse" x1="730" y1="0" x2="1030" y2="0">
         <stop offset="0" stop-color="${kind==='title'?'#e5eeee':'#efd4a6'}"/><stop offset=".24" stop-color="#e7b85d"/><stop offset=".5" stop-color="#fff6d5"/><stop offset=".76" stop-color="#efc46b"/><stop offset="1" stop-color="${kind==='title'?'#e5eeee':'#efd4a6'}"/>
@@ -138,15 +122,15 @@ export function mountRuntimeFlow(stage: HTMLElement) {
     ${edge('M1190 157 H1280','3 4','efforts',1235,142)}
     ${edge('M520 102 V44 H730','2','',0,0,math(568,29,'reference',18,'rf-edge-label'))}
     ${edge('M1020 44 H1080 V102','2')}
-    ${edge('M1440 212 V242 H520 V212','1 5')}
-    ${edge('M1020 242 V212','2 3 5')}
+    ${edge('M1440 212 V242 H520 V212','1 4')}
+    ${edge('M1020 242 V212','2 3 4')}
     ${node(0,250,0,'0','ENTRÉE','Trajectoire validée','','FollowJointTrajectory',{detail:math(20,79,'command',20,'rf-node-detail')})}
-    ${node(350,340,1,'1 5','01 · CORRIGER','JointTrajectoryController','Référence interpolée + PID','ros2_control · controllers.yaml')}
+    ${node(350,340,1,'1','01 · CORRIGER','JointTrajectoryController','Référence interpolée + PID','ros2_control · controllers.yaml')}
     ${node(850,340,2,'2 3','02 · PRODUIRE L’EFFORT','Module d’effort','Somme · limites · transmissions','effort_plant_system.cpp')}
     ${node(1280,320,4,'4','03 · FAIRE ÉVOLUER','Gazebo / DART','Corps, charge et contacts','',{code:text(20,99,['JointForceCmd'],'rf-code')+math(128,99,'appliedStates',17,'rf-code')})}
     <g class="rf-branch" data-rf-cues="2" data-runtime-goto="2" tabindex="0" role="button" aria-label="Anticipation inertielle : ouvrir l’explication"><rect class="rf-node-surface" x="730" y="12" width="290" height="64" rx="5"/>${text(750,38,['Anticipation inertielle'],'rf-branch-title')}${text(750,61,['modèle fermé · NumPy'],'rf-code')}</g>
-    <g class="rf-return-label" data-rf-cues="1 5" data-runtime-goto="5" tabindex="0" role="button" aria-label="Retours d’exécution : ouvrir l’explication"><rect x="692" y="229" width="302" height="25" rx="3"/>${text(710,247,['ÉTATS SIMULÉS ·'],'rf-return-text')}${math(850,247,'states',18,'rf-return-text')}</g>
-    ${tracking(false)}${tracking(true)}${effort()}${limitations()}${physics()}${returns()}
+    <g class="rf-return-label" data-rf-cues="1 4" data-runtime-goto="1" tabindex="0" role="button" aria-label="États simulés : ouvrir le suivi"><rect x="692" y="229" width="302" height="25" rx="3"/>${text(710,247,['ÉTATS SIMULÉS ·'],'rf-return-text')}${math(850,247,'states',18,'rf-return-text')}</g>
+    ${tracking(false)}${tracking(true)}${effort()}${limitations()}${physics()}
   </svg>`
   let animation: gsap.core.Timeline | undefined
   const finish = () => {
@@ -181,7 +165,7 @@ export function mountRuntimeFlow(stage: HTMLElement) {
     if (source) source.textContent = cue === 4
       ? 'Capture documentaire Gazebo · contexte physique · image non synchronisée avec l’extrait v6'
       : 'Traces de simulation · campagne v6 · séquence 4 · carton 9 · transfert chargé'
-    if (position) position.textContent = `${String(cue+1).padStart(2,'0')} / 06`
+    if (position) position.textContent = `${String(cue+1).padStart(2,'0')} / ${String(runtimeCues.length).padStart(2,'0')}`
     const prev = view.querySelector<HTMLButtonElement>('[data-runtime-prev]'), next = view.querySelector<HTMLButtonElement>('[data-runtime-next]')
     if (prev) prev.disabled = cue === 0
     if (next) next.disabled = cue === runtimeCues.length-1

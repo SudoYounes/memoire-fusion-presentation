@@ -32,6 +32,7 @@ const sources = {
   reference: [String.raw`q_{${ref}},\;\ddot q_{${ref}}`, 'Position et accélération de référence'],
   error: [String.raw`\varepsilon=q_{${ref}}-q_{\mathrm{sim}}`, 'Erreur égale position de référence moins position simulée'],
   inertia: [String.raw`M_c\!\left(q_{${ref}}\right)\,\ddot q_{${ref}}`, 'Matrice d’inertie contrainte à la configuration de référence, multipliée par l’accélération de référence'],
+  effortCommand: [String.raw`\tau_{\mathrm{commande}}=\tau_{\mathrm{PID}}+\tau_{\mathrm{gravité}}+\tau_{\mathrm{inertie}}+\tau_{\mathrm{Coriolis}}`, 'Couple de commande égal à la somme des couples PID, gravité, inertie et Coriolis ; relation générale'],
   coupling: [String.raw`\tau_{u_2}=\tau_{q_2}-\tau_{q_3}`, 'Couple moteur u2 égal au couple généralisé q2 moins le couple généralisé q3'],
   appliedStates: [String.raw`\rightarrow q,\;\dot q`, 'Vers les états de position et vitesse'],
   torqueUnit: [String.raw`\mathrm{N\,m}`, 'newton-mètres'],
