@@ -451,7 +451,12 @@
         <div class="slide-stage observer-stage">
           <header class="observer-heading">
             <h2 id="slide-11-title" class="display">Voir le carton.<br>En extraire la pose.</h2>
-            <p>Deux flux synchronisés entrent. <strong>Un dessus, une pose métrique et une décision supervisée</strong> en sortent.</p>
+            <div class="observer-narration" aria-label="Script de la transition">
+              <p class="is-current" data-observer-script="0" aria-hidden="false">On commence par une <strong>caméra RGB-D fixe</strong>, placée en vue zénithale. Dans la zone de prise, les flux couleur et profondeur synchronisés permettent de repérer une première profondeur du carton.</p>
+              <p data-observer-script="1" aria-hidden="true">On conserve ensuite les pixels situés dans une bande de <strong>±3 mm</strong> autour du dessus détecté. À partir de ces pixels, on calcule le centre du carton et son orientation grâce à l’axe principal obtenu par PCA.</p>
+              <p data-observer-script="2" aria-hidden="true">Les coordonnées image et la profondeur sont projetées dans le repère caméra avec l’inverse de la matrice intrinsèque <var>K</var>. Une transformation extrinsèque les exprime ensuite dans le <strong>repère de la cellule</strong> sous la forme <span class="observer-script-pose"><var>X</var>,<var>Y</var>,<var>Z</var>,<var>θ</var></span>.</p>
+              <p data-observer-script="3" aria-hidden="true">Avant la prise, le superviseur ROS 2 vérifie la présence, la validité, la fraîcheur et l’association de l’observation. Si les <strong>quatre contrôles passent</strong>, la pose alimente la cible de prise et l’objet de collision MoveIt ; sinon, le cycle reste en <code>HOLD_SENSOR</code>.</p>
+            </div>
           </header>
           <div class="observer-workspace" data-pipeline-visual>
             <div class="observer-measurement" data-camera-mode="depth">

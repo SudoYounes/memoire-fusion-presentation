@@ -1,8 +1,14 @@
 /* One measured object, two complementary views, one guarded hand-off. */
 .observer-stage { --observer-flow: #ed3f2f; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
-.observer-heading { display: grid; grid-template-columns: 1.35fr .65fr; align-items: end; gap: calc(4 * var(--su)); }
+.observer-heading { display: grid; grid-template-columns: minmax(0, 1fr) calc(34.5 * var(--su)); align-items: end; gap: calc(3 * var(--su)); }
 .observer-heading .display { max-width: none; font-size: calc(2.85 * var(--su)); line-height: 1.04; letter-spacing: -.05em; margin: 0; }
-.observer-heading > p { border-left: 2px solid var(--teal); padding-left: calc(1 * var(--su)); color: var(--slate); font-size: calc(.93 * var(--su)); line-height: 1.48; }
+.observer-narration { display: grid; min-width: 0; border-left: 2px solid var(--teal); padding-left: calc(1 * var(--su)); color: var(--slate); font-size: calc(.93 * var(--su)); line-height: 1.48; }
+/* Shared grid cell reserves the longest script's height through every cue. */
+.observer-narration > p { grid-area: 1 / 1; align-self: center; min-width: 0; visibility: hidden; opacity: 0; transition: opacity 220ms ease; }
+.observer-narration > p.is-current { visibility: visible; opacity: 1; }
+.observer-narration var { font-family: var(--font-serif); }
+.observer-script-pose { white-space: nowrap; }
+.observer-narration code { white-space: nowrap; font-size: .88em; color: var(--ink-soft); }
 .observer-heading strong { color: var(--ink-soft); font-weight: 650; }
 .observer-workspace { display: grid; grid-template-columns: minmax(0, 1fr) calc(34.5 * var(--su)); gap: calc(3 * var(--su)); align-self: center; position: relative; z-index: 2; min-height: 0; }
 .observer-section-label { position: relative; display: flex; align-items: baseline; justify-content: space-between; color: var(--teal-deep); font-size: calc(.66 * var(--su)); font-weight: 730; letter-spacing: .08em; line-height: 1.4; padding-bottom: calc(.65 * var(--su)); border-bottom: 1px solid #17486330; }
@@ -167,7 +173,7 @@
   .observer-stage { display: flex; flex-direction: column; }
   .observer-heading { display: block; }
   .observer-heading .display { font-size: clamp(2rem, 8vw, 3.2rem); }
-  .observer-heading > p { font-size: 1rem; padding-left: .8rem; margin-top: 1.3rem; }
+  .observer-narration { font-size: 1rem; padding-left: .8rem; margin-top: 1.3rem; }
   .observer-workspace { display: block; align-self: stretch; }
   .observer-capture-headings { display: block; margin: 0 0 .75rem; }
   .observer-capture-headings h3 { font-size: 1rem; }

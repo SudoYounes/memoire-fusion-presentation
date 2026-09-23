@@ -94,6 +94,11 @@ export function mountObserverFigure(): () => void {
       view.dataset.observerStep = String(phase)
       view.dataset.observerCueIndex = String(cue)
       view.dataset.observerComplete = String(cue === 7)
+      view.querySelectorAll<HTMLElement>('[data-observer-script]').forEach(script => {
+        const current = Number(script.dataset.observerScript) === phase
+        script.classList.toggle('is-current', current)
+        script.setAttribute('aria-hidden', String(!current))
+      })
       view.querySelectorAll<HTMLButtonElement>('[data-observer-beat]').forEach(beat => {
         const index = Number(beat.dataset.observerBeat)
         beat.classList.toggle('is-past', index < phase)
