@@ -2,6 +2,13 @@ import { gsap } from 'gsap'
 import { trajectoryPlatesMarkup, updateTrajectoryPlates, updateTrajectoryPose } from './trajectoryPlates'
 import { trajectoryComments, updateTrajectoryCommentary } from './trajectoryCommentary'
 import { math } from './runtimeMath'
+import { runtimeMath } from '../content/runtimeMath'
+
+const scriptMath = (key: 'tp_sample_time' | 'tp_sample_q' | 'tp_sample_qd' | 'tp_sample_qdd') => {
+  const { viewBox, body, label } = runtimeMath[key]
+  const [x,y,width,height] = viewBox
+  return `<svg class="trajectory-script-math" viewBox="${x} ${y} ${width} ${height}" style="width:${width/1000}em;height:${height/1000}em;vertical-align:${-(y+height)/1000}em" role="img" aria-label="${label}">${body}</svg>`
+}
 
 export const trajectoryCues = [
   { label: 'Vue d’ensemble', text: 'Un même transfert pour comprendre le passage, sa temporisation et la vérification avant envoi.' },
@@ -31,6 +38,10 @@ const edge = (id: string, d: string, cues: string, label = '', x = 0, y = 0) => 
 
 /** Native plots use the 256 recorded planned samples; emphasis never changes data. */
 export function mountTrajectoryFlow(stage: HTMLElement) {
+  stage.querySelector<HTMLElement>('[data-traj-narration]')!.innerHTML = `
+    <p data-traj-script="default" aria-hidden="true"><strong>Constructeur Python</strong><br>MoveIt 2 · ROS 2</p>
+    <p data-traj-script="camera" aria-hidden="true">Sans oublier qu’on exécute la même démarche pour la <strong>cible cartésienne obtenue par la caméra RGB-D</strong>.</p>
+    <p data-traj-script="quintic" aria-hidden="true">L’orchestrateur reçoit les configurations articulaires de <strong>prise et de dépose</strong> pour produire une courbe quintique qui définit, à chaque instant ${scriptMath('tp_sample_time')}, la position ${scriptMath('tp_sample_q')}, la vitesse ${scriptMath('tp_sample_qd')} et l’accélération ${scriptMath('tp_sample_qdd')} correspondantes.</p>`
   const holder = stage.querySelector<HTMLElement>('[data-traj-graph]')!
   holder.innerHTML = `<svg class="trajectory-flow-svg" viewBox="0 0 1600 604" role="group" aria-labelledby="tf-title tf-desc">
     <title id="tf-title">Préparation d’une trajectoire du robot 2</title>
@@ -64,6 +75,12 @@ export function mountTrajectoryFlow(stage: HTMLElement) {
   }
   const update = (view: HTMLElement, cue: number, noMotion: boolean, step = 0, poseOverride?: number) => {
     view.dataset.trajectoryCue = String(cue)
+    const script = cue === 1 && step === 1 ? 'camera' : cue === 3 ? 'quintic' : 'default'
+    view.querySelectorAll<HTMLElement>('[data-traj-script]').forEach(el => {
+      const current = el.dataset.trajScript === script
+      el.classList.toggle('is-current', current)
+      el.setAttribute('aria-hidden', String(!current))
+    })
     updateTrajectoryPlates(view, cue)
     updateTrajectoryPose(view, poseOverride ?? trajectoryComments[cue][step].pose ?? 1)
     updateTrajectoryCommentary(view, cue, step)

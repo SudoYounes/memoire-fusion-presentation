@@ -47,6 +47,10 @@ const sources = {
 // Slides 13 and 15 use the same font and standalone path renderer as slide 14.
 Object.assign(sources, {
   tp_level:[String.raw`q_2+q_3=90^\circ`,'Somme des angles q2 et q3 égale à 90 degrés'],
+  tp_sample_time:[String.raw`t_i`,'Instant t indice i'],
+  tp_sample_q:[String.raw`q(t_i)`,'Position articulaire à l’instant t indice i'],
+  tp_sample_qd:[String.raw`\dot q(t_i)`,'Vitesse articulaire à l’instant t indice i'],
+  tp_sample_qdd:[String.raw`\ddot q(t_i)`,'Accélération articulaire à l’instant t indice i'],
   tp_yaw:[String.raw`q_1+q_4=0^\circ`,'Somme des angles q1 et q4 égale à zéro degré'],
   tp_lacet:[String.raw`\mathrm{lacet}=0^\circ`,'Lacet égal à zéro degré'],
   tp_stops:[String.raw`\dot q=0,\quad\ddot q=0`,'Vitesse et accélération nulles'],
