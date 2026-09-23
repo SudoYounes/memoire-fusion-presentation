@@ -53,32 +53,32 @@ export const flowCues = [
   {
     label: '01 · Préparer',
     text: 'Une pose admise, une destination libre et supportée, une rangée confirmée.',
-    script: 'À partir de la pose admise, nous choisissons un <strong>emplacement libre avec le support requis</strong>. La mémoire des déposes validées guide ce choix. Pour passer à la couche suivante, la précédente doit être complète. Nous attendons aussi la confirmation de la bonne rangée avant la prise.',
+    script: 'À partir de la pose détectée, le superviseur choisit <strong>un emplacement libre</strong>.',
   },
   {
     label: '02 · Prendre',
     text: 'Confirmer la prise physique, puis répercuter la charge dans MoveIt.',
-    script: 'À la pose de prise, nous attendons le vide puis la <strong>confirmation de l’attachement dans Gazebo</strong>. Nous libérons ensuite le maintien au poste d’alimentation. Avant le transfert, nous représentons aussi le carton comme une charge attachée dans MoveIt, pour garder les deux scènes cohérentes.',
+    script: 'Le robot saisit le carton, puis <strong>confirme son attachement</strong>.',
   },
   {
     label: '03 · Transférer',
     text: 'Contrôler le passage dans la scène actualisée ; suivre le résultat du mouvement.',
-    script: 'L’orchestrateur fournit la destination et le cas de charge. Notre programme construit les corridors, puis <strong>MoveIt vérifie les états dans la scène actualisée</strong>, avec les cartons déjà déposés. Pendant le transfert, nous suivons le résultat du mouvement et les états articulaires. La dépose reste encore à vérifier.',
+    script: '<strong>MoveIt vérifie la trajectoire</strong>, puis ROS&nbsp;2 exécute le transfert.',
   },
   {
     label: '04 · Déposer',
     text: 'La pose et le support vérifiés transforment la destination en emplacement occupé.',
-    script: 'Nous attendons une stabilisation mesurée avant de libérer le carton. Après confirmation du détachement et mise à jour de MoveIt, de nouvelles observations de pose et de contacts <strong>vérifient la dépose et son support</strong>. L’emplacement devient occupé dans la mémoire du cycle seulement après cette validation.',
+    script: 'Le robot libère le carton et <strong>valide sa dépose dans Gazebo</strong>.',
   },
   {
-    label: '05 · Recouvrement',
+    label: '05 · Dégager',
     text: 'Après dégagement J4 : poursuivre le retour et, si nécessaire, indexer en parallèle.',
-    script: 'Si la présentation de la palette doit changer, le retour à vide est d’abord vérifié contre le volume balayé de la palette chargée. Pendant le mouvement, les articulations mesurées permettent de vérifier le <strong>dégagement de J4</strong>. Une fois ce dégagement acquis, le robot poursuit son retour pendant que l’indexeur présente la rangée suivante.',
+    script: 'Le robot <strong>repart à vide</strong> pendant que l’indexeur prépare la rangée suivante.',
   },
   {
     label: '06 · Synchroniser',
     text: 'Attendre les confirmations ; un défaut ou un délai dépassé bloque la progression.',
-    script: 'Avant d’autoriser le carton suivant, nous attendons la <strong>fin du retour et la confirmation de la présentation</strong> de la palette. Les mesures doivent être récentes, l’axe stabilisé et la scène MoveIt cohérente. Sans confirmation, le programme attend. Un défaut ou un délai dépassé bloque la progression.',
+    script: 'Le carton suivant est autorisé lorsque <strong>le retour et l’indexage sont confirmés</strong>.',
   },
   {
     label: 'Boucler & tracer',
