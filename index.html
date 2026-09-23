@@ -16,7 +16,7 @@
     <nav class="deck-sections" aria-label="Chapitres de la présentation" data-deck-sections></nav>
     <nav class="deck-rail" aria-label="Navigation dans la présentation" data-deck-rail></nav>
     <footer class="deck-footer" data-deck-chrome>
-      <p class="deck-footer__count"><span data-slide-current>01</span><i></i><span data-slide-total>15</span></p>
+      <p class="deck-footer__count"><span data-slide-current>01</span><i></i><span data-slide-total>16</span></p>
     </footer>
 
     <main id="presentation" class="deck" data-deck>
@@ -695,6 +695,22 @@
 
 
 
+      <section class="deck-slide theme-ink" id="simulation-gazebo" data-slide data-chapter="Démonstration" data-title="Simulation Gazebo" data-theme="dark" aria-labelledby="gazebo-demo-title">
+        <div class="slide-stage gazebo-demo-stage">
+          <header class="gazebo-demo-heading">
+            <h2 class="display" id="gazebo-demo-title">Simulation Gazebo</h2>
+            <p>Robot 2 · Palettisation<br><span>Vidéo intégrale · 10 min 30</span></p>
+          </header>
+          <div class="gazebo-demo-screen">
+            <video data-gazebo-video data-src="./media/simulation/gazebo-demo.mp4" poster="./media/simulation/gazebo-poster.jpg" preload="none" playsinline controls aria-label="Vidéo de la simulation de palettisation dans Gazebo"></video>
+          </div>
+          <footer class="gazebo-demo-controls">
+            <button type="button" data-demo-toggle>Lire la vidéo</button>
+            <p><kbd>↓</kbd> Lecture / pause <span>·</span> <kbd>↑</kbd> Retour aux résultats</p>
+            <p class="gazebo-demo-error" data-demo-error role="status" hidden>Lecture indisponible. <a href="./media/simulation/gazebo-demo.mp4" target="_blank" rel="noopener">Ouvrir la vidéo</a></p>
+          </footer>
+        </div>
+      </section>
     </main>
 
     <div class="deck-live" aria-live="polite" aria-atomic="true" data-deck-live></div>

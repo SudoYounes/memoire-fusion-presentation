@@ -1,0 +1,29 @@
+.gazebo-demo-stage {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: calc(1.1 * var(--su));
+  padding-top: calc(5.4 * var(--su));
+}
+.gazebo-demo-heading { display:flex; align-items:center; justify-content:space-between; gap:calc(2 * var(--su)); }
+.gazebo-demo-heading .display { margin:0; font-size:calc(2.65 * var(--su)); }
+.gazebo-demo-heading > p { padding-left:calc(1 * var(--su)); border-left:1px solid var(--gold); font-size:calc(.86 * var(--su)); line-height:1.6; color:#e7c78d; }
+.gazebo-demo-heading > p span { color:#adc2c9; }
+.gazebo-demo-screen { min-height:0; height:100%; aspect-ratio:1846 / 1080; max-width:100%; justify-self:center; background:#080f14; }
+.gazebo-demo-screen video { display:block; width:100%; height:100%; object-fit:contain; }
+.gazebo-demo-controls { display:flex; align-items:center; justify-content:center; gap:calc(1.4 * var(--su)); min-height:calc(2 * var(--su)); font-size:calc(.78 * var(--su)); color:#adc2c9; }
+.gazebo-demo-controls button { padding:calc(.5 * var(--su)) calc(1 * var(--su)); border:1px solid #d8b275; border-radius:3px; background:transparent; color:#e7c78d; font:inherit; cursor:pointer; min-width:calc(9 * var(--su)); }
+.gazebo-demo-controls button:hover { background:#d8b27518; }
+.gazebo-demo-controls button:focus-visible,.gazebo-demo-controls a:focus-visible { outline:2px solid #e7c78d; outline-offset:4px; }
+.gazebo-demo-controls kbd { font:inherit; color:#f2f5f2; }
+.gazebo-demo-controls p > span { padding-inline:calc(.65 * var(--su)); }
+.gazebo-demo-error { color:#f0d2ab; }
+.gazebo-demo-error a { color:inherit; text-decoration:underline; }
+@media (max-aspect-ratio:4 / 5) {
+  .gazebo-demo-stage { display:flex; flex-direction:column; gap:1.4rem; }
+  .gazebo-demo-heading { display:block; }
+  .gazebo-demo-heading .display { font-size:2.25rem; margin-bottom:1rem; }
+  .gazebo-demo-heading > p { font-size:.9rem; padding-left:.75rem; }
+  .gazebo-demo-screen { width:100%; height:auto; }
+  .gazebo-demo-controls { flex-wrap:wrap; gap:1rem; font-size:.8rem; }
+  .gazebo-demo-controls button { padding:.65rem 1rem; }
+}

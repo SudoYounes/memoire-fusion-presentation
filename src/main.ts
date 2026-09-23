@@ -4,6 +4,7 @@ import './styles/base.css'
 import './styles/story.css'
 import './styles/cover.css'
 import './styles/objectives.css'
+import './styles/gazebo-demo.css'
 import './styles/pipeline.css'
 import './styles/pipeline-master.css'
 import './styles/models.css'
@@ -26,6 +27,7 @@ import './styles/smed-solutions.css'
 import './styles/smed-impact.css'
 
 import { setupDeck } from './deck/setupDeck'
+import { mountGazeboVideo } from './deck/gazeboVideo'
 import { renderProjectObjectives } from './visuals/projectObjectives'
 import { mountPipelineMaps } from './deck/pipelineNavigation'
 import { prefersReducedMotion } from './motion/preferences'
@@ -64,6 +66,7 @@ const disposeSmedStory = mountSmedStory()
 const disposeSmedDiagnostic = mountSmedDiagnostic()
 const disposeSmedSolutions = mountSmedSolutions()
 const disposeSmedImpact = mountSmedImpact()
+const disposeGazeboVideo = mountGazeboVideo()
 
 const disposeDeck = setupDeck()
 const disposePresentationMode = mountPresentationMode()
@@ -111,5 +114,6 @@ window.addEventListener('pagehide', () => {
   disposeSmedDiagnostic()
   disposeSmedSolutions()
   disposeSmedImpact()
+  disposeGazeboVideo()
   robotScenes.forEach((scene) => scene.dispose())
 }, { once: true })
